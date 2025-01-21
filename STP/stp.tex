@@ -11,6 +11,11 @@
 \usepackage{xcolor}
 \usepackage{amsthm}
 \usepackage{xspace}
+\usepackage{adjustbox}
+\usepackage{booktabs} 
+\usepackage{array}    
+\usepackage{adjustbox} 
+\usepackage{colortbl}
 
 
 \newtheorem*{noteenv}{Note}
@@ -357,27 +362,201 @@ At this stage, you should be comfortable with the \textbf{basic principles of ST
 
 
 %---------------------------------------------------------------------------------------------
-\chapter{STP Fundamentals}
-% 2. STP FUNDAMENTALS
-% Insert your content here
-
-\section{Redundancy and the Need for STP}
-...
-
-\section{STP Concepts and Terminology}
-...
-
-%---------------------------------------------------------------------------------------------
 \chapter{STP Variants (PVST+, RSTP, MSTP)}
-% 3. STP VARIANTS
-\section{PVST+}
-...
 
-\section{Rapid Spanning Tree Protocol (RSTP)}
-...
+Several enhancements have been introduced to address classic STP limitations, focusing on faster convergence and improved scalability. Here we cover the primary variants: \textbf{PVST+}, \textbf{RSTP (802.1w)}, and \textbf{MSTP (802.1s)}.
 
-\section{Multiple Spanning Tree Protocol (MSTP)}
-...
+\section{Per-VLAN Spanning Tree Plus (PVST+)}
+
+\subsection{Overview}
+\begin{itemize}
+    \item \textbf{PVST+} is a Cisco-proprietary protocol that maintains a separate spanning tree instance \textbf{for each VLAN}.
+    \item It allows \textbf{per-VLAN load balancing} by choosing distinct root switches for different VLANs.
+    \item Often the default on many Cisco Catalyst switches.
+\end{itemize}
+
+\subsection{Differences from 802.1D}
+\begin{itemize}
+    \item \textbf{Per-VLAN}: Instead of a single tree for all VLANs, each VLAN has its own.
+    \item \textbf{Fine-Tuned Load Balancing}: Administrators can select different root bridges for each VLAN.
+\end{itemize}
+
+\subsection{Configuration}
+\begin{enumerate}
+    \item \textbf{Enabling PVST+}
+    \begin{lstlisting}
+    Switch(config)# spanning-tree mode pvst
+    \end{lstlisting}
+    (Often already enabled by default.)
+    \item \textbf{Setting VLAN-Specific Roots}
+    \begin{lstlisting}
+    Switch(config)# spanning-tree vlan 10 root primary
+    \end{lstlisting}
+    Automatically adjusts priority to ensure the switch becomes root for VLAN 10.
+    \item \textbf{Load Balancing Example}
+    \begin{itemize}
+        \item Make SwitchA root for VLAN 10:
+        \begin{lstlisting}
+        SwitchA(config)# spanning-tree vlan 10 root primary
+        \end{lstlisting}
+        \item Make SwitchB root for VLAN 20:
+        \begin{lstlisting}
+        SwitchB(config)# spanning-tree vlan 20 root primary
+        \end{lstlisting}
+    \end{itemize}
+\end{enumerate}
+
+\subsection{Exercises}
+\begin{itemize}
+    \item \textbf{Exercise 3.1a}: Convert from classic STP to PVST+.
+    \item \textbf{Exercise 3.1b}: Designate Switch1 as root for VLAN 10 and Switch2 as root for VLAN 20; confirm roles and port states with \texttt{show spanning-tree vlan <id>}.
+\end{itemize}
+
+\section{Rapid Spanning Tree Protocol (RSTP / 802.1w)}
+
+\subsection{Overview}
+\begin{itemize}
+    \item \textbf{RSTP} improves convergence time significantly over 802.1D.
+    \item It redefines port roles and introduces faster transition to forwarding when the topology changes.
+\end{itemize}
+
+\subsection{Key Upgrades}
+\begin{enumerate}
+    \item \textbf{New Port Roles}
+    \begin{itemize}
+        \item \textbf{Alternate Port}: Provides a backup path to the root if the current RP fails.
+        \item \textbf{Backup Port}: Backup for a DP on shared media segments.
+    \end{itemize}
+    \item \textbf{Faster Convergence}
+    \begin{itemize}
+        \item \textbf{Proposal/Agreement} handshake streamlines bringing ports up.
+        \item States are simplified to \textbf{Discarding}, \textbf{Learning}, \textbf{Forwarding}.
+    \end{itemize}
+    \item \textbf{Edge Ports}
+    \begin{itemize}
+        \item Similar to PortFast, edge ports move straight to Forwarding if connected to end devices.
+    \end{itemize}
+\end{enumerate}
+
+\subsection{Configuration}
+\begin{enumerate}
+    \item \textbf{Enable Rapid PVST+ (Cisco)}
+    \begin{lstlisting}
+    Switch(config)# spanning-tree mode rapid-pvst
+    \end{lstlisting}
+    \item \textbf{Verification}
+    \begin{lstlisting}
+    Switch# show spanning-tree
+    \end{lstlisting}
+    Look for an indication of \texttt{RSTP} or \texttt{rapid-pvst}.
+\end{enumerate}
+
+\subsection{Exercises}
+\begin{itemize}
+    \item \textbf{Exercise 3.2a}: Convert to Rapid PVST+ on all switches, then measure link-up to forwarding time.
+    \item \textbf{Exercise 3.2b}: Identify \textbf{Alternate Ports} in a redundant topology using \texttt{show spanning-tree} and observe quick failover.
+\end{itemize}
+
+\section{Multiple Spanning Tree Protocol (MSTP / 802.1s)}
+
+\subsection{Overview}
+\begin{itemize}
+    \item \textbf{MSTP} groups multiple VLANs into a \textbf{small number of MST instances}, reducing overhead compared to having a separate instance for every VLAN.
+    \item Maintains \textbf{compatibility} with older STP variants by appropriate boundary interactions.
+\end{itemize}
+
+\subsection{Concepts}
+\begin{enumerate}
+    \item \textbf{MST Region}: Defined by a shared \textbf{Region Name}, \textbf{Revision Number}, and identical \textbf{VLAN-to-instance} mappings.
+    \item \textbf{MST Instances}: Each instance (MSTI) runs its own spanning tree; VLANs assigned to an instance share that tree.
+    \item \textbf{Internal Spanning Tree (IST)} or \textbf{Instance 0}: Manages traffic for any VLANs not explicitly assigned to another instance and interacts with external STP domains.
+\end{enumerate}
+
+\subsection{Configuration (Cisco Example)}
+\begin{enumerate}
+    \item \textbf{Enable MST}
+    \begin{lstlisting}
+    Switch(config)# spanning-tree mode mst
+    \end{lstlisting}
+    \item \textbf{Enter MST Configuration Mode}
+    \begin{lstlisting}
+    Switch(config)# spanning-tree mst configuration
+    Switch(config-mst)# name MyRegion
+    Switch(config-mst)# revision 2
+    \end{lstlisting}
+    \item \textbf{VLAN Mapping}
+    \begin{lstlisting}
+    Switch(config-mst)# instance 1 vlan 10,20
+    Switch(config-mst)# instance 2 vlan 30,40
+    \end{lstlisting}
+    \item \textbf{Apply and Verify}
+    \begin{lstlisting}
+    Switch(config)# do show spanning-tree mst configuration
+    \end{lstlisting}
+    \item \textbf{Set Root}
+    \begin{lstlisting}
+    Switch(config)# spanning-tree mst 1 root primary
+    Switch(config)# spanning-tree mst 2 root secondary
+    \end{lstlisting}
+\end{enumerate}
+
+\subsection{Exercises}
+\begin{itemize}
+    \item \textbf{Exercise 3.3a}: Configure MST region for three switches, naming the region and assigning VLANs 10/20 to MSTI 1, and VLANs 30/40 to MSTI 2.
+    \item \textbf{Exercise 3.3b}: Make SwitchA the primary root for MSTI 1 and SwitchB the primary root for MSTI 2; verify with \texttt{show spanning-tree mst <instance>}.
+    \item \textbf{Exercise 3.3c}: Alter one switch’s region name or revision and observe the mismatch. Then fix the settings to restore a single region.
+\end{itemize}
+
+\newpage
+\section{Comparison of STP Variants}
+
+
+\arrayrulecolor[gray]{0.8}
+\renewcommand{\arraystretch}{1.5} 
+
+\begin{table}[h!]
+    \centering
+    \resizebox{\textwidth}{!}{%
+    \begin{tabular}{
+        >{\raggedright\arraybackslash}p{3cm} 
+        >{\raggedright\arraybackslash}p{4cm} 
+        >{\raggedright\arraybackslash}p{4cm}
+        >{\raggedright\arraybackslash}p{4cm}
+    }
+    \toprule
+    \textbf{Feature}         & \textbf{PVST+}                     & \textbf{RSTP (802.1w)}           & \textbf{MSTP (802.1s)}                             \\
+    \midrule
+    \textbf{Instances}       & Per VLAN                            & Per VLAN with Rapid PVST+, or single in pure RSTP & Can create multiple MST instances, each mapped to specific VLANs \\
+    \midrule
+    \textbf{Convergence}     & Faster than 802.1D, but not as quick as RSTP & Very fast (seconds)          & Utilizes RSTP mechanics within each instance        \\
+    \midrule
+    \textbf{Scalability}     & Can be high overhead with many VLANs  & Straightforward in smaller setups & Highly scalable by grouping VLANs into fewer instances \\
+    \midrule
+    \textbf{Vendor Support}  & Cisco proprietary (PVST+)           & IEEE standard (802.1w)          & IEEE standard (802.1s)                            \\
+    \midrule
+    \textbf{Load Balancing}  & Per-VLAN root configuration         & If using Rapid PVST+, per-VLAN is possible & Assign different VLANs to separate MST instances  \\
+    \bottomrule
+    \end{tabular}
+    }
+    \caption{Comparison of STP Variants}
+    \label{tab:stp_comparison}
+\end{table}
+
+
+
+\section{Summary and Next Steps}
+We’ve explored \textbf{PVST+}, \textbf{RSTP}, and \textbf{MSTP}. Each has its strengths:
+\begin{itemize}
+    \item \textbf{PVST+} offers simple per-VLAN load balancing but becomes unwieldy in large environments.
+    \item \textbf{RSTP} speeds up convergence significantly.
+    \item \textbf{MSTP} scales more elegantly by combining multiple VLANs into fewer spanning tree instances.
+\end{itemize}
+
+
+In the next section, we’ll delve into \textbf{advanced STP tuning}---covering PortFast, BPDU Guard, and other enhancements that enhance stability and security.
+
+
+
 
 %---------------------------------------------------------------------------------------------
 \chapter{Advanced STP Tuning and Security}
