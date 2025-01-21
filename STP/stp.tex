@@ -1,0 +1,147 @@
+\documentclass[12pt]{report}
+
+%----- PACKAGES -----%
+\usepackage[margin=1in]{geometry}   % Adjust page margins
+\usepackage{graphicx}               % For including images
+\usepackage{lmodern}                % Modern Latin fonts
+\usepackage{xcolor}                 % Text and background colors
+\usepackage{hyperref}               % Hyperlinks in the PDF
+\usepackage{titling}                % Customizing title page
+
+% Optional: Hyperlink setup for colored links
+\hypersetup{
+    colorlinks = true,
+    linkcolor  = blue!50!black,
+    citecolor  = blue!50!black,
+    urlcolor   = blue!80!black
+}
+
+%----- TITLE PAGE INFO -----%
+\title{\Huge \textbf{Spanning Tree Protocol (STP) Workbook}\\
+       \Large Fundamentals, Variants, Tuning, and Practical Labs}
+\author{\Large Written for Networking Students and Professionals}
+\date{\today}
+
+\begin{document}
+
+%----- MODERN TITLE PAGE -----%
+\begin{titlepage}
+    \centering
+    % Optional logo at the top:
+    % \includegraphics[width=3cm]{your-logo.png}\par\vspace{1cm}
+
+    \vspace*{4cm}
+    {\Huge \textbf{Spanning Tree Protocol (STP) Workbook}\par}
+    \vspace{0.8cm}
+    {\Large A Hands-On Guide to PVST+, RSTP, and MSTP\par}
+    \vspace{0.3cm}
+    \rule{0.9\textwidth}{1pt}
+    \vspace{0.6cm}
+    {\large \textbf{Mehdi JAFARI ZADEH}}\par
+    \vspace{0.3cm}
+
+    
+    \vfill
+    \textbf{Date:} \today
+    \vspace{2cm}
+\end{titlepage}
+
+%----- TABLE OF CONTENTS -----%
+\tableofcontents
+\newpage
+
+%=============================================================================================
+% MAIN CONTENT
+%=============================================================================================
+\chapter{Introduction}
+% 1. INTRODUCTION
+% Insert your content here, e.g., purpose, audience, prerequisites, how to use the workbook
+
+\section{Purpose and Audience}
+Lorem ipsum dolor sit amet...
+
+\section{How to Use This Workbook}
+Lorem ipsum dolor sit amet...
+
+%---------------------------------------------------------------------------------------------
+\chapter{STP Fundamentals}
+% 2. STP FUNDAMENTALS
+% Insert your content here
+
+\section{Redundancy and the Need for STP}
+...
+
+\section{STP Concepts and Terminology}
+...
+
+%---------------------------------------------------------------------------------------------
+\chapter{STP Variants (PVST+, RSTP, MSTP)}
+% 3. STP VARIANTS
+\section{PVST+}
+...
+
+\section{Rapid Spanning Tree Protocol (RSTP)}
+...
+
+\section{Multiple Spanning Tree Protocol (MSTP)}
+...
+
+%---------------------------------------------------------------------------------------------
+\chapter{Advanced STP Tuning and Security}
+% 4. ADVANCED STP TUNING
+\section{PortFast}
+...
+
+\section{BPDU Guard}
+...
+
+\section{Root Guard and Loop Guard}
+...
+
+%---------------------------------------------------------------------------------------------
+\chapter{Monitoring and Troubleshooting}
+% 5. MONITORING AND TROUBLESHOOTING
+\section{Key Show Commands}
+...
+
+\section{Common STP Problems}
+...
+
+%---------------------------------------------------------------------------------------------
+\chapter{Practical Lab Scenarios}
+% 6. PRACTICAL LAB SCENARIOS
+\section{Scenario 1: Single-VLAN STP}
+...
+
+\section{Scenario 2: Multi-VLAN + PVST+}
+...
+
+\section{Scenario 3: Rapid STP (Rapid PVST+)}
+...
+
+\section{Scenario 4: MSTP with Four VLANs}
+...
+
+\section{Scenario 5: Security Hardening}
+...
+
+%---------------------------------------------------------------------------------------------
+\chapter{Additional Resources}
+% 7. ADDITIONAL RESOURCES
+\section{Official Documentation}
+...
+
+\section{Books and Study Guides}
+...
+
+\section{Online Articles and Videos}
+...
+
+\section{Lab Simulation Tools}
+...
+
+\section{Design and Best Practices}
+...
+
+%=============================================================================================
+\end{document}
