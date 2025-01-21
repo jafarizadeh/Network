@@ -867,39 +867,268 @@ Next, we’ll bring everything together in \textbf{Practical Lab Scenarios}, com
 
 %---------------------------------------------------------------------------------------------
 \chapter{Practical Lab Scenarios}
-% 6. PRACTICAL LAB SCENARIOS
+
 \section{Scenario 1: Single-VLAN STP}
-...
+\subsection{Objective}
+\begin{itemize}
+    \item Grasp \textbf{basic STP} operation in a single VLAN.
+    \item Observe \textbf{root election} and port role assignments.
+\end{itemize}
 
-\section{Scenario 2: Multi-VLAN + PVST+}
-...
+\subsection{Topology}
+\begin{itemize}
+    \item \textbf{Three switches} in a triangle (A, B, C).
+    \item \textbf{VLAN 1} on all trunk interfaces or a single VLAN of choice.
+\end{itemize}
 
-\section{Scenario 3: Rapid STP (Rapid PVST+)}
-...
+\subsection{Tasks}
+\begin{enumerate}
+    \item \textbf{Initial Setup}: Clear configs, ensure STP is enabled.
+    \item \textbf{Auto-Election}: Power on, wait for convergence. Use \texttt{show spanning-tree} on each switch to see the Root Bridge.
+    \item \textbf{Forcing a Root}: Configure Switch A’s priority:
+    \begin{lstlisting}
+    SwitchA(config)# spanning-tree vlan 1 priority 4096
+    \end{lstlisting}
+    \item \textbf{Verification}: Disconnect/reconnect cables to witness STP re-convergence.
+\end{enumerate}
+
+\subsection{Reflection}
+\begin{itemize}
+    \item Which switch was initially root?
+    \item How did the manual priority setting affect the topology?
+\end{itemize}
+
+\section{Scenario 2: Multi-VLAN with PVST+}
+\subsection{Objective}
+\begin{itemize}
+    \item Implement \textbf{Per-VLAN Spanning Tree}.
+    \item Use \textbf{load balancing} by choosing different roots for different VLANs.
+\end{itemize}
+
+\subsection{Topology}
+\begin{itemize}
+    \item \textbf{Three or four switches} in a partial mesh.
+    \item VLANs \textbf{10} and \textbf{20} exist everywhere.
+\end{itemize}
+
+\subsection{Tasks}
+\begin{enumerate}
+    \item \textbf{Create VLANs}: On each switch, add VLAN 10 and 20, allow them on trunks.
+    \item \textbf{Root Assignments}:
+    \begin{enumerate}
+        \item Switch A is root for VLAN 10:
+        \begin{lstlisting}
+        SwitchA(config)# spanning-tree vlan 10 root primary
+        \end{lstlisting}
+        \item Switch B is root for VLAN 20:
+        \begin{lstlisting}
+        SwitchB(config)# spanning-tree vlan 20 root primary
+        \end{lstlisting}
+    \end{enumerate}
+    \item \textbf{Verify}: Use \texttt{show spanning-tree vlan 10} and \texttt{show spanning-tree vlan 20} to confirm root roles and blocked ports.
+\end{enumerate}
+
+\subsection{Reflection}
+\begin{itemize}
+    \item How did the network partition different VLAN paths?
+    \item Was load balancing achieved?
+\end{itemize}
+
+\section{Scenario 3: Rapid PVST+}
+\subsection{Objective}
+\begin{itemize}
+    \item Transition to \textbf{Rapid PVST+} for faster convergence.
+    \item Observe reduced recovery times after link changes.
+\end{itemize}
+
+\subsection{Topology}
+\begin{itemize}
+    \item \textbf{Three switches} in a triangle, with VLANs 10 and 20.
+\end{itemize}
+
+\subsection{Tasks}
+\begin{enumerate}
+    \item \textbf{Initial}: Document root placements under classic STP/PVST+.
+    \item \textbf{Enable Rapid PVST+}:
+    \begin{lstlisting}
+    Switch(config)# spanning-tree mode rapid-pvst
+    \end{lstlisting}
+    \item \textbf{Test Convergence}: Disconnect a trunk; time how quickly forwarding resumes.
+\end{enumerate}
+
+\subsection{Reflection}
+\begin{itemize}
+    \item How does convergence compare with classic STP?
+    \item Which ports become \textbf{Alternate}?
+\end{itemize}
 
 \section{Scenario 4: MSTP with Four VLANs}
-...
+\subsection{Objective}
+\begin{itemize}
+    \item Implement \textbf{MSTP}, assigning VLANs to different MST instances.
+    \item Ensure consistent MST region settings.
+\end{itemize}
+
+\subsection{Topology}
+\begin{itemize}
+    \item \textbf{Three or four switches}, VLANs \textbf{10, 20, 30, 40}.
+\end{itemize}
+
+\subsection{Tasks}
+\begin{enumerate}
+    \item \textbf{Enable MST}:
+    \begin{lstlisting}
+    Switch(config)# spanning-tree mode mst
+    Switch(config)# spanning-tree mst configuration
+    \end{lstlisting}
+    \item \textbf{Map VLANs}:
+    \begin{lstlisting}
+    Switch(config-mst)# instance 1 vlan 10,20
+    Switch(config-mst)# instance 2 vlan 30,40
+    \end{lstlisting}
+    \item \textbf{Root Selection}: Switch A root for MSTI 1; Switch B root for MSTI 2.
+    \item \textbf{Check}: Use \texttt{show spanning-tree mst configuration} on each switch.
+\end{enumerate}
+
+\subsection{Reflection}
+\begin{itemize}
+    \item Does MST simplify or complicate your setup for multiple VLANs?
+    \item Were the MST instances created and recognized correctly?
+\end{itemize}
 
 \section{Scenario 5: Security Hardening}
-...
+\subsection{Objective}
+\begin{itemize}
+    \item Safeguard the network with features like \textbf{BPDU Guard}, \textbf{Root Guard}, \textbf{Loop Guard}, and \textbf{UDLD}.
+\end{itemize}
+
+\subsection{Topology}
+\begin{itemize}
+    \item \textbf{Core/Distribution/Access} setup with multiple VLANs.
+\end{itemize}
+
+\subsection{Tasks}
+\begin{enumerate}
+    \item \textbf{BPDU Guard} on access ports:
+    \begin{lstlisting}
+    Switch(config-if)# spanning-tree portfast
+    Switch(config-if)# spanning-tree bpduguard enable
+    \end{lstlisting}
+    \item \textbf{Root Guard} on core-facing ports:
+    \begin{lstlisting}
+    Switch(config-if)# spanning-tree guard root
+    \end{lstlisting}
+    \item \textbf{Loop Guard or UDLD} on trunk links:
+    \begin{lstlisting}
+    Switch(config-if)# spanning-tree guard loop
+    \end{lstlisting}
+    or
+    \begin{lstlisting}
+    Switch(config-if)# udld port aggressive
+    \end{lstlisting}
+    \item \textbf{Testing}: Plug in a rogue switch to an access port, attempt to override the root, simulate a unidirectional failure.
+\end{enumerate}
+
+\subsection{Reflection}
+\begin{itemize}
+    \item Which of these features is most critical in your environment?
+    \item Did you observe the correct error-disable or inconsistent states?
+\end{itemize}
+
+\section{General Tips for All Labs}
+\begin{itemize}
+    \item \textbf{Diagram Everything}: Visualize your switch interconnections and VLAN design.
+    \item \textbf{Compare Before/After}: Use \texttt{show spanning-tree} outputs to see changes after each step.
+    \item \textbf{Small Steps}: Change one parameter at a time, confirm, then proceed.
+    \item \textbf{Troubleshoot Methodically}: If a loop or unexpected behavior appears, revert to a known good state and make incremental adjustments.
+\end{itemize}
+
+\section{Conclusion}
+By tackling these \textbf{end-to-end lab scenarios}, you consolidate all the knowledge from \textbf{basic STP} to \textbf{advanced tuning}:
+\begin{itemize}
+    \item Setting up \textbf{classic STP} and verifying root selection.
+    \item Employing \textbf{PVST+} or \textbf{Rapid PVST+} for multi-VLAN networks with quicker failover.
+    \item Scaling and load balancing using \textbf{MSTP}.
+    \item Hardening STP ports with \textbf{PortFast, BPDU Guard, Root Guard, Loop Guard,} and \textbf{UDLD}.
+\end{itemize}
+
+Real-world proficiency in STP emerges through \textbf{repetition, observation, and troubleshooting}. Continue to modify these labs, add more VLANs, or experiment with varied link costs and see how STP adapts in each scenario.
+
 
 %---------------------------------------------------------------------------------------------
 \chapter{Additional Resources}
-% 7. ADDITIONAL RESOURCES
+
+Below are recommendations to further enhance your understanding and stay current with evolving standards and techniques related to Spanning Tree.
+
 \section{Official Documentation}
-...
+\begin{itemize}
+    \item \textbf{Cisco Official Documentation}
+    \begin{itemize}
+        \item \href{https://www.cisco.com/c/en/us/tech/lan-switching/spanning-tree-protocol/index.html}{Cisco STP Technical Resources}
+        \item \href{https://www.cisco.com/c/en/us/td/docs/switches/lan}{PVST+ and RPVST+ Guides}
+        \item \href{https://www.cisco.com/c/en/us/support/docs/lan-switching/spanning-tree-protocol}{MST Deployment Guides}
+    \end{itemize}
+    \item \textbf{IEEE Standards}
+    \begin{itemize}
+        \item \textbf{IEEE 802.1D} (classic STP)
+        \item \textbf{IEEE 802.1w} (RSTP)
+        \item \textbf{IEEE 802.1s} (MSTP)
+        \item Available through the \href{https://ieeexplore.ieee.org/}{IEEE Xplore Library}.
+    \end{itemize}
+\end{itemize}
 
 \section{Books and Study Guides}
-...
+\begin{itemize}
+    \item \textbf{Cisco Press}
+    \begin{itemize}
+        \item \textit{CCNA 200-301 Official Cert Guide} by Wendell Odom (introductory coverage).
+        \item \textit{CCNP ENCOR 350-401 Official Cert Guide} by Brad Edgeworth (advanced STP).
+        \item \textit{CCIE R\&S / Enterprise} materials (deep dives into STP tuning).
+    \end{itemize}
+    \item \textit{LAN Switching Fundamentals} by Cisco Press \textendash{} In-depth coverage of Layer 2 switching and STP mechanics.
+\end{itemize}
 
-\section{Online Articles and Videos}
-...
+\section{Online Articles and Video Tutorials}
+\begin{itemize}
+    \item \textbf{Cisco Learning Network}
+    \begin{itemize}
+        \item Community forums discussing STP best practices.
+    \end{itemize}
+    \item \textbf{NetworkLessons.com}
+    \begin{itemize}
+        \item Concise lessons on STP, RSTP, PVST+, MSTP, with lab examples.
+    \end{itemize}
+    \item \textbf{Popular YouTube Channels}
+    \begin{itemize}
+        \item \textit{Network Chuck}, \textit{Keith Barker}, and \textit{David Bombal} often cover STP setups and troubleshooting.
+    \end{itemize}
+\end{itemize}
 
 \section{Lab Simulation Tools}
-...
+\begin{itemize}
+    \item \textbf{Cisco Packet Tracer} \textendash{} Ideal for CCNA-level STP labs.
+    \item \textbf{GNS3 / EVE-NG} \textendash{} Allows more advanced multi-vendor topologies, suitable for CCNP/CCIE practice.
+    \item \textbf{Cisco Modeling Labs (VIRL)} \textendash{} Official Cisco platform for simulating IOS-based environments.
+\end{itemize}
 
-\section{Design and Best Practices}
-...
+\section{Industry Designs and Best Practices}
+\begin{itemize}
+    \item \textbf{Cisco Validated Designs (CVDs)}
+    \begin{itemize}
+        \item Blueprint-like documents for enterprise networks, including STP considerations.
+        \item \href{https://www.cisco.com/c/en/us/solutions/enterprise/design-zone.html}{Cisco Design Zone}
+    \end{itemize}
+    \item \textbf{Enterprise Architecture Guides}
+    \begin{itemize}
+        \item Cover campus design, VLAN distribution, and STP hierarchy.
+    \end{itemize}
+\end{itemize}
+
+\section{Conclusion}
+By leveraging official standards, Cisco documentation, lab tools, and design references, you can further \textbf{refine your STP skills}. Continuous practice\textemdash configuring, breaking, and fixing STP scenarios\textemdash remains the best way to cement your knowledge and become an adept network professional.
+
+\textbf{Good luck on your journey to mastering Spanning Tree Protocol!}
+
 
 %=============================================================================================
 \end{document}
