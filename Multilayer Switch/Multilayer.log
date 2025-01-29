@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (MiKTeX 24.1) (preloaded format=pdflatex 2024.8.31)  29 JAN 2025 23:15
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (MiKTeX 24.1) (preloaded format=pdflatex 2024.8.31)  30 JAN 2025 00:03
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -7,10 +7,10 @@ entering extended mode
 (c:/Users/Lord/Desktop/Network/Multilayer Switch/Multilayer.tex
 LaTeX2e <2023-11-01> patch level 1
 L3 programming layer <2024-01-04>
-(C:\Users\Lord\AppData\Local\Programs\MiKTeX\tex/latex/base\report.cls
-Document Class: report 2023/05/17 v1.4n Standard LaTeX document class
-(C:\Users\Lord\AppData\Local\Programs\MiKTeX\tex/latex/base\size10.clo
-File: size10.clo 2023/05/17 v1.4n Standard LaTeX file (size option)
+(C:\Users\Lord\AppData\Local\Programs\MiKTeX\tex/latex/base\book.cls
+Document Class: book 2023/05/17 v1.4n Standard LaTeX document class
+(C:\Users\Lord\AppData\Local\Programs\MiKTeX\tex/latex/base\bk10.clo
+File: bk10.clo 2023/05/17 v1.4n Standard LaTeX file (size option)
 )
 \c@part=\count187
 \c@chapter=\count188
@@ -380,7 +380,7 @@ Package: colortbl 2024/07/06 v1.0i Color table columns (DPC)
 \minrowclearance=\skip59
 \rownum=\count304
 )
-Package hyperref Info: Option `colorlinks' set `true' on input line 29.
+Package hyperref Info: Option `colorlinks' set `true' on input line 27.
  (C:\Users\Lord\AppData\Local\Programs\MiKTeX\tex/latex/l3backend\l3backend-pdftex.def
 File: l3backend-pdftex.def 2024-01-04 L3 backend support: PDF output (pdfTeX)
 \l__color_backend_stack_int=\count305
@@ -388,24 +388,24 @@ File: l3backend-pdftex.def 2024-01-04 L3 backend support: PDF output (pdfTeX)
 ) (Multilayer.aux)
 \openout1 = `Multilayer.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 52.
-LaTeX Font Info:    ... okay on input line 52.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 52.
-LaTeX Font Info:    ... okay on input line 52.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 52.
-LaTeX Font Info:    ... okay on input line 52.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 52.
-LaTeX Font Info:    ... okay on input line 52.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 52.
-LaTeX Font Info:    ... okay on input line 52.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 52.
-LaTeX Font Info:    ... okay on input line 52.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 52.
-LaTeX Font Info:    ... okay on input line 52.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 52.
-LaTeX Font Info:    ... okay on input line 52.
-LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 52.
-LaTeX Font Info:    ... okay on input line 52.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 50.
+LaTeX Font Info:    ... okay on input line 50.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 50.
+LaTeX Font Info:    ... okay on input line 50.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 50.
+LaTeX Font Info:    ... okay on input line 50.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 50.
+LaTeX Font Info:    ... okay on input line 50.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 50.
+LaTeX Font Info:    ... okay on input line 50.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 50.
+LaTeX Font Info:    ... okay on input line 50.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 50.
+LaTeX Font Info:    ... okay on input line 50.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 50.
+LaTeX Font Info:    ... okay on input line 50.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 50.
+LaTeX Font Info:    ... okay on input line 50.
 
 *geometry* driver: auto-detecting
 *geometry* detected driver: pdftex
@@ -414,7 +414,7 @@ LaTeX Font Info:    ... okay on input line 52.
 * paper: a4paper
 * layout: <same size as paper>
 * layoutoffset:(h,v)=(0.0pt,0.0pt)
-* modes: 
+* modes: twoside 
 * h-part:(L,W,R)=(72.26999pt, 452.9679pt, 72.26999pt)
 * v-part:(T,H,B)=(72.26999pt, 700.50687pt, 72.26999pt)
 * \paperwidth=597.50787pt
@@ -423,25 +423,25 @@ LaTeX Font Info:    ... okay on input line 52.
 * \textheight=700.50687pt
 * \oddsidemargin=0.0pt
 * \evensidemargin=0.0pt
-* \topmargin=-37.0pt
+* \topmargin=-30.06749pt
 * \headheight=12.0pt
-* \headsep=25.0pt
+* \headsep=18.06749pt
 * \topskip=10.0pt
-* \footskip=30.0pt
-* \marginparwidth=57.0pt
-* \marginparsep=11.0pt
+* \footskip=25.29494pt
+* \marginparwidth=115.0pt
+* \marginparsep=7.0pt
 * \columnsep=10.0pt
 * \skip\footins=9.0pt plus 4.0pt minus 2.0pt
 * \hoffset=0.0pt
 * \voffset=0.0pt
 * \mag=1000
 * \@twocolumnfalse
-* \@twosidefalse
-* \@mparswitchfalse
+* \@twosidetrue
+* \@mparswitchtrue
 * \@reversemarginfalse
 * (1in=72.27pt=25.4mm, 1cm=28.453pt)
 
-Package hyperref Info: Link coloring ON on input line 52.
+Package hyperref Info: Link coloring ON on input line 50.
 (Multilayer.out) (Multilayer.out)
 \@outlinefile=\write3
 \openout3 = `Multilayer.out'.
@@ -467,7 +467,10 @@ Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 48
 File: epstopdf-sys.cfg 2021/03/18 v2.0 Configuration of epstopdf for MiKTeX
 )) [1
 
-{C:/Users/Lord/AppData/Local/MiKTeX/fonts/map/pdftex/pdftex.map}] (Multilayer.toc
+
+{C:/Users/Lord/AppData/Local/MiKTeX/fonts/map/pdftex/pdftex.map}] [2
+
+] (Multilayer.toc
 LaTeX Font Info:    Trying to load font information for U+msa on input line 2.
  (C:\Users\Lord\AppData\Local\Programs\MiKTeX\tex/latex/amsfonts\umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
@@ -475,90 +478,87 @@ File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 LaTeX Font Info:    Trying to load font information for U+msb on input line 2.
  (C:\Users\Lord\AppData\Local\Programs\MiKTeX\tex/latex/amsfonts\umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
-)
-pdfTeX warning (ext4): destination with the same identifier (name{page.1}) has been already used, duplicate ignored
-<to be read again> 
-                   \relax 
-l.36 ...}Answers to ROAS Exercises}{11}{chapter.7}
-                                                  % [1
-
-])
+) [3])
 \tf@toc=\write4
 \openout4 = `Multilayer.toc'.
 
- [2]
+ [4]
 Chapter 1.
-[3
+LaTeX Font Info:    Trying to load font information for T1+cmtt on input line 92.
+(C:\Users\Lord\AppData\Local\Programs\MiKTeX\tex/latex/base\t1cmtt.fd
+File: t1cmtt.fd 2023/04/13 v2.5m Standard LaTeX font definitions
+) [5
 
 ]
-Chapter 2.
-[4
-
-]
-Chapter 3.
-[5
-
-]
-Chapter 4.
-[6
-
-] [7
-
-]
-Chapter 5.
-[8
-
-]
-Chapter 6.
-
-Overfull \hbox (4.38055pt too wide) in paragraph at lines 117--117
-[]\T1/cmr/bx/n/14.4 Configuring and Ver-i-fy-ing Rout-ing Pro-to-cols (OSPF, EIGRP) 
+Overfull \hbox (4.6684pt too wide) has occurred while \output is active
+\T1/cmr/m/n/10 6 \T1/cmr/m/sl/10 CHAPTER 1.  TUTORIAL: INTER-VLAN ROUTING WITH ROAS AND MULTILAYER SWITCHES
  []
 
-[9
+[6] [7]
+Overfull \hbox (4.6684pt too wide) has occurred while \output is active
+\T1/cmr/m/n/10 8 \T1/cmr/m/sl/10 CHAPTER 1.  TUTORIAL: INTER-VLAN ROUTING WITH ROAS AND MULTILAYER SWITCHES
+ []
 
-] [10
+[8
+
+] [9] [10]
+Chapter 2.
+[11
+
+] [12]
+Chapter 3.
+[13
+
+] [14] [15
+
+] [16]
+Chapter 4.
+[17
+
+] [18]
+Chapter 5.
+[19
+
+] [20]
+Chapter 6.
+[21
+
+] [22
 
 ]
 Chapter 7.
-[11
-
-]
-Chapter 8.
-[12
+[23] [24
 
 ]
 Appendix A.
-[13
+[25] [26
 
 ]
 Appendix B.
-[14
+[27] [28
 
 ]
 Appendix C.
-[15
-
-] (Multilayer.aux)
+[29] (Multilayer.aux)
  ***********
 LaTeX2e <2023-11-01> patch level 1
 L3 programming layer <2024-01-04>
  ***********
 Package rerunfilecheck Info: File `Multilayer.out' has not changed.
-(rerunfilecheck)             Checksum: 04A3DF772BDF637D2427AFDBADD12FFD;12444.
+(rerunfilecheck)             Checksum: E4EA2724FC452B46E8170C5C7B2A8ABF;6702.
  ) 
 Here is how much of TeX's memory you used:
- 13763 strings out of 474486
- 212262 string characters out of 5744227
- 1940542 words of memory out of 5000000
- 35785 multiletter control sequences out of 15000+600000
- 567486 words of font info for 54 fonts, out of 8000000 for 9000
+ 14258 strings out of 474486
+ 217409 string characters out of 5744227
+ 2004542 words of memory out of 5000000
+ 36066 multiletter control sequences out of 15000+600000
+ 570031 words of font info for 59 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 86i,5n,93p,597b,503s stack positions out of 10000i,1000n,20000p,200000b,200000s
- <C:\Users\Lord\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecbx1440.pk> <C:\Users\Lord\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecbx2074.pk> <C:\Users\Lord\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecrm1000.pk> <C:\Users\Lord\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecbx1000.pk> <C:\Users\Lord\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecbx1200.pk> <C:\Users\Lord\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecbx2488.pk>
-Output written on Multilayer.pdf (16 pages, 153041 bytes).
+ 86i,9n,93p,597b,2052s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ <C:\Users\Lord\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ectt1000.pk> <C:\Users\Lord\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\tcrm1000.pk> <C:\Users\Lord\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ectt0900.pk> <C:\Users\Lord\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecbx1440.pk> <C:\Users\Lord\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecbx2074.pk> <C:\Users\Lord\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecsl1000.pk> <C:\Users\Lord\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecrm1000.pk> <C:\Users\Lord\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecbx1000.pk> <C:\Users\Lord\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecbx1200.pk> <C:\Users\Lord\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecbx2488.pk>
+Output written on Multilayer.pdf (29 pages, 221513 bytes).
 PDF statistics:
- 616 PDF objects out of 1000 (max. 8388607)
- 64 named destinations out of 1000 (max. 500000)
- 377 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 972 PDF objects out of 1000 (max. 8388607)
+ 270 named destinations out of 1000 (max. 500000)
+ 257 words of extra memory for PDF output out of 10000 (max. 10000000)
 

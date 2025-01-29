@@ -1,8 +1,8 @@
-\documentclass[a4paper]{report}
+\documentclass[a4paper]{book}
 \usepackage[margin=1in]{geometry}
 \usepackage[T1]{fontenc}
 \usepackage[utf8]{inputenc}
-\usepackage[hidelinks]{hyperref}
+\usepackage{hyperref}
 \usepackage{amsmath}
 \usepackage{amssymb}
 \usepackage{enumerate}
@@ -14,13 +14,11 @@
 \usepackage{adjustbox}
 \usepackage{booktabs} 
 \usepackage{array}    
-\usepackage{adjustbox} 
 \usepackage{colortbl}
-
 
 \newtheorem*{noteenv}{Note}
 
-% Optional: Hyperlink setup for colored links
+% Hyperlink setup for colored links
 \hypersetup{
     colorlinks = true,
     linkcolor  = blue!50!black,
@@ -28,7 +26,7 @@
     urlcolor   = blue!80!black
 }
 
-% Configuration pour les listings de code
+% Configuration for code listings
 \definecolor{codebg}{RGB}{245,245,245}
 \lstset{
     backgroundcolor=\color{codebg},
@@ -43,7 +41,7 @@
 }
 \setstretch{1.15}
 
-%----- TITLE PAGE INFO -----%
+% Title Page Info
 \title{\Huge \textbf{Spanning Tree Protocol (STP) Workbook}\\
        \Large Fundamentals, Variants, Tuning, and Practical Labs}
 \author{\Large Written for Networking Students and Professionals}
@@ -51,73 +49,397 @@
 
 \begin{document}
 
-%----- MODERN TITLE PAGE -----%
+% Title Page
 \begin{titlepage}
     \centering
     \vspace*{4cm}
     {\Huge \textbf{Multilayer}\par}
     \vspace{0.8cm}
-    {\Large }
-    \vspace{0.3cm}
+    
     \rule{0.9\textwidth}{1pt}
     
     \vspace{0.6cm}
     {\large \textbf{Mehdi JAFARI ZADEH}}\par
     \vspace{0.3cm}
-
     
     \vfill
     \textbf{Date:} \today
     \vspace{2cm}
 \end{titlepage}
 
-%----- TABLE OF CONTENTS -----%
+% Table of Contents
 \tableofcontents
 \newpage
 
-\chapter{Introduction to Inter-VLAN Routing}
-\section{What is VLAN Segmentation?}
-\section{The Need for Inter-VLAN Routing}
-\section{Comparison of ROAS and Multilayer Switches}
+\chapter{Tutorial: Inter-VLAN Routing with ROAS and Multilayer Switches}
+\section{Introduction}
+Virtual Local Area Networks (VLANs) are used in network environments to segment traffic and improve performance and security. However, devices in separate VLANs cannot communicate with each other by default. Inter-VLAN routing allows devices from different VLANs to communicate, and this can be achieved through two main methods: \textbf{Router-on-a-Stick (ROAS)} and \textbf{Multilayer Switch (MLS) Inter-VLAN Routing}.
 
-\chapter{Router-on-a-Stick (ROAS) Configuration}
-\section{Understanding Router-on-a-Stick}
-\section{Network Topology for ROAS}
-\section{VLAN and Trunking Configuration on a Switch}
-\section{Configuring Subinterfaces on a Router}
-\section{Verifying and Troubleshooting ROAS}
+\section{Router-on-a-Stick (ROAS)}
+\subsection{Overview}
+Router-on-a-Stick (ROAS) is a method of inter-VLAN routing that uses a single router with a trunk link to a switch. The router performs all routing functions between VLANs.
 
-\chapter{Multilayer Switch (MLS) Configuration}
-\section{Understanding Multilayer Switching}
-\section{Role of Switched Virtual Interfaces (SVIs)}
-\section{Configuring VLANs and Trunking on a Multilayer Switch}
-\section{Enabling IP Routing on a Multilayer Switch}
-\section{Configuring EtherChannel and Routing Protocols}
-\section{Verifying and Troubleshooting a Multilayer Switch}
+\subsection{How It Works}
+\begin{enumerate}
+    \item A trunk link is established between the router and the switch.
+    \item Subinterfaces are created on the router for each VLAN.
+    \item Each subinterface is assigned an IP address that acts as the default gateway for its respective VLAN.
+    \item The switch forwards VLAN-tagged traffic to the router, which then routes it to the appropriate VLAN.
+\end{enumerate}
 
-\chapter{Comparing ROAS and Multilayer Switches}
-\section{Performance and Scalability Comparison}
-\section{When to Use ROAS vs. Multilayer Switches}
-\section{Best Practices in Inter-VLAN Routing}
+\subsection{Configuration Steps}
+\subsubsection{On the Switch}
+\begin{lstlisting}
+configure terminal
+interface GigabitEthernet0/1
+switchport mode trunk
+switchport trunk allowed vlan 10,20
+exit
+\end{lstlisting}
+
+\subsubsection{On the Router}
+\begin{lstlisting}
+configure terminal
+interface GigabitEthernet0/1
+no shutdown
+interface GigabitEthernet0/1.10
+encapsulation dot1Q 10
+ip address 192.168.10.1 255.255.255.0
+exit
+interface GigabitEthernet0/1.20
+encapsulation dot1Q 20
+ip address 192.168.20.1 255.255.255.0
+exit
+\end{lstlisting}
+
+\subsection{Advantages and Disadvantages}
+\textbf{Advantages:}
+\begin{itemize}
+    \item Cost-effective for small networks.
+    \item Simple to implement.
+\end{itemize}
+
+\textbf{Disadvantages:}
+\begin{itemize}
+    \item Limited scalability due to reliance on a single router interface.
+    \item Potential bottleneck due to the router processing all inter-VLAN traffic.
+\end{itemize}
+
+\section{Inter-VLAN Routing with a Multilayer Switch (MLS)}
+\subsection{Overview}
+A multilayer switch (MLS) can perform routing functions at Layer 3, eliminating the need for an external router.
+
+\subsection{How It Works}
+\begin{enumerate}
+    \item The MLS is configured with Switched Virtual Interfaces (SVIs) for each VLAN.
+    \item Each SVI is assigned an IP address that acts as the default gateway for its VLAN.
+    \item The MLS handles inter-VLAN routing internally, reducing latency.
+\end{enumerate}
+
+\subsection{Configuration Steps}
+\subsubsection{Enable Routing on the Switch}
+\begin{lstlisting}
+configure terminal
+ip routing
+\end{lstlisting}
+
+\subsubsection{Create and Configure SVIs}
+\begin{lstlisting}
+interface vlan 10
+ip address 192.168.10.1 255.255.255.0
+no shutdown
+exit
+interface vlan 20
+ip address 192.168.20.1 255.255.255.0
+no shutdown
+exit
+\end{lstlisting}
+
+\subsection{Advantages and Disadvantages}
+\textbf{Advantages:}
+\begin{itemize}
+    \item Higher performance as traffic remains within the switch.
+    \item Scalability for larger networks.
+    \item Reduced latency due to elimination of external routing hops.
+\end{itemize}
+
+\textbf{Disadvantages:}
+\begin{itemize}
+    \item Higher cost compared to ROAS.
+    \item Requires a switch with Layer 3 capabilities.
+\end{itemize}
+
+\section{Choosing Between ROAS and MLS}
+\begin{table}[h]
+    \centering
+    \begin{tabular}{lcc}
+        \toprule
+        Feature & Router-on-a-Stick (ROAS) & Multilayer Switch (MLS) \\
+        \midrule
+        Cost & Lower & Higher \\
+        Performance & Slower (bottlenecks) & Faster \\
+        Scalability & Limited & Scalable \\
+        Complexity & Simple & Moderate \\
+        Hardware Needed & Router \& L2 Switch & L3 Switch \\
+        \bottomrule
+    \end{tabular}
+    \caption{Comparison of ROAS and MLS}
+    \label{tab:comparison}
+\end{table}
+
+For small networks with limited VLANs, ROAS is a cost-effective solution. For larger enterprise networks requiring higher performance, MLS is the preferred method.
+
+\section{Conclusion}
+Inter-VLAN routing is essential for modern networks to ensure seamless communication between VLANs. While ROAS is a simple and cost-effective solution, MLS offers improved performance and scalability. Choosing the right method depends on network size, traffic load, and budget considerations. Implementing the correct inter-VLAN routing solution ensures an efficient, high-performing, and well-segmented network infrastructure.
+
 
 \part{Exercises and Hands-On Practice}
 
-\chapter{Practical Configuration Exercises for ROAS}
-\section{Basic VLAN and Trunking Configuration}
-\section{Configuring Router Subinterfaces for VLAN Routing}
-\section{Testing and Troubleshooting Inter-VLAN Communication}
-\section{Implementing Access Control Lists (ACLs) in ROAS}
-\section{Configuring DHCP Services on the Router}
+\chapter{Router-on-a-Stick (ROAS)}
 
-\chapter{Practical Configuration Exercises for Multilayer Switches}
-\section{Creating VLANs and Assigning Ports on an MLS}
-\section{Configuring and Verifying Switched Virtual Interfaces (SVIs)}
-\section{Enabling IP Routing on a Multilayer Switch}
-\section{Implementing EtherChannel for Link Aggregation}
-\section{Configuring and Verifying Routing Protocols (OSPF, EIGRP)}
+\begin{enumerate}
+    \item Configure the \texttt{GigabitEthernet0/0} interface as a trunk.
+    \item Assign subinterface \texttt{0/0.10} for VLAN 10 with IP \texttt{192.168.10.1/24}.
+    \item Assign subinterface \texttt{0/0.20} for VLAN 20 with IP \texttt{192.168.20.1/24}.
+    \item Assign subinterface \texttt{0/0.30} for VLAN 30 with IP \texttt{192.168.30.1/24}.
+    \item Enable 802.1Q encapsulation on subinterface \texttt{GigabitEthernet0/0.10}.
+    \item Enable 802.1Q encapsulation on subinterface \texttt{GigabitEthernet0/0.20}.
+    \item Enable 802.1Q encapsulation on subinterface \texttt{GigabitEthernet0/0.30}.
+    \item Enable IP routing on the router.
+    \item Verify VLANs on the switch.
+    \item Configure \texttt{FastEthernet0/1} as a trunk on Switch1.
+    \item Configure \texttt{FastEthernet0/1} as a trunk on Switch2.
+    \item Configure \texttt{FastEthernet0/1} as a trunk on Switch3.
+    \item Assign \texttt{FastEthernet0/2} on Switch1 to VLAN 10.
+    \item Assign \texttt{FastEthernet0/2} on Switch2 to VLAN 20.
+    \item Assign \texttt{FastEthernet0/2} on Switch3 to VLAN 30.
+    \item Set PC1's gateway to \texttt{192.168.10.1}.
+    \item Set PC2's gateway to \texttt{192.168.20.1}.
+    \item Set PC3's gateway to \texttt{192.168.30.1}.
+    \item Verify trunking status on switches.
+    \item Show the current VLAN configuration.
+    \item Display the routing table to check inter-VLAN routing.
+    \item Show all subinterfaces configured on the router.
+    \item Check encapsulation settings for all subinterfaces.
+    \item Verify if PC1 can ping PC2.
+    \item Verify if PC3 can ping PC1.
+    \item Save the running configuration.
+    \item Debug IP routing issues.
+    \item Remove subinterface \texttt{0/0.30}.
+    \item Disable the trunk link on Switch1.
+    \item Reset the router configuration.
+\end{enumerate}
+
+\newpage
+
+\chapter{Multilayer Switch (MLS)}
+
+\begin{enumerate}
+    \item Enable IP routing on the multilayer switch.
+    \item Create VLAN 10 on the switch.
+    \item Create VLAN 20 on the switch.
+    \item Create VLAN 30 on the switch.
+    \item Assign \texttt{interface VLAN 10} an IP address \texttt{192.168.10.1/24}.
+    \item Assign \texttt{interface VLAN 20} an IP address \texttt{192.168.20.1/24}.
+    \item Assign \texttt{interface VLAN 30} an IP address \texttt{192.168.30.1/24}.
+    \item Assign \texttt{interface FastEthernet0/1} to VLAN 10.
+    \item Assign \texttt{interface FastEthernet0/2} to VLAN 20.
+    \item Assign \texttt{interface FastEthernet0/3} to VLAN 30.
+    \item Configure trunking on \texttt{FastEthernet0/24}.
+    \item Allow VLAN 10, 20, and 30 on trunk \texttt{FastEthernet0/24}.
+    \item Set \texttt{FastEthernet0/24} as a dynamic desirable trunk.
+    \item Assign PC1's default gateway to \texttt{192.168.10.1}.
+    \item Assign PC2's default gateway to \texttt{192.168.20.1}.
+    \item Assign PC3's default gateway to \texttt{192.168.30.1}.
+    \item Verify VLAN assignments on the switch.
+    \item Display trunk ports status.
+    \item Show the switch routing table.
+    \item Enable HSRP (Hot Standby Router Protocol) for VLAN 10.
+    \item Enable HSRP for VLAN 20.
+    \item Enable HSRP for VLAN 30.
+    \item Configure SVI (Switched Virtual Interface) for VLAN 10.
+    \item Configure SVI for VLAN 20.
+    \item Configure SVI for VLAN 30.
+    \item Show all SVI interfaces.
+    \item Verify if PC1 can ping PC2.
+    \item Verify if PC3 can ping PC1.
+    \item Debug SVI connectivity issues.
+    \item Reset the multilayer switch configuration.
+\end{enumerate}
 
 \part{Answer Key and Explanations}
 
+
+\chapter{Router-on-a-Stick (ROAS) - Answers}
+
+\begin{enumerate}
+    \item Configure the \texttt{GigabitEthernet0/0} interface as a trunk.
+    \begin{lstlisting}
+    interface GigabitEthernet0/0
+    no shutdown
+    \end{lstlisting}
+    
+    \item Assign subinterface \texttt{0/0.10} for VLAN 10 with IP \texttt{192.168.10.1/24}.
+    \begin{lstlisting}
+    interface GigabitEthernet0/0.10
+    encapsulation dot1Q 10
+    ip address 192.168.10.1 255.255.255.0
+    \end{lstlisting}
+
+    \item Assign subinterface \texttt{0/0.20} for VLAN 20 with IP \texttt{192.168.20.1/24}.
+    \begin{lstlisting}
+    interface GigabitEthernet0/0.20
+    encapsulation dot1Q 20
+    ip address 192.168.20.1 255.255.255.0
+    \end{lstlisting}
+
+    \item Assign subinterface \texttt{0/0.30} for VLAN 30 with IP \texttt{192.168.30.1/24}.
+    \begin{lstlisting}
+    interface GigabitEthernet0/0.30
+    encapsulation dot1Q 30
+    ip address 192.168.30.1 255.255.255.0
+    \end{lstlisting}
+
+    \item Enable IP routing on the router.
+    \begin{lstlisting}
+    ip routing
+    \end{lstlisting}
+
+    \item Verify VLANs on the switch.
+    \begin{lstlisting}
+    show vlan brief
+    \end{lstlisting}
+
+    \item Configure trunking on Switch1 (\texttt{FastEthernet0/1}).
+    \begin{lstlisting}
+    interface FastEthernet0/1
+    switchport mode trunk
+    \end{lstlisting}
+
+    \item Configure VLANs on the switch.
+    \begin{lstlisting}
+    vlan 10
+    vlan 20
+    vlan 30
+    \end{lstlisting}
+
+    \item Assign a PC's gateway.
+    \begin{lstlisting}
+    ip default-gateway 192.168.10.1
+    \end{lstlisting}
+
+    \item Display the routing table to check inter-VLAN routing.
+    \begin{lstlisting}
+    show ip route
+    \end{lstlisting}
+
+    \item Save the running configuration.
+    \begin{lstlisting}
+    write memory
+    \end{lstlisting}
+
+    \item Debug IP routing issues.
+    \begin{lstlisting}
+    debug ip routing
+    \end{lstlisting}
+
+    \item Remove subinterface for VLAN 30.
+    \begin{lstlisting}
+    no interface GigabitEthernet0/0.30
+    \end{lstlisting}
+
+    \item Reset the router configuration.
+    \begin{lstlisting}
+    erase startup-config
+    reload
+    \end{lstlisting}
+\end{enumerate}
+
+\newpage
+
+\chapter{Multilayer Switch (MLS) - Answers}
+
+\begin{enumerate}
+    \item Enable IP routing on the multilayer switch.
+    \begin{lstlisting}
+    ip routing
+    \end{lstlisting}
+
+    \item Create VLAN 10 on the switch.
+    \begin{lstlisting}
+    vlan 10
+    \end{lstlisting}
+
+    \item Assign \texttt{interface VLAN 10} an IP address \texttt{192.168.10.1/24}.
+    \begin{lstlisting}
+    interface vlan 10
+    ip address 192.168.10.1 255.255.255.0
+    no shutdown
+    \end{lstlisting}
+
+    \item Assign FastEthernet0/1 to VLAN 10.
+    \begin{lstlisting}
+    interface FastEthernet0/1
+    switchport mode access
+    switchport access vlan 10
+    \end{lstlisting}
+
+    \item Configure trunking on \texttt{FastEthernet0/24}.
+    \begin{lstlisting}
+    interface FastEthernet0/24
+    switchport mode trunk
+    switchport trunk allowed vlan 10,20,30
+    \end{lstlisting}
+
+    \item Set PC1's default gateway.
+    \begin{lstlisting}
+    ip default-gateway 192.168.10.1
+    \end{lstlisting}
+
+    \item Show VLAN assignments.
+    \begin{lstlisting}
+    show vlan brief
+    \end{lstlisting}
+
+    \item Show the switch routing table.
+    \begin{lstlisting}
+    show ip route
+    \end{lstlisting}
+
+    \item Enable HSRP for VLAN 10.
+    \begin{lstlisting}
+    interface vlan 10
+    standby 1 ip 192.168.10.254
+    \end{lstlisting}
+
+    \item Configure Switched Virtual Interface (SVI) for VLAN 20.
+    \begin{lstlisting}
+    interface vlan 20
+    ip address 192.168.20.1 255.255.255.0
+    no shutdown
+    \end{lstlisting}
+
+    \item Show all SVI interfaces.
+    \begin{lstlisting}
+    show ip interface brief
+    \end{lstlisting}
+
+    \item Verify connectivity between VLANs using ping.
+    \begin{lstlisting}
+    ping 192.168.20.1
+    \end{lstlisting}
+
+    \item Debug SVI connectivity issues.
+    \begin{lstlisting}
+    debug ip routing
+    \end{lstlisting}
+
+    \item Reset the multilayer switch configuration.
+    \begin{lstlisting}
+    erase startup-config
+    reload
+    \end{lstlisting}
+\end{enumerate}
 \chapter{Answers to ROAS Exercises}
 \section{VLAN \& Trunking Configuration Answers}
 \section{Router Subinterface Configuration Answers}
