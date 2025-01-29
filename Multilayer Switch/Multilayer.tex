@@ -1,0 +1,137 @@
+\documentclass[a4paper]{report}
+\usepackage[margin=1in]{geometry}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[hidelinks]{hyperref}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{enumerate}
+\usepackage{setspace}
+\usepackage{listings}
+\usepackage{xcolor}
+\usepackage{amsthm}
+\usepackage{xspace}
+\usepackage{adjustbox}
+\usepackage{booktabs} 
+\usepackage{array}    
+\usepackage{adjustbox} 
+\usepackage{colortbl}
+
+
+\newtheorem*{noteenv}{Note}
+
+% Optional: Hyperlink setup for colored links
+\hypersetup{
+    colorlinks = true,
+    linkcolor  = blue!50!black,
+    citecolor  = blue!50!black,
+    urlcolor   = blue!80!black
+}
+
+% Configuration pour les listings de code
+\definecolor{codebg}{RGB}{245,245,245}
+\lstset{
+    backgroundcolor=\color{codebg},
+    basicstyle=\ttfamily\small,
+    frame=single,
+    breaklines=true,
+    columns=fullflexible,
+    keywordstyle=\color{blue},
+    commentstyle=\color{gray},
+    stringstyle=\color{orange},
+    showstringspaces=false
+}
+\setstretch{1.15}
+
+%----- TITLE PAGE INFO -----%
+\title{\Huge \textbf{Spanning Tree Protocol (STP) Workbook}\\
+       \Large Fundamentals, Variants, Tuning, and Practical Labs}
+\author{\Large Written for Networking Students and Professionals}
+\date{\today}
+
+\begin{document}
+
+%----- MODERN TITLE PAGE -----%
+\begin{titlepage}
+    \centering
+    \vspace*{4cm}
+    {\Huge \textbf{Multilayer}\par}
+    \vspace{0.8cm}
+    {\Large }
+    \vspace{0.3cm}
+    \rule{0.9\textwidth}{1pt}
+    
+    \vspace{0.6cm}
+    {\large \textbf{Mehdi JAFARI ZADEH}}\par
+    \vspace{0.3cm}
+
+    
+    \vfill
+    \textbf{Date:} \today
+    \vspace{2cm}
+\end{titlepage}
+
+%----- TABLE OF CONTENTS -----%
+\tableofcontents
+\newpage
+
+\chapter{Introduction to Inter-VLAN Routing}
+\section{What is VLAN Segmentation?}
+\section{The Need for Inter-VLAN Routing}
+\section{Comparison of ROAS and Multilayer Switches}
+
+\chapter{Router-on-a-Stick (ROAS) Configuration}
+\section{Understanding Router-on-a-Stick}
+\section{Network Topology for ROAS}
+\section{VLAN and Trunking Configuration on a Switch}
+\section{Configuring Subinterfaces on a Router}
+\section{Verifying and Troubleshooting ROAS}
+
+\chapter{Multilayer Switch (MLS) Configuration}
+\section{Understanding Multilayer Switching}
+\section{Role of Switched Virtual Interfaces (SVIs)}
+\section{Configuring VLANs and Trunking on a Multilayer Switch}
+\section{Enabling IP Routing on a Multilayer Switch}
+\section{Configuring EtherChannel and Routing Protocols}
+\section{Verifying and Troubleshooting a Multilayer Switch}
+
+\chapter{Comparing ROAS and Multilayer Switches}
+\section{Performance and Scalability Comparison}
+\section{When to Use ROAS vs. Multilayer Switches}
+\section{Best Practices in Inter-VLAN Routing}
+
+\part{Exercises and Hands-On Practice}
+
+\chapter{Practical Configuration Exercises for ROAS}
+\section{Basic VLAN and Trunking Configuration}
+\section{Configuring Router Subinterfaces for VLAN Routing}
+\section{Testing and Troubleshooting Inter-VLAN Communication}
+\section{Implementing Access Control Lists (ACLs) in ROAS}
+\section{Configuring DHCP Services on the Router}
+
+\chapter{Practical Configuration Exercises for Multilayer Switches}
+\section{Creating VLANs and Assigning Ports on an MLS}
+\section{Configuring and Verifying Switched Virtual Interfaces (SVIs)}
+\section{Enabling IP Routing on a Multilayer Switch}
+\section{Implementing EtherChannel for Link Aggregation}
+\section{Configuring and Verifying Routing Protocols (OSPF, EIGRP)}
+
+\part{Answer Key and Explanations}
+
+\chapter{Answers to ROAS Exercises}
+\section{VLAN \& Trunking Configuration Answers}
+\section{Router Subinterface Configuration Answers}
+\section{Troubleshooting ROAS Answers}
+\section{ACL and DHCP Configuration Answers}
+
+\chapter{Answers to Multilayer Switch Exercises}
+\section{VLAN and SVI Configuration Answers}
+\section{IP Routing and EtherChannel Answers}
+\section{Routing Protocol Configuration Answers}
+
+\appendix
+\chapter{Cisco IOS Command Reference}
+\chapter{Troubleshooting Common VLAN and Inter-VLAN Issues}
+\chapter{Additional Study Resources and Certification Guide}
+
+\end{document}
