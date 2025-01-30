@@ -21,16 +21,17 @@
 \contentsline {chapter}{\numberline {3}Multilayer Switch (MLS)}{13}{chapter.3}%
 \contentsline {part}{II\hspace {1em}Answer Key and Explanations}{15}{part.2}%
 \contentsline {chapter}{\numberline {4}Router-on-a-Stick (ROAS) - Answers}{17}{chapter.4}%
-\contentsline {chapter}{\numberline {5}Multilayer Switch (MLS) - Answers}{19}{chapter.5}%
-\contentsline {chapter}{\numberline {6}Answers to ROAS Exercises}{21}{chapter.6}%
-\contentsline {section}{\numberline {6.1}VLAN \& Trunking Configuration Answers}{21}{section.6.1}%
-\contentsline {section}{\numberline {6.2}Router Subinterface Configuration Answers}{21}{section.6.2}%
-\contentsline {section}{\numberline {6.3}Troubleshooting ROAS Answers}{21}{section.6.3}%
-\contentsline {section}{\numberline {6.4}ACL and DHCP Configuration Answers}{21}{section.6.4}%
-\contentsline {chapter}{\numberline {7}Answers to Multilayer Switch Exercises}{23}{chapter.7}%
-\contentsline {section}{\numberline {7.1}VLAN and SVI Configuration Answers}{23}{section.7.1}%
-\contentsline {section}{\numberline {7.2}IP Routing and EtherChannel Answers}{23}{section.7.2}%
-\contentsline {section}{\numberline {7.3}Routing Protocol Configuration Answers}{23}{section.7.3}%
-\contentsline {chapter}{\numberline {A}Cisco IOS Command Reference}{25}{appendix.A}%
-\contentsline {chapter}{\numberline {B}Troubleshooting Common VLAN and Inter-VLAN Issues}{27}{appendix.B}%
-\contentsline {chapter}{\numberline {C}Additional Study Resources and Certification Guide}{29}{appendix.C}%
+\contentsline {section}{\numberline {4.1}PC Configuration}{19}{section.4.1}%
+\contentsline {chapter}{\numberline {5}Multilayer Switch (MLS) - Answers}{21}{chapter.5}%
+\contentsline {chapter}{\numberline {6}Answers to ROAS Exercises}{23}{chapter.6}%
+\contentsline {section}{\numberline {6.1}VLAN \& Trunking Configuration Answers}{23}{section.6.1}%
+\contentsline {section}{\numberline {6.2}Router Subinterface Configuration Answers}{23}{section.6.2}%
+\contentsline {section}{\numberline {6.3}Troubleshooting ROAS Answers}{23}{section.6.3}%
+\contentsline {section}{\numberline {6.4}ACL and DHCP Configuration Answers}{23}{section.6.4}%
+\contentsline {chapter}{\numberline {7}Answers to Multilayer Switch Exercises}{25}{chapter.7}%
+\contentsline {section}{\numberline {7.1}VLAN and SVI Configuration Answers}{25}{section.7.1}%
+\contentsline {section}{\numberline {7.2}IP Routing and EtherChannel Answers}{25}{section.7.2}%
+\contentsline {section}{\numberline {7.3}Routing Protocol Configuration Answers}{25}{section.7.3}%
+\contentsline {chapter}{\numberline {A}Cisco IOS Command Reference}{27}{appendix.A}%
+\contentsline {chapter}{\numberline {B}Troubleshooting Common VLAN and Inter-VLAN Issues}{29}{appendix.B}%
+\contentsline {chapter}{\numberline {C}Additional Study Resources and Certification Guide}{31}{appendix.C}%

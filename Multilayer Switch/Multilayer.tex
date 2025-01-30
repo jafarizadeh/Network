@@ -273,86 +273,212 @@ Inter-VLAN routing is essential for modern networks to ensure seamless communica
 \chapter{Router-on-a-Stick (ROAS) - Answers}
 
 \begin{enumerate}
-    \item Configure the \texttt{GigabitEthernet0/0} interface as a trunk.
-    \begin{lstlisting}
-    interface GigabitEthernet0/0
-    no shutdown
-    \end{lstlisting}
-    
-    \item Assign subinterface \texttt{0/0.10} for VLAN 10 with IP \texttt{192.168.10.1/24}.
-    \begin{lstlisting}
-    interface GigabitEthernet0/0.10
-    encapsulation dot1Q 10
-    ip address 192.168.10.1 255.255.255.0
-    \end{lstlisting}
+\item{Configure the \texttt{GigabitEthernet0/0} interface as a trunk}
 
-    \item Assign subinterface \texttt{0/0.20} for VLAN 20 with IP \texttt{192.168.20.1/24}.
-    \begin{lstlisting}
-    interface GigabitEthernet0/0.20
-    encapsulation dot1Q 20
-    ip address 192.168.20.1 255.255.255.0
-    \end{lstlisting}
+\begin{lstlisting}
+Router(config)# interface GigabitEthernet0/0
+Router(config-if)# no shutdown
+Router(config-if)# exit
+\end{lstlisting}
 
-    \item Assign subinterface \texttt{0/0.30} for VLAN 30 with IP \texttt{192.168.30.1/24}.
-    \begin{lstlisting}
-    interface GigabitEthernet0/0.30
-    encapsulation dot1Q 30
-    ip address 192.168.30.1 255.255.255.0
-    \end{lstlisting}
+\item{Assign subinterface \texttt{0/0.10} for VLAN 10 with IP \texttt{192.168.10.1/24}}
 
-    \item Enable IP routing on the router.
-    \begin{lstlisting}
-    ip routing
-    \end{lstlisting}
+\begin{lstlisting}
+Router(config)# interface GigabitEthernet0/0.10
+Router(config-subif)# encapsulation dot1Q 10
+Router(config-subif)# ip address 192.168.10.1 255.255.255.0
+Router(config-subif)# exit
+\end{lstlisting}
 
-    \item Verify VLANs on the switch.
-    \begin{lstlisting}
-    show vlan brief
-    \end{lstlisting}
+\item{Assign subinterface \texttt{0/0.20} for VLAN 20 with IP \texttt{192.168.20.1/24}}
 
-    \item Configure trunking on Switch1 (\texttt{FastEthernet0/1}).
-    \begin{lstlisting}
-    interface FastEthernet0/1
-    switchport mode trunk
-    \end{lstlisting}
+\begin{lstlisting}
+Router(config)# interface GigabitEthernet0/0.20
+Router(config-subif)# encapsulation dot1Q 20
+Router(config-subif)# ip address 192.168.20.1 255.255.255.0
+Router(config-subif)# exit
+\end{lstlisting}
 
-    \item Configure VLANs on the switch.
-    \begin{lstlisting}
-    vlan 10
-    vlan 20
-    vlan 30
-    \end{lstlisting}
+\item{Assign subinterface \texttt{0/0.30} for VLAN 30 with IP \texttt{192.168.30.1/24}}
 
-    \item Assign a PC's gateway.
-    \begin{lstlisting}
-    ip default-gateway 192.168.10.1
-    \end{lstlisting}
+\begin{lstlisting}
+Router(config)# interface GigabitEthernet0/0.30
+Router(config-subif)# encapsulation dot1Q 30
+Router(config-subif)# ip address 192.168.30.1 255.255.255.0
+Router(config-subif)# exit
+\end{lstlisting}
 
-    \item Display the routing table to check inter-VLAN routing.
-    \begin{lstlisting}
-    show ip route
-    \end{lstlisting}
+\item{Enable \texttt{802.1Q} encapsulation on subinterface \texttt{GigabitEthernet0/0.10}}
 
-    \item Save the running configuration.
-    \begin{lstlisting}
-    write memory
-    \end{lstlisting}
+\begin{lstlisting}
+Router(config)# interface GigabitEthernet0/0.10
+Router(config-subif)# encapsulation dot1Q 10
+Router(config-subif)# exit
+\end{lstlisting}
 
-    \item Debug IP routing issues.
-    \begin{lstlisting}
-    debug ip routing
-    \end{lstlisting}
+\item{Enable \texttt{802.1Q} encapsulation on subinterface \texttt{GigabitEthernet0/0.20}}
 
-    \item Remove subinterface for VLAN 30.
-    \begin{lstlisting}
-    no interface GigabitEthernet0/0.30
-    \end{lstlisting}
+\begin{lstlisting}
+Router(config)# interface GigabitEthernet0/0.20
+Router(config-subif)# encapsulation dot1Q 20
+Router(config-subif)# exit
+\end{lstlisting}
 
-    \item Reset the router configuration.
-    \begin{lstlisting}
-    erase startup-config
-    reload
-    \end{lstlisting}
+\item{Enable \texttt{802.1Q} encapsulation on subinterface \texttt{GigabitEthernet0/0.30}}
+
+\begin{lstlisting}
+Router(config)# interface GigabitEthernet0/0.30
+Router(config-subif)# encapsulation dot1Q 30
+Router(config-subif)# exit
+\end{lstlisting}
+
+\item{Enable IP routing on the router}
+
+\begin{lstlisting}
+Router(config)# ip routing
+\end{lstlisting}
+
+\item{Verify VLANs on the switch}
+
+\begin{lstlisting}
+Switch# show vlan brief
+\end{lstlisting}
+
+\item{Configure \texttt{FastEthernet0/1} as a trunk on Switch1.}
+
+\begin{lstlisting}
+Switch1(config)# interface FastEthernet0/1
+Switch1(config-if)# switchport mode trunk
+Switch1(config-if)# exit
+\end{lstlisting}
+
+\item{Configure \texttt{FastEthernet0/1} as a trunk on Switch2.}
+\begin{lstlisting}
+Switch2(config)# interface FastEthernet0/1
+Switch2(config-if)# switchport mode trunk
+Switch2(config-if)# exit
+\end{lstlisting}
+
+\item{Configure \texttt{FastEthernet0/1} as a trunk on Switch3.}
+\begin{lstlisting}
+Switch3(config)# interface FastEthernet0/1
+Switch3(config-if)# switchport mode trunk
+Switch3(config-if)# exit
+\end{lstlisting}
+
+\item{Assign \texttt{FastEthernet0/2} on Switch1 to VLAN 10}
+
+\begin{lstlisting}
+Switch1(config)# interface FastEthernet0/2
+Switch1(config-if)# switchport mode access
+Switch1(config-if)# switchport access vlan 10
+Switch1(config-if)# exit
+\end{lstlisting}
+
+\item{Assign \texttt{FastEthernet0/2} on Switch2 to VLAN 20}
+
+\begin{lstlisting}
+Switch2(config)# interface FastEthernet0/2
+Switch2(config-if)# switchport mode access
+Switch2(config-if)# switchport access vlan 20
+Switch2(config-if)# exit
+\end{lstlisting}
+
+\item{Assign \texttt{FastEthernet0/2} on Switch3 to VLAN 30}
+\begin{lstlisting}
+
+Switch3(config)# interface FastEthernet0/2
+Switch3(config-if)# switchport mode access
+Switch3(config-if)# switchport access vlan 30
+Switch3(config-if)# exit
+\end{lstlisting}
+
+\section{PC Configuration}
+
+\item{Set PC1's gateway to \texttt{192.168.10.1}}
+\item{Set PC2's gateway to \texttt{192.168.20.1}}
+\item{Set PC3's gateway to \texttt{192.168.30.1}}
+
+\begin{lstlisting}
+PC1> ip default-gateway 192.168.10.1
+PC2> ip default-gateway 192.168.20.1
+PC3> ip default-gateway 192.168.30.1
+\end{lstlisting}
+
+\item{Verify \texttt{trunking status} on switches.}
+
+\begin{lstlisting}
+Switch# show interfaces trunk
+\end{lstlisting}
+
+\item{Show current VLAN configuration}
+
+\begin{lstlisting}
+Switch# show vlan brief
+\end{lstlisting}
+
+\item{Display the routing table}
+
+\begin{lstlisting}
+Router# show ip route
+\end{lstlisting}
+
+\item{Show all subinterfaces}
+
+\begin{lstlisting}
+Router# show ip interface brief
+\end{lstlisting}
+
+\item{Check encapsulation settings}
+
+\begin{lstlisting}
+Router# show interfaces GigabitEthernet0/0.10
+Router# show interfaces GigabitEthernet0/0.20
+Router# show interfaces GigabitEthernet0/0.30
+\end{lstlisting}
+
+\item{Verify if PC1 can ping PC2.}
+\item{Verify if PC3 can ping PC1.}
+ 
+\begin{lstlisting}
+PC1> ping 192.168.20.1
+PC3> ping 192.168.10.1
+\end{lstlisting}
+
+\item{Save the running configuration}
+
+\begin{lstlisting}
+Router# write memory
+Switch# write memory
+\end{lstlisting}
+
+\item{Debug IP routing issues}
+
+\begin{lstlisting}
+Router# debug ip routing
+\end{lstlisting}
+
+\item{Remove subinterface 0/0.30}
+
+\begin{lstlisting}
+Router(config)# no interface GigabitEthernet0/0.30
+\end{lstlisting}
+
+\item{Disable trunk link on Switch1}
+
+\begin{lstlisting}
+Switch1(config)# interface FastEthernet0/1
+Switch1(config-if)# switchport mode access
+Switch1(config-if)# exit
+\end{lstlisting}
+
+\item{Reset the router configuration}
+
+\begin{lstlisting}
+Router# write erase
+Router# reload
+\end{lstlisting}
+
 \end{enumerate}
 
 \newpage
