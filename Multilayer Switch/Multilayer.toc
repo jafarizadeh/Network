@@ -21,7 +21,6 @@
 \contentsline {chapter}{\numberline {3}Multilayer Switch (MLS)}{13}{chapter.3}%
 \contentsline {part}{II\hspace {1em}Answer Key and Explanations}{15}{part.2}%
 \contentsline {chapter}{\numberline {4}Router-on-a-Stick (ROAS) - Answers}{17}{chapter.4}%
-\contentsline {section}{\numberline {4.1}PC Configuration}{19}{section.4.1}%
 \contentsline {chapter}{\numberline {5}Multilayer Switch (MLS) - Answers}{21}{chapter.5}%
 \contentsline {chapter}{\numberline {6}Answers to ROAS Exercises}{23}{chapter.6}%
 \contentsline {section}{\numberline {6.1}VLAN \& Trunking Configuration Answers}{23}{section.6.1}%

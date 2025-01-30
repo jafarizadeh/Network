@@ -202,20 +202,12 @@ Inter-VLAN routing is essential for modern networks to ensure seamless communica
     \item Assign subinterface \texttt{0/0.10} for VLAN 10 with IP \texttt{192.168.10.1/24}.
     \item Assign subinterface \texttt{0/0.20} for VLAN 20 with IP \texttt{192.168.20.1/24}.
     \item Assign subinterface \texttt{0/0.30} for VLAN 30 with IP \texttt{192.168.30.1/24}.
-    \item Enable 802.1Q encapsulation on subinterface \texttt{GigabitEthernet0/0.10}.
-    \item Enable 802.1Q encapsulation on subinterface \texttt{GigabitEthernet0/0.20}.
-    \item Enable 802.1Q encapsulation on subinterface \texttt{GigabitEthernet0/0.30}.
-    \item Enable IP routing on the router.
-    \item Verify VLANs on the switch.
     \item Configure \texttt{FastEthernet0/1} as a trunk on Switch1.
     \item Configure \texttt{FastEthernet0/1} as a trunk on Switch2.
     \item Configure \texttt{FastEthernet0/1} as a trunk on Switch3.
     \item Assign \texttt{FastEthernet0/2} on Switch1 to VLAN 10.
     \item Assign \texttt{FastEthernet0/2} on Switch2 to VLAN 20.
     \item Assign \texttt{FastEthernet0/2} on Switch3 to VLAN 30.
-    \item Set PC1's gateway to \texttt{192.168.10.1}.
-    \item Set PC2's gateway to \texttt{192.168.20.1}.
-    \item Set PC3's gateway to \texttt{192.168.30.1}.
     \item Verify trunking status on switches.
     \item Show the current VLAN configuration.
     \item Display the routing table to check inter-VLAN routing.
@@ -308,41 +300,7 @@ Router(config-subif)# ip address 192.168.30.1 255.255.255.0
 Router(config-subif)# exit
 \end{lstlisting}
 
-\item{Enable \texttt{802.1Q} encapsulation on subinterface \texttt{GigabitEthernet0/0.10}}
 
-\begin{lstlisting}
-Router(config)# interface GigabitEthernet0/0.10
-Router(config-subif)# encapsulation dot1Q 10
-Router(config-subif)# exit
-\end{lstlisting}
-
-\item{Enable \texttt{802.1Q} encapsulation on subinterface \texttt{GigabitEthernet0/0.20}}
-
-\begin{lstlisting}
-Router(config)# interface GigabitEthernet0/0.20
-Router(config-subif)# encapsulation dot1Q 20
-Router(config-subif)# exit
-\end{lstlisting}
-
-\item{Enable \texttt{802.1Q} encapsulation on subinterface \texttt{GigabitEthernet0/0.30}}
-
-\begin{lstlisting}
-Router(config)# interface GigabitEthernet0/0.30
-Router(config-subif)# encapsulation dot1Q 30
-Router(config-subif)# exit
-\end{lstlisting}
-
-\item{Enable IP routing on the router}
-
-\begin{lstlisting}
-Router(config)# ip routing
-\end{lstlisting}
-
-\item{Verify VLANs on the switch}
-
-\begin{lstlisting}
-Switch# show vlan brief
-\end{lstlisting}
 
 \item{Configure \texttt{FastEthernet0/1} as a trunk on Switch1.}
 
@@ -393,17 +351,6 @@ Switch3(config-if)# switchport access vlan 30
 Switch3(config-if)# exit
 \end{lstlisting}
 
-\section{PC Configuration}
-
-\item{Set PC1's gateway to \texttt{192.168.10.1}}
-\item{Set PC2's gateway to \texttt{192.168.20.1}}
-\item{Set PC3's gateway to \texttt{192.168.30.1}}
-
-\begin{lstlisting}
-PC1> ip default-gateway 192.168.10.1
-PC2> ip default-gateway 192.168.20.1
-PC3> ip default-gateway 192.168.30.1
-\end{lstlisting}
 
 \item{Verify \texttt{trunking status} on switches.}
 
