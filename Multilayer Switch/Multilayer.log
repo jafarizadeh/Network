@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (MiKTeX 24.1) (preloaded format=pdflatex 2024.8.31)  30 JAN 2025 16:35
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (MiKTeX 24.1) (preloaded format=pdflatex 2024.8.31)  31 JAN 2025 12:38
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -478,18 +478,18 @@ File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 LaTeX Font Info:    Trying to load font information for U+msb on input line 2.
  (C:\Users\Lord\AppData\Local\Programs\MiKTeX\tex/latex/amsfonts\umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
-) [3])
+))
 \tf@toc=\write4
 \openout4 = `Multilayer.toc'.
 
- [4]
+ [3] [4
+
+]
 Chapter 1.
 LaTeX Font Info:    Trying to load font information for T1+cmtt on input line 92.
 (C:\Users\Lord\AppData\Local\Programs\MiKTeX\tex/latex/base\t1cmtt.fd
 File: t1cmtt.fd 2023/04/13 v2.5m Standard LaTeX font definitions
-) [5
-
-]
+) [5]
 Overfull \hbox (4.6684pt too wide) has occurred while \output is active
 \T1/cmr/m/n/10 6 \T1/cmr/m/sl/10 CHAPTER 1.  TUTORIAL: INTER-VLAN ROUTING WITH ROAS AND MULTILAYER SWITCHES
  []
@@ -509,9 +509,9 @@ Chapter 2.
 
 ]
 Chapter 3.
-[13] [14] [15
+[13] [14
 
-] [16]
+] [15] [16]
 Chapter 4.
 [17
 
@@ -520,45 +520,50 @@ Chapter 4.
 ]
 Chapter 5.
 [21] [22]
-Chapter 6.
-[23
+Underfull \hbox (badness 10000) in paragraph at lines 526--530
 
-] [24
+ []
 
-]
-Chapter 7.
-[25] [26
 
-]
-Appendix A.
-[27] [28
+Underfull \hbox (badness 10000) in paragraph at lines 535--539
 
-]
-Appendix B.
-[29] [30
+ []
 
-]
-Appendix C.
-[31] (Multilayer.aux)
+
+Underfull \hbox (badness 10000) in paragraph at lines 555--559
+
+ []
+
+
+Overfull \hbox (33.53912pt too wide) in paragraph at lines 555--559
+\T1/cmr/m/n/10 From \T1/cmr/bx/n/10 PC1 (VLAN 30, IP: 192.168.30.10)\T1/cmr/m/n/10 , test con-nec-tiv-ity to \T1/cmr/bx/n/10 PC2 (VLAN 10, IP: 192.168.10.10)\T1/cmr/m/n/10 : 
+ []
+
+
+Overfull \hbox (33.53912pt too wide) in paragraph at lines 563--564
+[]\T1/cmr/m/n/10 From \T1/cmr/bx/n/10 PC4 (VLAN 20, IP: 192.168.20.10)\T1/cmr/m/n/10 , test con-nec-tiv-ity to \T1/cmr/bx/n/10 PC5 (VLAN 30, IP: 192.168.30.10)\T1/cmr/m/n/10 : 
+ []
+
+[23] (Multilayer.aux)
  ***********
 LaTeX2e <2023-11-01> patch level 1
 L3 programming layer <2024-01-04>
  ***********
 Package rerunfilecheck Info: File `Multilayer.out' has not changed.
-(rerunfilecheck)             Checksum: E4EA2724FC452B46E8170C5C7B2A8ABF;6702.
+(rerunfilecheck)             Checksum: 07C7B4523B512B97CB6918A515E322AF;3749.
  ) 
 Here is how much of TeX's memory you used:
  14297 strings out of 474486
- 217979 string characters out of 5744227
+ 218320 string characters out of 5744227
  2109542 words of memory out of 5000000
- 36066 multiletter control sequences out of 15000+600000
- 570031 words of font info for 59 fonts, out of 8000000 for 9000
+ 36055 multiletter control sequences out of 15000+600000
+ 570717 words of font info for 60 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  86i,9n,93p,597b,2052s stack positions out of 10000i,1000n,20000p,200000b,200000s
- <C:\Users\Lord\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ectt1000.pk> <C:\Users\Lord\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\tcrm1000.pk> <C:\Users\Lord\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ectt0900.pk> <C:\Users\Lord\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecbx1440.pk> <C:\Users\Lord\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecbx2074.pk> <C:\Users\Lord\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecsl1000.pk> <C:\Users\Lord\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecrm1000.pk> <C:\Users\Lord\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecbx1000.pk> <C:\Users\Lord\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecbx1200.pk> <C:\Users\Lord\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecbx2488.pk>
-Output written on Multilayer.pdf (31 pages, 232370 bytes).
+ <C:\Users\Lord\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecti1000.pk> <C:\Users\Lord\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ectt1000.pk> <C:\Users\Lord\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\tcrm1000.pk> <C:\Users\Lord\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ectt0900.pk> <C:\Users\Lord\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecbx1440.pk> <C:\Users\Lord\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecbx2074.pk> <C:\Users\Lord\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecsl1000.pk> <C:\Users\Lord\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecrm1000.pk> <C:\Users\Lord\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecbx1000.pk> <C:\Users\Lord\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecbx1200.pk> <C:\Users\Lord\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecbx2488.pk><C:/Users/Lord/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/symbols/msam10.pfb>
+Output written on Multilayer.pdf (23 pages, 235230 bytes).
 PDF statistics:
- 1035 PDF objects out of 1200 (max. 8388607)
- 309 named destinations out of 1000 (max. 500000)
- 257 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 991 PDF objects out of 1000 (max. 8388607)
+ 319 named destinations out of 1000 (max. 500000)
+ 161 words of extra memory for PDF output out of 10000 (max. 10000000)
 

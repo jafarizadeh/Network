@@ -227,36 +227,18 @@ Inter-VLAN routing is essential for modern networks to ensure seamless communica
 \chapter{Multilayer Switch (MLS)}
 
 \begin{enumerate}
-    \item Enable IP routing on the multilayer switch.
-    \item Create VLAN 10 on the switch.
-    \item Create VLAN 20 on the switch.
-    \item Create VLAN 30 on the switch.
-    \item Assign \texttt{interface VLAN 10} an IP address \texttt{192.168.10.1/24}.
-    \item Assign \texttt{interface VLAN 20} an IP address \texttt{192.168.20.1/24}.
-    \item Assign \texttt{interface VLAN 30} an IP address \texttt{192.168.30.1/24}.
-    \item Assign \texttt{interface FastEthernet0/1} to VLAN 10.
-    \item Assign \texttt{interface FastEthernet0/2} to VLAN 20.
-    \item Assign \texttt{interface FastEthernet0/3} to VLAN 30.
-    \item Configure trunking on \texttt{FastEthernet0/24}.
-    \item Allow VLAN 10, 20, and 30 on trunk \texttt{FastEthernet0/24}.
-    \item Set \texttt{FastEthernet0/24} as a dynamic desirable trunk.
-    \item Assign PC1's default gateway to \texttt{192.168.10.1}.
-    \item Assign PC2's default gateway to \texttt{192.168.20.1}.
-    \item Assign PC3's default gateway to \texttt{192.168.30.1}.
-    \item Verify VLAN assignments on the switch.
-    \item Display trunk ports status.
-    \item Show the switch routing table.
-    \item Enable HSRP (Hot Standby Router Protocol) for VLAN 10.
-    \item Enable HSRP for VLAN 20.
-    \item Enable HSRP for VLAN 30.
-    \item Configure SVI (Switched Virtual Interface) for VLAN 10.
-    \item Configure SVI for VLAN 20.
-    \item Configure SVI for VLAN 30.
-    \item Show all SVI interfaces.
-    \item Verify if PC1 can ping PC2.
-    \item Verify if PC3 can ping PC1.
-    \item Debug SVI connectivity issues.
-    \item Reset the multilayer switch configuration.
+    \item Create VLAN 10, 20, and 30 on a multilayer switch
+    \item Set interface range \texttt{FastEthernet0/1 - 0/2} as trunk ports on multilayer switch.
+    \item Verify VLAN configurations on the multilayer switch.
+    \item Show the trunking status of all interfaces on multilayer switch.
+    \item Set the \texttt{Fa0/3} link on switches 1, 2, and 3 to trunk mode.
+    \item Set the \texttt{Fa0/1} link on Switch 1 to connect PC1 in VLAN 30 and the \texttt{Fa0/2} link to connect PC2 in VLAN 10.
+    \item Set the \texttt{Fa0/1} link on Switch 2 to connect PC3 in VLAN 10 and the \texttt{Fa0/2} link to connect PC4 in VLAN 20.
+    \item Set the \texttt{Fa0/1} link on Switch 3 to connect PC5 in VLAN 30 and the \texttt{Fa0/2} link to connect PC6 in VLAN 20.
+    \item Configure the gateway addresses on the multilayer switch (SVI interfaces for VLANs).
+    \item Perform an inter-VLAN connectivity test using the ping command.
+
+    
 \end{enumerate}
 
 \part{Answer Key and Explanations}
@@ -433,100 +415,168 @@ Router# reload
 \chapter{Multilayer Switch (MLS) - Answers}
 
 \begin{enumerate}
-    \item Enable IP routing on the multilayer switch.
+    \item Create VLAN 10, 20, and 30 on a multilayer switch.
     \begin{lstlisting}
-    ip routing
-    \end{lstlisting}
-
-    \item Create VLAN 10 on the switch.
-    \begin{lstlisting}
+    configure terminal
     vlan 10
+    vlan 20
+    vlan 30
+    exit
     \end{lstlisting}
 
-    \item Assign \texttt{interface VLAN 10} an IP address \texttt{192.168.10.1/24}.
+    \item Set interface range \texttt{FastEthernet0/1 - 0/2} as trunk ports on multilayer switch.
     \begin{lstlisting}
-    interface vlan 10
-    ip address 192.168.10.1 255.255.255.0
-    no shutdown
-    \end{lstlisting}
-
-    \item Assign FastEthernet0/1 to VLAN 10.
-    \begin{lstlisting}
-    interface FastEthernet0/1
-    switchport mode access
-    switchport access vlan 10
-    \end{lstlisting}
-
-    \item Configure trunking on \texttt{FastEthernet0/24}.
-    \begin{lstlisting}
-    interface FastEthernet0/24
+    configure terminal
+    interface range FastEthernet0/1 - 2
     switchport mode trunk
-    switchport trunk allowed vlan 10,20,30
+    exit
     \end{lstlisting}
-
-    \item Set PC1's default gateway.
-    \begin{lstlisting}
-    ip default-gateway 192.168.10.1
-    \end{lstlisting}
-
-    \item Show VLAN assignments.
+    \item Verify VLAN configurations on the multilayer switch.
     \begin{lstlisting}
     show vlan brief
     \end{lstlisting}
 
-    \item Show the switch routing table.
+    \item Show the trunking status of all interfaces on multilayer switch.
     \begin{lstlisting}
-    show ip route
+    show interfaces trunk
+    \end{lstlisting}
+    \item Set the \texttt{Fa0/3} link on switches 1, 2, and 3 to trunk mode.
+    For Switch 1:
+    \begin{lstlisting}
+    configure terminal
+    interface FastEthernet0/3
+    switchport mode trunk
+    exit
     \end{lstlisting}
 
-    \item Enable HSRP for VLAN 10.
+    For Switch 2:
     \begin{lstlisting}
-    interface vlan 10
-    standby 1 ip 192.168.10.254
+    configure terminal
+    interface FastEthernet0/3
+    switchport mode trunk
+    exit
     \end{lstlisting}
 
-    \item Configure Switched Virtual Interface (SVI) for VLAN 20.
+    For Switch 3:
     \begin{lstlisting}
-    interface vlan 20
-    ip address 192.168.20.1 255.255.255.0
+    configure terminal
+    interface FastEthernet0/3
+    switchport mode trunk
+    exit
+    \end{lstlisting}
+    \item Set the \texttt{Fa0/1} link on Switch 1 to connect PC1 in VLAN 30 and the \texttt{Fa0/2} link to connect PC2 in VLAN 10.
+    \begin{lstlisting}
+    configure terminal
+    interface FastEthernet0/1
+    switchport mode access
+    switchport access vlan 30
+    exit
+    
+    interface FastEthernet0/2
+    switchport mode access
+    switchport access vlan 10
+    exit
+    \end{lstlisting}
+    \item Set the \texttt{Fa0/1} link on Switch 2 to connect PC3 in VLAN 10 and the \texttt{Fa0/2} link to connect PC4 in VLAN 20.
+    \begin{lstlisting}
+    configure terminal
+    interface FastEthernet0/1
+    switchport mode access
+    switchport access vlan 10
+    exit
+
+    interface FastEthernet0/2
+    switchport mode access
+    switchport access vlan 20
+    exit
+    \end{lstlisting}
+    \item Set the \texttt{Fa0/1} link on Switch 3 to connect PC5 in VLAN 30 and the \texttt{Fa0/2} link to connect PC6 in VLAN 20.
+    \begin{lstlisting}
+    configure terminal
+    interface FastEthernet0/1
+    switchport mode access
+    switchport access vlan 30
+    exit
+        
+    interface FastEthernet0/2
+    switchport mode access
+    switchport access vlan 20
+    exit
+    \end{lstlisting}
+    \item Configure the gateway addresses on the multilayer switch (SVI interfaces for VLANs).
+    \begin{lstlisting}
+    configure terminal
+    interface Vlan10
+    ip address 192.168.10.3 255.255.255.0
     no shutdown
+    exit
+        
+    interface Vlan20
+    ip address 192.168.20.3 255.255.255.0
+    no shutdown
+    exit
+        
+    interface Vlan30
+    ip address 192.168.30.3 255.255.255.0
+    no shutdown
+    exit
     \end{lstlisting}
-
-    \item Show all SVI interfaces.
+    \item Perform an inter-VLAN connectivity test using the ping command.
+    
+    \textit{Step 1: Verify VLAN Interface Status}
+    \newline
+    \newline
+    First, check if the VLAN interfaces (SVIs) are active:
     \begin{lstlisting}
     show ip interface brief
     \end{lstlisting}
-
-    \item Verify connectivity between VLANs using ping.
+    Ensure that the VLAN interfaces (\texttt{Vlan10, Vlan20, Vlan30}) have assigned IP addresses and are \textbf{up}.
+    
+    \textit{Step 2: Ping Between VLANs}
+    \newline
+    \newline
+    Run the following ping tests from the Multilayer Switch:
+    
+    Ping from VLAN 10 (\texttt{192.168.10.3}) to VLAN 20 (\texttt{192.168.20.3})
     \begin{lstlisting}
-    ping 192.168.20.1
+    ping 192.168.20.3
     \end{lstlisting}
-
-    \item Debug SVI connectivity issues.
+    
+    Ping from VLAN 10 (\texttt{192.168.10.3}) to VLAN 30 (\texttt{192.168.30.3})
     \begin{lstlisting}
-    debug ip routing
+    ping 192.168.30.3
     \end{lstlisting}
-
-    \item Reset the multilayer switch configuration.
+    
+    Ping from VLAN 20 (\texttt{192.168.20.3}) to VLAN 30 (\texttt{192.168.30.3})
     \begin{lstlisting}
-    erase startup-config
-    reload
+    ping 192.168.30.3
     \end{lstlisting}
+    
+    \textit{Step 3: Ping from a PC}
+    \newline
+    \newline
+    From \textbf{PC1 (VLAN 30, IP: 192.168.30.10)}, test connectivity to \textbf{PC2 (VLAN 10, IP: 192.168.10.10)}:
+    \begin{lstlisting}
+    ping 192.168.10.10
+    \end{lstlisting}
+    
+    From \textbf{PC4 (VLAN 20, IP: 192.168.20.10)}, test connectivity to \textbf{PC5 (VLAN 30, IP: 192.168.30.10)}:
+    \begin{lstlisting}
+    ping 192.168.30.10
+    \end{lstlisting}
+    
+    \section*{Expected Output}
+    If inter-VLAN routing is \textbf{correctly configured}, the \texttt{ping} should be successful. If there is an issue, check:
+    \begin{itemize}
+        \item \textbf{SVI configurations} (\texttt{show run})
+        \item \textbf{Routing status} (\texttt{show ip route})
+        \item \textbf{Trunk links between switches} (\texttt{show interfaces trunk})
+    \end{itemize}
+    
+    \textbf{\checkmark This confirms that inter-VLAN communication is working properly!}
+    
+
+
 \end{enumerate}
-\chapter{Answers to ROAS Exercises}
-\section{VLAN \& Trunking Configuration Answers}
-\section{Router Subinterface Configuration Answers}
-\section{Troubleshooting ROAS Answers}
-\section{ACL and DHCP Configuration Answers}
-
-\chapter{Answers to Multilayer Switch Exercises}
-\section{VLAN and SVI Configuration Answers}
-\section{IP Routing and EtherChannel Answers}
-\section{Routing Protocol Configuration Answers}
-
-\appendix
-\chapter{Cisco IOS Command Reference}
-\chapter{Troubleshooting Common VLAN and Inter-VLAN Issues}
-\chapter{Additional Study Resources and Certification Guide}
 
 \end{document}
