@@ -2,7 +2,7 @@
 \usepackage[margin=1in]{geometry}
 \usepackage[T1]{fontenc}
 \usepackage[utf8]{inputenc}
-\usepackage{hyperref}
+\usepackage[hidelinks]{hyperref}
 \usepackage{amsmath}
 \usepackage{amssymb}
 \usepackage{enumerate}
@@ -14,19 +14,11 @@
 \usepackage{adjustbox}
 \usepackage{booktabs} 
 \usepackage{array}    
+\usepackage{adjustbox} 
 \usepackage{colortbl}
+\usepackage{graphicx}
 
-\newtheorem*{noteenv}{Note}
-
-% Hyperlink setup for colored links
-\hypersetup{
-    colorlinks = true,
-    linkcolor  = blue!50!black,
-    citecolor  = blue!50!black,
-    urlcolor   = blue!80!black
-}
-
-% Configuration for code listings
+% Configuration pour les listings de code
 \definecolor{codebg}{RGB}{245,245,245}
 \lstset{
     backgroundcolor=\color{codebg},
@@ -41,33 +33,36 @@
 }
 \setstretch{1.15}
 
-% Title Page Info
-\title{\Huge \textbf{Spanning Tree Protocol (STP) Workbook}\\
-       \Large Fundamentals, Variants, Tuning, and Practical Labs}
+%----- TITLE PAGE INFO -----%
+
+\title{\Huge \textbf{Multilayer Switch (MLS) Workbook}\\
+       \Large VLANs, Inter-VLAN Routing, and Troubleshooting}
 \author{\Large Written for Networking Students and Professionals}
 \date{\today}
 
 \begin{document}
 
-% Title Page
+%----- MODERN TITLE PAGE -----%
+
 \begin{titlepage}
     \centering
+
     \vspace*{4cm}
-    {\Huge \textbf{Multilayer}\par}
+    {\Huge \textbf{Multilayer Switch (MLS) Workbook}\par}
     \vspace{0.8cm}
-    
+    {\Large A Hands-On Guide to VLAN Configuration, Inter-VLAN Routing, and Troubleshooting\par}
+    \vspace{0.3cm}
     \rule{0.9\textwidth}{1pt}
     
     \vspace{0.6cm}
     {\large \textbf{Mehdi JAFARI ZADEH}}\par
     \vspace{0.3cm}
-    
+
     \vfill
     \textbf{Date:} \today
     \vspace{2cm}
 \end{titlepage}
 
-% Table of Contents
 \tableofcontents
 \newpage
 
@@ -192,8 +187,31 @@ For small networks with limited VLANs, ROAS is a cost-effective solution. For la
 \section{Conclusion}
 Inter-VLAN routing is essential for modern networks to ensure seamless communication between VLANs. While ROAS is a simple and cost-effective solution, MLS offers improved performance and scalability. Choosing the right method depends on network size, traffic load, and budget considerations. Implementing the correct inter-VLAN routing solution ensures an efficient, high-performing, and well-segmented network infrastructure.
 
-
 \part{Exercises and Hands-On Practice}
+
+\chapter{Network Topology for Router-on-a-Stick (ROAS)}
+
+\section{Network Topology}
+The topology below represents a \textbf{Router-on-a-Stick (ROAS) network}, where a \textbf{single router} is responsible for \textbf{inter-VLAN routing} using \textbf{subinterfaces}.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.9\textwidth]{ROAS.jpg}
+    \caption{\textit{Network topology created using the Packet Tracer Simulator.}}
+
+    \label{fig:packet_tracer_topology}
+\end{figure}
+\vspace{1cm}
+
+\section{Scenario}
+\begin{itemize}
+    \item \textbf{A router} is connected to three \textbf{Layer 2 switches} using a \textbf{trunk link}.
+    \item Each PC is assigned to a specific \textbf{VLAN (10, 20, or 30)}.
+    \item The \textbf{router performs inter-VLAN routing} using \textbf{subinterfaces}.
+    \item Each VLAN has a corresponding \textbf{default gateway} assigned on the router.
+\end{itemize}
+
+
 
 \chapter{Router-on-a-Stick (ROAS)}
 
@@ -223,6 +241,28 @@ Inter-VLAN routing is essential for modern networks to ensure seamless communica
 \end{enumerate}
 
 \newpage
+
+\chapter{Network Topology for Multilayer Switch (MLS)}
+
+\section{Network Topology}
+The topology below shows a \textbf{Multilayer Switch (MLS) network} where multiple VLANs are implemented. The goal of this workbook is to configure the \textbf{Layer 3 switch} for inter-VLAN routing and ensure successful communication between VLANs.
+
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.9\textwidth]{MLS.jpg}
+    \caption{\textit{Network topology created using the Packet Tracer Simulator.}}
+
+    \label{fig:packet_tracer_topology}
+\end{figure}
+
+
+\section{Scenario}
+\begin{itemize}
+    \item This network consists of \textbf{three access switches}, \textbf{one multilayer switch}, and \textbf{six PCs}.
+    \item Each PC is assigned to a specific \textbf{VLAN (10, 20, or 30)}.
+    \item The \textbf{multilayer switch} will perform \textbf{inter-VLAN routing} using \textbf{SVI (Switched Virtual Interfaces)}.
+\end{itemize}
 
 \chapter{Multilayer Switch (MLS)}
 

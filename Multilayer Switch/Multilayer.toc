@@ -17,8 +17,14 @@
 \contentsline {section}{\numberline {1.4}Choosing Between ROAS and MLS}{7}{section.1.4}%
 \contentsline {section}{\numberline {1.5}Conclusion}{7}{section.1.5}%
 \contentsline {part}{I\hspace {1em}Exercises and Hands-On Practice}{9}{part.1}%
-\contentsline {chapter}{\numberline {2}Router-on-a-Stick (ROAS)}{11}{chapter.2}%
-\contentsline {chapter}{\numberline {3}Multilayer Switch (MLS)}{13}{chapter.3}%
-\contentsline {part}{II\hspace {1em}Answer Key and Explanations}{15}{part.2}%
-\contentsline {chapter}{\numberline {4}Router-on-a-Stick (ROAS) - Answers}{17}{chapter.4}%
-\contentsline {chapter}{\numberline {5}Multilayer Switch (MLS) - Answers}{21}{chapter.5}%
+\contentsline {chapter}{\numberline {2}Network Topology for Router-on-a-Stick (ROAS)}{11}{chapter.2}%
+\contentsline {section}{\numberline {2.1}Network Topology}{11}{section.2.1}%
+\contentsline {section}{\numberline {2.2}Scenario}{11}{section.2.2}%
+\contentsline {chapter}{\numberline {3}Router-on-a-Stick (ROAS)}{13}{chapter.3}%
+\contentsline {chapter}{\numberline {4}Network Topology for Multilayer Switch (MLS)}{15}{chapter.4}%
+\contentsline {section}{\numberline {4.1}Network Topology}{15}{section.4.1}%
+\contentsline {section}{\numberline {4.2}Scenario}{15}{section.4.2}%
+\contentsline {chapter}{\numberline {5}Multilayer Switch (MLS)}{17}{chapter.5}%
+\contentsline {part}{II\hspace {1em}Answer Key and Explanations}{19}{part.2}%
+\contentsline {chapter}{\numberline {6}Router-on-a-Stick (ROAS) - Answers}{21}{chapter.6}%
+\contentsline {chapter}{\numberline {7}Multilayer Switch (MLS) - Answers}{25}{chapter.7}%
