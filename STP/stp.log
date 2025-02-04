@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (MiKTeX 24.1) (preloaded format=pdflatex 2024.8.31)  4 FEB 2025 17:18
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (MiKTeX 24.1) (preloaded format=pdflatex 2024.8.31)  5 FEB 2025 00:16
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -379,31 +379,54 @@ Package: colortbl 2024/07/06 v1.0i Color table columns (DPC)
 \everycr=\toks37
 \minrowclearance=\skip59
 \rownum=\count304
-) (C:\Users\Lord\AppData\Local\Programs\MiKTeX\tex/latex/l3backend\l3backend-pdftex.def
+) (C:\Users\Lord\AppData\Local\Programs\MiKTeX\tex/latex/ocgx2\ocgx2.sty
+Package: ocgx2 2024/09/16 v0.60 ports `ocgx' functionality to dvips+ps2pdf, xelatex and dvipdfmx
+ (C:\Users\Lord\AppData\Local\Programs\MiKTeX\tex/latex/ocgx2\ocgbase.sty
+Package: ocgbase 2024/09/15 v0.24 support package for ocgx2.sty
+ (C:\Users\Lord\AppData\Local\Programs\MiKTeX\tex/latex/media9\pdfbase.sty
+Package: pdfbase 2024/09/16 v0.59 driver independent access to low-level PDF features
+ (C:\Users\Lord\AppData\Local\Programs\MiKTeX\tex/latex/l3backend\l3backend-pdftex.def
 File: l3backend-pdftex.def 2024-01-04 L3 backend support: PDF output (pdfTeX)
 \l__color_backend_stack_int=\count305
 \l__pdf_internal_box=\box59
-) (stp.aux)
+)
+\g_pbs_page_int=\count306
+\g_pbs_oc_int=\count307
+))
+\l_ocgxii_vp_cnt_int=\count308
+\l_ocgxii_ve_cnt_int=\count309
+\g_ocgxii_page_int=\count310
+\g_ocgxii_widcount_int=\count311
+) (C:\Users\Lord\AppData\Local\Programs\MiKTeX\tex/latex/lipsum\lipsum.sty (C:\Users\Lord\AppData\Local\Programs\MiKTeX\tex/latex/l3packages/l3keys2e\l3keys2e.sty (C:\Users\Lord\AppData\Local\Programs\MiKTeX\tex/latex/l3kernel\expl3.sty
+Package: expl3 2024-01-04 L3 programming layer (loader) 
+)
+Package: l3keys2e 2023-10-10 LaTeX2e option processing using LaTeX3 keys
+)
+Package: lipsum 2021-09-20 v2.7 150 paragraphs of Lorem Ipsum dummy text
+\g__lipsum_par_int=\count312
+\l__lipsum_a_int=\count313
+\l__lipsum_b_int=\count314
+ (C:\Users\Lord\AppData\Local\Programs\MiKTeX\tex/latex/lipsum\lipsum.ltd.tex)) (stp.aux)
 \openout1 = `stp.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 43.
-LaTeX Font Info:    ... okay on input line 43.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 43.
-LaTeX Font Info:    ... okay on input line 43.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 43.
-LaTeX Font Info:    ... okay on input line 43.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 43.
-LaTeX Font Info:    ... okay on input line 43.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 43.
-LaTeX Font Info:    ... okay on input line 43.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 43.
-LaTeX Font Info:    ... okay on input line 43.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 43.
-LaTeX Font Info:    ... okay on input line 43.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 43.
-LaTeX Font Info:    ... okay on input line 43.
-LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 43.
-LaTeX Font Info:    ... okay on input line 43.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 45.
+LaTeX Font Info:    ... okay on input line 45.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 45.
+LaTeX Font Info:    ... okay on input line 45.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 45.
+LaTeX Font Info:    ... okay on input line 45.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 45.
+LaTeX Font Info:    ... okay on input line 45.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 45.
+LaTeX Font Info:    ... okay on input line 45.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 45.
+LaTeX Font Info:    ... okay on input line 45.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 45.
+LaTeX Font Info:    ... okay on input line 45.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 45.
+LaTeX Font Info:    ... okay on input line 45.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 45.
+LaTeX Font Info:    ... okay on input line 45.
 
 *geometry* driver: auto-detecting
 *geometry* detected driver: pdftex
@@ -439,24 +462,24 @@ LaTeX Font Info:    ... okay on input line 43.
 * \@reversemarginfalse
 * (1in=72.27pt=25.4mm, 1cm=28.453pt)
 
-Package hyperref Info: Link coloring OFF on input line 43.
+Package hyperref Info: Link coloring OFF on input line 45.
 (stp.out) (stp.out)
 \@outlinefile=\write3
 \openout3 = `stp.out'.
 
-\c@lstlisting=\count306
+\c@lstlisting=\count315
  (C:\Users\Lord\AppData\Local\Programs\MiKTeX\tex/context/base/mkii\supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count307
+\scratchcounter=\count316
 \scratchdimen=\dimen197
 \scratchbox=\box60
-\nofMPsegments=\count308
-\nofMParguments=\count309
+\nofMPsegments=\count317
+\nofMParguments=\count318
 \everyMPshowfont=\toks38
-\MPscratchCnt=\count310
+\MPscratchCnt=\count319
 \MPscratchDim=\dimen198
-\MPnumerator=\count311
-\makeMPintoPDFobject=\count312
+\MPnumerator=\count320
+\makeMPintoPDFobject=\count321
 \everyMPtoPDFconversion=\toks39
 ) (C:\Users\Lord\AppData\Local\Programs\MiKTeX\tex/latex/epstopdf-pkg\epstopdf-base.sty
 Package: epstopdf-base 2020-01-24 v2.11 Base part for package epstopdf
@@ -476,46 +499,46 @@ File: epstopdf-sys.cfg 2021/03/18 v2.0 Configuration of epstopdf for MiKTeX
 
 ]
 Chapter 1.
-<img/stp01.png, id=42, 511.9125pt x 461.725pt>
+<img/stp01.png, id=53, 511.9125pt x 461.725pt>
 File: img/stp01.png Graphic file (type png)
 <use img/stp01.png>
-Package pdftex.def Info: img/stp01.png  used on input line 87.
+Package pdftex.def Info: img/stp01.png  used on input line 89.
 (pdftex.def)             Requested size: 407.66833pt x 367.7037pt.
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-LaTeX Font Info:    Trying to load font information for U+msa on input line 98.
+LaTeX Font Info:    Trying to load font information for U+msa on input line 100.
 (C:\Users\Lord\AppData\Local\Programs\MiKTeX\tex/latex/amsfonts\umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Trying to load font information for U+msb on input line 98.
+LaTeX Font Info:    Trying to load font information for U+msb on input line 100.
  (C:\Users\Lord\AppData\Local\Programs\MiKTeX\tex/latex/amsfonts\umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 ) [5] [6 <./img/stp01.png>]
-<img/stp02.png, id=71, 511.9125pt x 461.725pt>
+<img/stp02.png, id=84, 511.9125pt x 461.725pt>
 File: img/stp02.png Graphic file (type png)
 <use img/stp02.png>
-Package pdftex.def Info: img/stp02.png  used on input line 183.
+Package pdftex.def Info: img/stp02.png  used on input line 185.
 (pdftex.def)             Requested size: 407.66833pt x 367.7037pt.
 
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
 [7] [8 <./img/stp02.png>]
-<img/stp03.png, id=94, 481.8pt x 532.99126pt>
+<img/stp03.png, id=109, 481.8pt x 532.99126pt>
 File: img/stp03.png Graphic file (type png)
 <use img/stp03.png>
-Package pdftex.def Info: img/stp03.png  used on input line 216.
+Package pdftex.def Info: img/stp03.png  used on input line 218.
 (pdftex.def)             Requested size: 181.18439pt x 200.43239pt.
-<img/stp04.png, id=95, 412.54124pt x 271.0125pt>
+<img/stp04.png, id=110, 412.54124pt x 271.0125pt>
 File: img/stp04.png Graphic file (type png)
 <use img/stp04.png>
-Package pdftex.def Info: img/stp04.png  used on input line 222.
+Package pdftex.def Info: img/stp04.png  used on input line 224.
 (pdftex.def)             Requested size: 181.18439pt x 119.02669pt.
-<img/stp05.png, id=96, 552.0625pt x 260.975pt>
+<img/stp05.png, id=111, 552.0625pt x 260.975pt>
 File: img/stp05.png Graphic file (type png)
 <use img/stp05.png>
-Package pdftex.def Info: img/stp05.png  used on input line 228.
+Package pdftex.def Info: img/stp05.png  used on input line 230.
 (pdftex.def)             Requested size: 226.48395pt x 107.06415pt.
  [9 <./img/stp03.png> <./img/stp04.png> <./img/stp05.png>] [10
 
@@ -523,42 +546,52 @@ Package pdftex.def Info: img/stp05.png  used on input line 228.
 Chapter 2.
 [11] [12]
 Chapter 3.
-<img/pvst01.png, id=129, 722.7pt x 703.62875pt>
+<img/pvst01.png, id=148, 722.7pt x 703.62875pt>
 File: img/pvst01.png Graphic file (type png)
 <use img/pvst01.png>
-Package pdftex.def Info: img/pvst01.png  used on input line 294.
+Package pdftex.def Info: img/pvst01.png  used on input line 296.
 (pdftex.def)             Requested size: 362.37569pt x 352.812pt.
 [13
 
  <./img/pvst01.png>]
-LaTeX Font Info:    Trying to load font information for T1+cmtt on input line 329.
+LaTeX Font Info:    Trying to load font information for T1+cmtt on input line 331.
  (C:\Users\Lord\AppData\Local\Programs\MiKTeX\tex/latex/base\t1cmtt.fd
 File: t1cmtt.fd 2023/04/13 v2.5m Standard LaTeX font definitions
 ) [14] [15]
 File: img/pvst01.png Graphic file (type png)
 <use img/pvst01.png>
-Package pdftex.def Info: img/pvst01.png  used on input line 396.
+Package pdftex.def Info: img/pvst01.png  used on input line 398.
 (pdftex.def)             Requested size: 362.37569pt x 352.812pt.
- [16] [17] [18] (stp.aux)
+ [16] [17] [18]
+Chapter 4.
+[19
+
+] [20]
+<img/STPConvergence01.png, id=229, 461.725pt x 407.5225pt>
+File: img/STPConvergence01.png Graphic file (type png)
+<use img/STPConvergence01.png>
+Package pdftex.def Info: img/STPConvergence01.png  used on input line 531.
+(pdftex.def)             Requested size: 362.37569pt x 319.83746pt.
+ [21 <./img/STPConvergence01.png>] [22] [23] [24] (stp.aux)
  ***********
 LaTeX2e <2023-11-01> patch level 1
 L3 programming layer <2024-01-04>
  ***********
 Package rerunfilecheck Info: File `stp.out' has not changed.
-(rerunfilecheck)             Checksum: D82CC78F1EE39CB7F6DF1F2B106CCAAA;742.
+(rerunfilecheck)             Checksum: 771D3DCDEA37ECC5435E09D3822EDB81;1069.
  ) 
 Here is how much of TeX's memory you used:
- 13825 strings out of 474486
- 213280 string characters out of 5744227
- 1935542 words of memory out of 5000000
- 35813 multiletter control sequences out of 15000+600000
- 569639 words of font info for 58 fonts, out of 8000000 for 9000
+ 15211 strings out of 474486
+ 241476 string characters out of 5744227
+ 1939542 words of memory out of 5000000
+ 37129 multiletter control sequences out of 15000+600000
+ 569952 words of font info for 59 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 86i,7n,93p,574b,609s stack positions out of 10000i,1000n,20000p,200000b,200000s
- <C:\Users\Lord\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ectt1000.pk> <C:\Users\Lord\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecti1000.pk> <C:\Users\Lord\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\tcrm1000.pk> <C:\Users\Lord\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecbx1440.pk> <C:\Users\Lord\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecbx2074.pk> <C:\Users\Lord\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecsl1000.pk> <C:\Users\Lord\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecrm1000.pk> <C:\Users\Lord\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecbx1000.pk> <C:\Users\Lord\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecbx1200.pk> <C:\Users\Lord\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecrm1440.pk> <C:\Users\Lord\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecbx2488.pk><C:/Users/Lord/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi10.pfb>
-Output written on stp.pdf (18 pages, 243879 bytes).
+ 86i,8n,96p,797b,1131s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ <C:\Users\Lord\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ectt0900.pk> <C:\Users\Lord\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ectt1000.pk> <C:\Users\Lord\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecti1000.pk> <C:\Users\Lord\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\tcrm1000.pk> <C:\Users\Lord\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecbx1440.pk> <C:\Users\Lord\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecbx2074.pk> <C:\Users\Lord\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecsl1000.pk> <C:\Users\Lord\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecrm1000.pk> <C:\Users\Lord\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecbx1000.pk> <C:\Users\Lord\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecbx1200.pk> <C:\Users\Lord\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecrm1440.pk> <C:\Users\Lord\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecbx2488.pk><C:/Users/Lord/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi10.pfb>
+Output written on stp.pdf (24 pages, 296989 bytes).
 PDF statistics:
- 585 PDF objects out of 1000 (max. 8388607)
- 91 named destinations out of 1000 (max. 500000)
- 55 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 758 PDF objects out of 1000 (max. 8388607)
+ 135 named destinations out of 1000 (max. 500000)
+ 90 words of extra memory for PDF output out of 10000 (max. 10000000)
 

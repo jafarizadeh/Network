@@ -17,6 +17,8 @@
 \usepackage{adjustbox} 
 \usepackage{colortbl}
 \usepackage{graphicx}
+\usepackage{ocgx2}
+\usepackage{lipsum}
 
 
 % Configuration pour les listings de code
@@ -469,6 +471,237 @@ In this scenario, you will configure \textbf{PVST+ (Per-VLAN Spanning Tree Plus)
 \begin{enumerate}
     \item How did reducing the network diameter impact convergence speed?
     \item After enabling UplinkFast, how quickly did SW2 recover from link failures?
+\end{enumerate}
+\chapter{Protecting the Spanning Tree Protocol (STP) Topology}
+
+
+\noindent The \textbf{Spanning Tree Protocol (STP)} is crucial for maintaining a loop-free and stable Layer 2 network topology. However, without proper safeguards, STP can become vulnerable to misconfigurations or malicious attacks, potentially leading to network loops, instability, or even downtime. To enhance the security and stability of the STP topology, network administrators can implement various protection mechanisms, including \textbf{BPDU Guard}, \textbf{Root Guard}, \textbf{BPDU Filter}, \textbf{Loop Guard}, and \textbf{UDLD (Unidirectional Link Detection)}. These features help prevent unauthorized devices from influencing STP operations, detect unidirectional links, and ensure consistent network behavior.
+
+\section*{BPDU Guard}
+
+\textbf{Bridge Protocol Data Units (BPDUs)} are essential messages exchanged between switches to maintain the STP topology. \textbf{BPDU Guard} is a protective feature designed to secure \textbf{PortFast}-enabled ports, which are typically connected to end devices like computers or printers. Since these ports bypass STP’s usual listening and learning states to achieve faster connectivity, receiving BPDUs on them could indicate a misconfiguration or an attack (such as connecting a rogue switch).
+
+When \textbf{BPDU Guard} is enabled and a BPDU is received on a PortFast port, the switch immediately \textbf{disables} the port by placing it into an \textbf{err-disabled} (error-disabled) state. This action prevents potential network loops and unauthorized participation in the STP topology. BPDU Guard is particularly useful in access layer switches where end devices should never send BPDUs.
+
+\section*{Root Guard}
+
+The \textbf{Root Bridge} plays a central role in STP, determining the best loop-free paths for traffic. If an unauthorized switch with a \textbf{lower Bridge ID} (priority + MAC address) is connected to the network, it could inadvertently or maliciously become the Root Bridge, altering the topology and potentially degrading network performance.
+
+\textbf{Root Guard} prevents this by restricting specific ports from becoming Root Ports. When enabled on a port, if a superior BPDU (indicating a better Root Bridge) is received, the port is placed into a \textbf{root-inconsistent} state, effectively blocking it from influencing the Root Bridge election. Once the superior BPDUs stop, the port automatically returns to normal operation. Root Guard is typically applied on ports where no upstream Root Bridge should be allowed, such as those connecting to access layer switches.
+
+\section*{BPDU Filter}
+
+While \textbf{BPDU Guard} reacts to unexpected BPDUs, \textbf{BPDU Filter} prevents BPDUs from being sent or received on specific ports altogether. This feature can be applied globally or on a per-port basis:
+
+\begin{itemize}
+    \item \textbf{Globally:} BPDU Filter allows initial BPDUs to be sent when a port comes up but suppresses further BPDU exchange, making the port behave as if STP is disabled.
+    \item \textbf{Per-Port:} When applied directly to a port, BPDU Filter prevents all BPDUs from being sent or received, effectively removing the port from STP participation.
+\end{itemize}
+
+\textbf{Caution:} Improper use of BPDU Filter can lead to \textbf{network loops}, as the port is unaware of STP topology changes. It should be used in controlled environments where the risk of loops is minimal.
+
+\section*{Loop Guard}
+
+\textbf{Loop Guard} is designed to prevent loops caused by \textbf{unidirectional link failures} in STP. In normal operation, a port in a \textbf{blocking} or \textbf{root port} state relies on receiving BPDUs from neighboring switches to maintain its status. If BPDUs unexpectedly stop arriving due to a failure, the port might incorrectly transition to the \textbf{forwarding} state, creating a loop.
+
+When \textbf{Loop Guard} is enabled, if a port stops receiving BPDUs on a \textbf{non-designated port} (i.e., a blocking or root port), the port enters a \textbf{loop-inconsistent} state instead of transitioning to forwarding. This proactive measure prevents loops by ensuring ports stay in a safe state until the issue is resolved. Loop Guard is particularly useful on redundant links where unidirectional failures could silently cause loops.
+
+\section*{UDLD (Unidirectional Link Detection)}
+
+\textbf{Unidirectional Link Detection (UDLD)} is a Layer 2 protocol that detects unidirectional physical link failures, which can lead to network loops or black holes. Such failures occur when traffic flows in one direction but not the other, often due to fiber optic issues, hardware faults, or misconfigurations.
+
+UDLD operates by exchanging \textbf{hello packets} between devices on both ends of a link. If one device stops receiving these packets while still sending its own, UDLD detects the inconsistency. Depending on the mode:
+\begin{itemize}
+    \item In \textbf{normal mode}, UDLD alerts administrators but does not take immediate action.
+    \item In \textbf{aggressive mode}, UDLD automatically \textbf{disables} the affected port to prevent potential loops.
+\end{itemize}
+
+UDLD is particularly important in fiber optic networks, where physical link issues might not be immediately evident.
+
+\section*{Conclusion}
+
+Securing the \textbf{Spanning Tree Protocol} topology is essential for maintaining a reliable and stable network. Features like \textbf{BPDU Guard} and \textbf{Root Guard} prevent unauthorized devices from influencing the STP topology, while \textbf{BPDU Filter} and \textbf{Loop Guard} ensure proper BPDU handling and loop prevention. Additionally, \textbf{UDLD} plays a critical role in detecting and mitigating unidirectional link failures. By implementing these protective mechanisms, network administrators can significantly enhance the robustness and resilience of their Layer 2 networks, reducing the risk of outages, loops, and other network disruptions.
+
+
+\newpage
+\section*{Lab Exercises: Protecting the Spanning Tree Protocol Topology}
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.8\textwidth]{img/STPConvergence01.png}
+    \caption{\textit{}}
+\end{figure}
+
+\subsection*{Network Topology Overview:}
+
+\begin{itemize}
+    \item \textbf{SW1} is connected to \textbf{SW2} and \textbf{SW3}.
+    \item \textbf{SW2} is connected to \textbf{PC2} and has a direct link to \textbf{SW3}.
+    \item \textbf{SW3} is connected to \textbf{PC3}.
+    \item \textbf{MAC Address Order:} \\
+    \textbf{MAC SW1 $<$ MAC SW2 $<$ MAC SW3} \\
+    (SW1 has the lowest MAC address and will likely become the Root Bridge unless configured otherwise.)
+\end{itemize}
+
+\subsection*{Configuring BPDU Guard}
+
+\textbf{Objective:} Protect access ports from unauthorized devices sending BPDUs, which could cause topology changes.
+
+\begin{enumerate} 
+    \item \textbf{Enable BPDU Guard on Access Ports (Connected to PCs):} \\
+    Since \textbf{PC2} and \textbf{PC3} are end devices, their interfaces should not receive BPDUs. If a BPDU is received, BPDU Guard will shut down the port to prevent loops.
+
+    On SW2 (Port connected to PC2) and SW3 (Port connected to PC3):
+
+
+    \item \textbf{Test the Configuration:} \\
+    Connect a switch (instead of a PC) to \textbf{G0/2} on \textbf{SW2} and send BPDUs.
+
+    \textbf{Expected Result:} The port should move to an \textbf{err-disabled} state. Verify using:
+
+
+    \item \textbf{Recover the Port:}
+
+\end{enumerate}
+
+\subsection*{Configuring Root Guard}
+
+\textbf{Objective:} Prevent unauthorized switches from becoming the Root Bridge.
+
+\begin{enumerate} 
+    \item \textbf{Enable Root Guard on Specific Ports:} \\
+    To ensure \textbf{SW1} remains the Root Bridge, apply Root Guard on \textbf{SW2} and \textbf{SW3} ports facing other switches.
+
+    On SW2 (Facing SW3) and SW3 (Facing SW2):
+
+
+    \item \textbf{Test the Configuration:} \\
+    Lower the bridge priority on \textbf{SW3} to try to make it the Root Bridge:
+
+
+    \textit{Expected Result:} The port on \textbf{SW2} connected to \textbf{SW3} should go into a \textbf{root-inconsistent} state, preventing \textbf{SW3} from becoming the Root Bridge.
+
+    \item \textbf{Verify the Root Guard Status:}
+
+\end{enumerate}
+
+
+
+Here is some regular text. \\
+\vspace{0.5cm}
+
+
+\switchocg{codeblock}{%
+    \color{black}\underline{Click here to reveal the code!}%
+}
+
+
+\begin{ocg}{Code Block}{codeblock}{0}
+\vspace{0.5cm}
+\begin{lstlisting}
+Switch1(config)# 
+\end{lstlisting}
+\end{ocg}
+
+
+\section*{Exercise 3: Configuring BPDU Filter}
+
+\textbf{Objective:} Suppress BPDU transmission on specific ports to prevent unnecessary STP participation.
+
+\begin{enumerate} 
+    \item \textbf{Enable BPDU Filter on Access Ports (Connected to PCs):}
+
+    \textbf{On SW2 (Port connected to PC2):}
+    \begin{verbatim}
+interface g0/2
+spanning-tree bpdufilter enable
+    \end{verbatim}
+
+    \textbf{On SW3 (Port connected to PC3):}
+    \begin{verbatim}
+interface g0/1
+spanning-tree bpdufilter enable
+    \end{verbatim}
+
+    \item \textbf{Test the Configuration:} \\
+    Verify that BPDUs are not being sent on these interfaces:
+    \begin{verbatim}
+debug spanning-tree bpdu send
+    \end{verbatim}
+
+    \item \textbf{Warning:} \\
+    \textbf{BPDU Filter} disables STP on the interface, which can lead to network loops if a switch is accidentally connected.
+\end{enumerate}
+
+\section*{Exercise 4: Configuring Loop Guard}
+
+\textbf{Objective:} Prevent loops caused by unidirectional link failures in the STP topology.
+
+\begin{enumerate} 
+    \item \textbf{Enable Loop Guard on Non-Designated Ports:} \\
+    Loop Guard should be applied to \textbf{root ports} and \textbf{alternate ports} that might stop receiving BPDUs.
+
+    \textbf{On SW2 and SW3 (Ports facing SW1):}
+    \begin{verbatim}
+interface g0/0
+spanning-tree guard loop
+    \end{verbatim}
+
+    \item \textbf{Simulate a Unidirectional Link Failure:} \\
+    Disconnect the \textbf{TX (Transmit)} fiber cable from \textbf{SW1’s G0/1} while keeping \textbf{RX (Receive)} connected.
+
+    \textbf{Expected Result:} The port on \textbf{SW2} should enter a \textbf{loop-inconsistent} state instead of transitioning to forwarding.
+
+    \item \textbf{Verify Loop Guard Status:}
+    \begin{verbatim}
+show spanning-tree inconsistentports
+    \end{verbatim}
+\end{enumerate}
+
+\section*{Exercise 5: Configuring UDLD (Unidirectional Link Detection)}
+
+\textbf{Objective:} Detect and disable unidirectional links to prevent loops.
+
+\begin{enumerate} 
+    \item \textbf{Enable UDLD on Fiber Links Between Switches:} \\
+    Apply UDLD on the \textbf{G0/1} and \textbf{G0/2} interfaces between switches.
+
+    \textbf{On SW1:}
+    \begin{verbatim}
+interface range g0/1 - 2
+udld aggressive
+    \end{verbatim}
+
+    \textbf{On SW2 and SW3 (Interfaces facing SW1):}
+    \begin{verbatim}
+interface g0/0
+udld aggressive
+    \end{verbatim}
+
+    \item \textbf{Test UDLD Functionality:} \\
+    Disconnect one side of the fiber link (e.g., \textbf{TX} on \textbf{SW1 G0/1}).
+
+    \textbf{Expected Result:} UDLD will detect the unidirectional link and place the port in an \textbf{err-disabled} state.
+
+    \item \textbf{Verify UDLD Status:}
+    \begin{verbatim}
+show udld interface
+    \end{verbatim}
+
+    \item \textbf{Recover UDLD-disabled Ports:}
+    \begin{verbatim}
+interface g0/1
+udld reset
+    \end{verbatim}
+\end{enumerate}
+
+\section*{Discussion Questions:}
+
+\begin{enumerate} 
+    \item What happens when BPDU Guard is triggered? How is this different from BPDU Filter?
+    \item How does Root Guard prevent unauthorized topology changes, and in what scenarios would it be most useful?
+    \item What is the difference between Loop Guard and UDLD in handling unidirectional link failures?
+    \item After enabling UDLD, how quickly did the network detect and respond to a unidirectional failure compared to standard STP behavior?
 \end{enumerate}
 
 
