@@ -1,4 +1,4 @@
-\documentclass[a4paper]{report}
+\documentclass[a4paper]{book}
 \usepackage[margin=1in]{geometry}
 \usepackage[T1]{fontenc}
 \usepackage[utf8]{inputenc}
@@ -16,17 +16,8 @@
 \usepackage{array}    
 \usepackage{adjustbox} 
 \usepackage{colortbl}
+\usepackage{graphicx}
 
-
-\newtheorem*{noteenv}{Note}
-
-% Optional: Hyperlink setup for colored links
-\hypersetup{
-    colorlinks = true,
-    linkcolor  = blue!50!black,
-    citecolor  = blue!50!black,
-    urlcolor   = blue!80!black
-}
 
 % Configuration pour les listings de code
 \definecolor{codebg}{RGB}{245,245,245}
@@ -54,9 +45,6 @@
 %----- MODERN TITLE PAGE -----%
 \begin{titlepage}
     \centering
-    % Optional logo at the top:
-    % \includegraphics[width=3cm]{your-logo.png}\par\vspace{1cm}
-
     \vspace*{4cm}
     {\Huge \textbf{Spanning Tree Protocol (STP) Workbook}\par}
     \vspace{0.8cm}
@@ -74,1061 +62,414 @@
     \vspace{2cm}
 \end{titlepage}
 
-%----- TABLE OF CONTENTS -----%
+
 \tableofcontents
 \newpage
 
-%=============================================================================================
-% MAIN CONTENT
-%=============================================================================================
-\chapter{Introduction}
-% 1. INTRODUCTION
-% Insert your content here, e.g., purpose, audience, prerequisites, how to use the workbook
+%------------------------------------------------------
+% Chapter 1: STP Introduction
+%------------------------------------------------------
+\chapter{Spanning Tree Protocol (STP)}
 
-\section{Purpose and Audience}
-Welcome to the \textbf{Spanning Tree Protocol (STP) Workbook}. This resource is designed for students and IT professionals who want hands-on practice with the various flavors of STP, such as PVST+, RSTP, and MSTP. By working through the material, you’ll build a solid foundation in both the theoretical and practical aspects of Spanning Tree deployment.
+\section*{STP Introduction}
 
-\begin{itemize}
-  \item \textbf{Who Should Use This Workbook?}
-  \begin{itemize}
-    \item Networking learners familiar with \textbf{basic Ethernet switching} and \textbf{VLAN fundamentals}.
-    \item Network engineers or administrators looking to strengthen or refresh their STP expertise.
-  \end{itemize}
-  \item \textbf{What Topics Are Covered?}
-  \begin{itemize}
-    \item Core concepts and functions of STP.
-    \item Configuration steps and relevant commands.
-    \item Practical lab exercises to reinforce concepts.
-    \item Advanced discussions of load balancing, security enhancements, and recommended practices.
-  \end{itemize}
-\end{itemize}
+Spanning Tree Protocol (STP) is essential for preventing broadcast storms and loops in switched networks with redundant paths. In this section, we'll cover the purpose of STP, its importance in maintaining a loop-free topology, and an overview of how it dynamically reconfigures the network when changes occur. This foundation sets the stage for understanding how STP supports network reliability and resilience.
 
-\subsection{Prerequisites}
-Before diving into this workbook, you should have:
-\begin{itemize}
-  \item \textbf{General CLI experience}: Ability to move between different switch configuration modes (e.g., global config, interface config).
-  \item \textbf{IP addressing and subnetting knowledge}: Comfort with IPv4/IPv6 addresses, subnet masks, and interface configurations.
-  \item \textbf{Basic VLAN skills}: Understanding VLAN creation, VLAN assignment, and trunk port setup.
-\end{itemize}
+\section*{Root Bridge}
+The Root Bridge is the central reference point in the STP topology. It is elected based on the lowest bridge ID, which is a combination of the bridge priority and MAC address. All other switches in the network compute the best path back to the Root Bridge. Understanding how the Root Bridge is selected is crucial because it directly influences the network's spanning tree structure and the flow of data through the network.
 
-\section{How to Use This Workbook}
-The workbook is divided into sections that build on each other. Each section features an introduction to theoretical concepts, followed by configuration examples, and concludes with exercises to apply what you’ve learned.
+\section*{STP Root Port, Designated Port}
+Within each switch (except for the Root Bridge), the Root Port is the interface that offers the best path to the Root Bridge, based on the lowest path cost. On each network segment, the Designated Port is the switch port that has the best path to the Root Bridge and is responsible for forwarding traffic toward it. Together, these port roles determine the active topology of the network by ensuring there is only one active path between any two network devices, thereby preventing loops.
+
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.9\textwidth]{img/stp01.png}
+    \caption{\textit{Network topology created using the Drow.io.}}
+\end{figure}
+
+\subsection*{Network Topology Overview}
+In this exercise, you will work with the network topology as described below. The switches (SW1 to SW6) are connected as Figure 1.1.
+
+
+
+The MAC addresses of the switches are as follows:
+\begin{center}
+    {MAC SW1 $<$ MAC SW2 $<$ MAC SW3 $<$ MAC SW4 $<$ MAC SW6 $<$ MAC SW6}
+\end{center}
+This means \textbf{SW1} has the lowest MAC address and \textbf{SW6} has the highest.
+
+\section*{Step-by-Step Tasks}
 
 \begin{enumerate}
-  \item \textbf{Theory}: Explains the principles and objectives of each topic.
-  \item \textbf{Command References}: Highlights relevant commands for each concept.
-  \item \textbf{Hands-On Exercises}: Lets you configure and test STP in different scenarios.
-  \item \textbf{Answer Key (at the end)}: Provides detailed solutions and reasoning for the exercises.
-\end{enumerate}
-
-\begin{noteenv}
-Attempt each exercise on your own first. Use the answer key only as a reference after you’ve tried to solve the tasks. Experimentation and troubleshooting enhance your understanding of STP and develop valuable problem-solving skills.
-\end{noteenv}
-
-Revisit earlier sections if you find yourself unclear on any points; each new topic often depends on earlier fundamentals. By following this structure, you’ll deepen your theoretical knowledge while also learning practical configuration and troubleshooting skills for real-world STP deployments.
-
-%---------------------------------------------------------------------------------------------
-\chapter{STP Fundamentals}
-% 2. STP FUNDAMENTALS
-% Insert your content here
-
-\section{Redundancy and the Need for STP}
-\subsection{Redundancy in Switched Networks}
-Enterprise networks often implement \textbf{redundant connections} between switches to boost reliability and uptime. While extra links improve resilience, they also risk creating \textbf{Layer 2 loops}.
-
-\subsubsection{What Are Layer 2 Loops?}
-A Layer 2 loop occurs when multiple paths exist between the same devices and broadcast or certain multicast/unicast frames end up circulating indefinitely. This leads to:
-\begin{itemize}
-  \item \textbf{Broadcast Storms}: Excessive broadcast traffic overwhelms links and switch CPUs.
-  \item \textbf{MAC Table Instability}: Switches repeatedly update their MAC address tables with conflicting data, causing incorrect forwarding.
-  \item \textbf{High CPU Usage}: Switches become inundated as they struggle to handle the repeated frames and table updates.
-\end{itemize}
-
-\subsection{How STP Breaks Loops}
-The \textbf{Spanning Tree Protocol} (as defined in IEEE 802.1D, and later improved in additional standards) systematically identifies and \textbf{disables certain ports} in a redundant topology. This ensures there is only one logical path to any segment, forming a \textquotedblleft tree\textquotedblright{} without loops. If a primary path fails, STP rapidly recalculates the topology and activates a previously blocked port to restore connectivity.
-
-\section{STP Concepts and Terminology}
-\subsection{Bridge ID and Root Bridge}
-\begin{itemize}
-  \item \textbf{Bridge ID (BID)}: Unique to each switch, consisting of a \textbf{bridge priority} and a \textbf{MAC address}.
-  \item \textbf{Root Bridge}: The switch with the \textbf{lowest BID} acts as the logical hub for the network’s spanning tree. All other switches calculate their best path to this root.
-\end{itemize}
-
-\subsection{Port Roles}
-\begin{itemize}
-  \item \textbf{Root Port (RP)}: On non-root switches, this port leads \textbf{directly} to the Root Bridge via the path with the lowest cost.
-  \item \textbf{Designated Port (DP)}: One per segment, it forwards traffic away from the Root Bridge. Determined by the lowest path cost and then by BID if there’s a tie.
-  \item \textbf{Non-Designated/Blocked Port}: Any port not chosen as a DP or RP remains blocked to prevent loops in the network.
-\end{itemize}
-
-\subsection{Port States (802.1D STP)}
-\begin{enumerate}
-  \item \textbf{Blocking}: Receives BPDUs but does not forward frames.
-  \item \textbf{Listening}: Prepares to participate in forwarding; listens for BPDUs but discards data frames.
-  \item \textbf{Learning}: Learns MAC addresses but still does not forward data frames.
-  \item \textbf{Forwarding}: Actively sends and receives data and BPDUs.
-  \item \textbf{Disabled}: Port is shut down or otherwise administratively disabled.
-\end{enumerate}
-\begin{noteenv}
-Rapid STP (RSTP) and MSTP simplify these states to Discarding, Learning, and Forwarding.
-\end{noteenv}
-
-\subsection{BPDU (Bridge Protocol Data Unit)}
-BPDUs carry critical STP information (Bridge ID, root path cost, timers, etc.) between switches. They enable the election of the Root Bridge, selection of port roles, and detection of topology changes.
-
-\subsection{Path Cost}
-\begin{itemize}
-  \item \textbf{Path Cost} indicates link desirability. Common defaults: 10 Mbps = 100, 100 Mbps = 19, 1 Gbps = 4, 10 Gbps = 2.
-  \item Lower cost implies a more preferred path.
-\end{itemize}
-
-\section{STP Timers}
-Three key timers govern the speed and reliability of STP convergence:
-\begin{enumerate}
-  \item \textbf{Hello Time (default 2 seconds)}
-    \begin{itemize}
-      \item How often the Root Bridge sends out BPDUs.
-    \end{itemize}
-  \item \textbf{Forward Delay (default 15 seconds)}
-    \begin{itemize}
-      \item Duration the port remains in Listening and Learning states before transitioning to Forwarding.
-    \end{itemize}
-  \item \textbf{Max Age (default 20 seconds)}
-    \begin{itemize}
-      \item Time a switch will retain a received BPDU before considering it invalid.
-    \end{itemize}
-\end{enumerate}
-
-\begin{noteenv}
-Tweaking timers can accelerate or slow down convergence. Misconfiguration can lead to instability.
-\end{noteenv}
-
-\section{Root Bridge Election}
-When STP launches, all switches initially assume they can be the root and send out BPDUs with their own Bridge ID. Through BPDU exchanges:
-\begin{enumerate}
-  \item Switches compare \textbf{Bridge IDs}.
-  \item The lowest Bridge ID wins the \textbf{Root Bridge} title.
-  \item Non-root switches compute their route cost to the Root.
-  \item Each switch designates one \textbf{Root Port} with the smallest cost path to the Root.
-  \item Every segment has one \textbf{Designated Port} (lowest cost/BID).
-  \item Other ports become \textbf{blocked} to avoid loops.
-\end{enumerate}
-
-\subsection{Tie-Breakers}
-If two switches have the same priority, the switch with the lower \textbf{MAC address} wins. For a given switch’s Root Port selection, if path costs are equal, the decision continues with comparing sending BIDs or port IDs.
-
-\section{Basic STP Configuration}
-Below are examples using a Cisco CLI, though specifics may differ by device model or vendor.
-
-\subsection{Setting the STP Mode}
-\begin{lstlisting}
-Switch(config)# spanning-tree mode pvst
-\end{lstlisting}
-
-\begin{noteenv}
-\textbf{PVST+} is Cisco’s Per-VLAN Spanning Tree enhancement, but classic STP and PVST+ share similar fundamental mechanics.
-\end{noteenv}
-
-\subsection{Configuring the Root Bridge}
-\begin{lstlisting}
-Switch(config)# spanning-tree vlan 10 priority 4096
-\end{lstlisting}
-
-\textit{Lower priority = higher likelihood of becoming Root. Multiples of 4096 are commonly used.}
-
-Alternatively:
-\begin{lstlisting}
-Switch(config)# spanning-tree vlan 10 root primary
-\end{lstlisting}
-
-This automatically adjusts the priority so that your switch takes over as root for VLAN 10.
-
-\subsection{PortFast on Edge Ports}
-PortFast allows access ports (toward end-user devices) to bypass Listening/Learning:
-\begin{lstlisting}
-Switch(config-if)# spanning-tree portfast
-\end{lstlisting}
-
-\textit{Caution:} Only enable on ports connected to \textbf{end devices}, never inter-switch trunk ports.
-
-\subsection{Verification}
-Use these commands to check STP status:
-\begin{lstlisting}
-Switch# show spanning-tree
-Switch# show spanning-tree vlan 10
-Switch# show spanning-tree detail
-\end{lstlisting}
-
-These commands provide details on the Root Bridge, port roles, costs, and configured timers.
-
-\section{Exercises}
-\subsection*{Exercise 2.1: Observing a Basic Topology}
-\begin{itemize}
-  \item \textbf{Objective}: Watch STP elect a root automatically.
-  \item \textbf{Setup}:
-  
-  \begin{itemize}
-    \item Connect three switches (A, B, and C) in a triangle. 
-    \item Verify STP is active.
+    \item \textbf{Switch STP Mode to Traditional STP} \\
+    Change the STP mode on all switches to \textbf{traditional STP (IEEE 802.1D)}. 
     
+    
+    
+    \item \textbf{Disable Unused Interfaces} \\
+    Turn off any extra or unused interfaces to prevent unnecessary loops.
 
-  \end{itemize}
-  \item \textbf{Tasks}:
-  \begin{enumerate}
-    \item Power up and let STP converge (30–60 seconds).
-    \item Use \texttt{show spanning-tree} on each switch to find:
-      \begin{itemize}
-        \item The Root Bridge.
-        \item Root Ports vs. Designated Ports.
-        \item Any blocked ports.
-      \end{itemize}
-    \item Review each switch’s \textbf{Bridge ID}.
-  \end{enumerate}
+    
+    \item \textbf{Set Links to Point-to-Point Mode} \\
+    Configure all links between switches as \textbf{Point-to-Point (P2P)} to optimize STP convergence.
 
-\item \textbf{Challenge:}
-\begin{itemize}
-  \item Why was the winning Root Bridge selected?
-  \item If a tie occurred, what resolved it?
-\end{itemize}
-\end{itemize}
-\subsection*{Exercise 2.2: Forcing a Root Bridge}
-\begin{itemize}
-  \item \textbf{Objective}: Manually set which switch becomes root.
-  \item \textbf{Setup}: Same three-switch triangle.
-  \item \textbf{Tasks}:
-  \begin{enumerate}
-    \item On \textbf{Switch B}, run:
-\begin{lstlisting}
-spanning-tree vlan 10 priority 4096
-\end{lstlisting}
-    \item Verify via \texttt{show spanning-tree vlan 10} that Switch B is now the root.
-    \item Check port role changes.
-  \end{enumerate}
+    
+    \item \textbf{Verify Bridge IDs} \\
+    Check the \textbf{Bridge ID} for each switch to see how STP will select the Root Bridge.
 
-\item \textbf{Challenge:}
-\begin{itemize}
-  \item How would you make Switch A root for VLAN 20?
-  \item Why is it advantageous to assign different root switches for different VLANs?
-\end{itemize}
-\end{itemize}
-\subsection*{Exercise 2.3: Using PortFast and BPDU Guard}
-\begin{itemize}
-  \item \textbf{Objective}: Speed up edge port convergence and protect against loops.
-  \item \textbf{Setup}: Switch A with two access ports connected to two PCs (PC1, PC2).
-  \item \textbf{Tasks}:
-  \begin{enumerate}
-    \item Enable PortFast on the PC-connected interfaces.
-    \item Enable BPDU Guard on those interfaces:
-\begin{lstlisting}
-interface range FastEthernet0/1 - 2
-  spanning-tree portfast
-  spanning-tree bpduguard enable
-\end{lstlisting}
-    \item Unplug and reconnect the PCs; note the instant Forwarding state.
-  \end{enumerate}
-
-\item \textbf{Challenge:}
-\begin{itemize}
-  \item What happens if you link another switch to a PortFast + BPDU Guard port?
-\end{itemize}
-\end{itemize}
-\subsection*{Exercise 2.4: Adjusting Path Costs}
-\begin{itemize}
-  \item \textbf{Objective}: Change STP paths by modifying interface cost.
-  \item \textbf{Setup}: Reuse the three-switch triangle.
-  \item \textbf{Tasks}:
-  \begin{enumerate}
-    \item Identify the current Root Bridge.
-    \item On a non-root switch, increase or decrease the cost on one trunk interface:
-\begin{lstlisting}
-interface <port>
-  spanning-tree cost <value>
-\end{lstlisting}
-    \item Verify via \texttt{show spanning-tree} that a different Root Port was selected.
-  \end{enumerate}
-
-\item \textbf{Challenge:}
-\begin{itemize}
-  \item Why might changing interface cost be preferable over adjusting switch priorities in certain designs?
-\end{itemize}
-\end{itemize}
-\section*{Summary and Next Steps}
-At this stage, you should be comfortable with the \textbf{basic principles of STP}—from why we need it to how it operates and is configured. The next section explores \textbf{STP variants (PVST+, RSTP, MSTP)}, diving into improvements in convergence speed, scalability, and flexibility.
-
-\begin{noteenv}
-     Don’t rush forward until you’ve mastered the fundamentals. Repetition and experimentation in a lab environment are key to truly understanding STP’s behavior.
-\end{noteenv}
-
-
-
-%---------------------------------------------------------------------------------------------
-\chapter{STP Variants (PVST+, RSTP, MSTP)}
-
-Several enhancements have been introduced to address classic STP limitations, focusing on faster convergence and improved scalability. Here we cover the primary variants: \textbf{PVST+}, \textbf{RSTP (802.1w)}, and \textbf{MSTP (802.1s)}.
-
-\section{Per-VLAN Spanning Tree Plus (PVST+)}
-
-\subsection{Overview}
-\begin{itemize}
-    \item \textbf{PVST+} is a Cisco-proprietary protocol that maintains a separate spanning tree instance \textbf{for each VLAN}.
-    \item It allows \textbf{per-VLAN load balancing} by choosing distinct root switches for different VLANs.
-    \item Often the default on many Cisco Catalyst switches.
-\end{itemize}
-
-\subsection{Differences from 802.1D}
-\begin{itemize}
-    \item \textbf{Per-VLAN}: Instead of a single tree for all VLANs, each VLAN has its own.
-    \item \textbf{Fine-Tuned Load Balancing}: Administrators can select different root bridges for each VLAN.
-\end{itemize}
-
-\subsection{Configuration}
-\begin{enumerate}
-    \item \textbf{Enabling PVST+}
-    \begin{lstlisting}
-    Switch(config)# spanning-tree mode pvst
-    \end{lstlisting}
-    (Often already enabled by default.)
-    \item \textbf{Setting VLAN-Specific Roots}
-    \begin{lstlisting}
-    Switch(config)# spanning-tree vlan 10 root primary
-    \end{lstlisting}
-    Automatically adjusts priority to ensure the switch becomes root for VLAN 10.
-    \item \textbf{Load Balancing Example}
+    
+    \item \textbf{Predict the Root Bridge} \\
+    Based on the MAC addresses provided (\textbf{SW1 $<$ SW2 $<$ SW3 $<$ SW4 $<$ SW5 $<$ SW6}), estimate which switch will become the Root Bridge.
     \begin{itemize}
-        \item Make SwitchA root for VLAN 10:
-        \begin{lstlisting}
-        SwitchA(config)# spanning-tree vlan 10 root primary
-        \end{lstlisting}
-        \item Make SwitchB root for VLAN 20:
-        \begin{lstlisting}
-        SwitchB(config)# spanning-tree vlan 20 root primary
-        \end{lstlisting}
+        \item \textit{Question:} Which switch is likely to be the Root Bridge and why?
+    \end{itemize}
+    
+    \item \textbf{Change the Root Bridge by Adjusting Priority} \\
+    Modify the \textbf{priority} settings so that the switch identified in the diagram becomes the Root Bridge.
+    \begin{itemize}
+        
+        \item \textit{Note:} Lower priority values increase the chance of a switch becoming the Root Bridge.
+    \end{itemize}
+    
+    \item \textbf{Calculate Path Costs for Active Ports} \\
+    For each non-root switch, \textbf{calculate the cost} of paths to the Root Bridge based on link speeds. Use standard STP cost values:
+    \begin{itemize}
+        \item Gigabit Ethernet (1 Gbps) = 4
+        \item Fast Ethernet (100 Mbps) = 19
+    \end{itemize}
+    
+    \item \textbf{Estimate Root Ports} \\
+    Identify the \textbf{Root Port} on each non-root switch. This is the port with the lowest path cost to the Root Bridge.
+    \begin{itemize}
+        \item \textit{Question:} Which port will be the Root Port on SW2, SW3, SW4, SW5, and SW6?
+    \end{itemize}
+    
+    \item \textbf{How Many Root Bridges Are There in a Network?}
+    \begin{itemize}
+        \item \textit{Question:} In any given STP-enabled network, how many Root Bridges can exist?
+    \end{itemize}
+    
+    \item \textbf{How Many Root Ports Are There in a Network?}
+    \begin{itemize}
+        \item \textit{Question:} In any given STP-enabled network, how many Root Port can exist?
+    \end{itemize}
+
+
+    \item \textbf{How Many Designated Ports (DP) Are in the Topology?}
+    \begin{itemize}
+        \item \textit{Question:} In any STP-enabled topology, how many Designated Ports (DP) will there be?
+    \end{itemize}
+
+    \item \textbf{Estimate the Designated Ports on Each Switch}
+    \begin{itemize}
+        \item Before using any commands, predict which ports will be Designated Ports on each switch in the topology. 
+    \end{itemize}
+
+    \item \textbf{Verify Designated Ports Using Commands}
+
+    \item \textbf{Are All Root Bridge Ports Designated Ports?}
+    \begin{itemize}
+        \item \textit{Question:} Based on your observations, can you conclude that all ports on the Root Bridge are Designated Ports?
+    \end{itemize}
+
+    \item \textbf{Change the Port Cost of G0/2 on SW4}
+    \begin{itemize}
+        \item Modify the path cost of interface G0/2 on SW4 to 15. This will influence STP’s decision on which path to use. 
+    \end{itemize}
+
+    \begin{figure}[h]
+        \centering
+        \includegraphics[width=0.9\textwidth]{img/stp02.png}
+        \caption{\textit{Network topology created using the Drow.io.}}
+    \end{figure}
+    \newpage
+
+
+    \item \textbf{Predict the New Root Port on SW4 After Link Removal}
+    \begin{itemize}
+        \item If you remove the link connected to G0/1 on SW4 (Figure 1.2), which port will become the new Root Port? Explain your reasoning based on path costs and STP rules.
+        \item \textit{Hint:} Consider which remaining port on SW4 has the lowest cost path to the Root Bridge.
+    \end{itemize}
+
+    \item \textbf{Identify Root Ports with SW1 as the Root Bridge}
+    \begin{itemize}
+        \item In this topology, assuming SW1 is the Root Bridge, identify the Root Ports on the other switches (SW2, SW3, SW4, SW5, and SW6).
+ 
+    \end{itemize}
+
+    \item \textbf{Change the Port ID to Influence Link Selection}
+    \begin{itemize}
+        \item STP uses Port IDs as a tie-breaker when path costs are equal. By adjusting the Port Priority (which is part of the Port ID), you can influence which link STP selects as the active path.
+        \item \textit{Task:} Change the Port Priority of specific interfaces to modify STP’s link selection.
+    \end{itemize}
+    
+\end{enumerate}
+
+\newpage
+\section*{Additional exercises}
+\subsection*{Draw the Active Topology for Each Scenario}
+
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.4\textwidth]{img/stp03.png}
+    \caption{\textit{}}
+\end{figure}
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.4\textwidth]{img/stp04.png}
+    \caption{\textit{}}
+\end{figure}
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.5\textwidth]{img/stp05.png}
+    \caption{\textit{}}
+\end{figure}
+
+%------------------------------------------------------
+% Chapter 2: STP Root Bridge
+%------------------------------------------------------
+\chapter{PVST (Per-VLAN Spanning Tree)}
+
+\section*{What is PVST?}
+Per-VLAN Spanning Tree (PVST) is a version of the Spanning Tree Protocol (STP) that creates a separate spanning tree instance for each VLAN in the network. This allows for better load balancing and more efficient use of network resources, as different VLANs can have different root bridges and forwarding paths.
+
+
+\section*{Key Features of PVST:}
+\begin{enumerate}
+    \item \textbf{Separate Spanning Tree per VLAN:}
+    \newline
+    Each VLAN runs its own independent instance of STP, meaning the topology can be optimized differently for each VLAN.
+    \item \textbf{Improved Load Balancing:}
+    
+    By assigning different root bridges to different VLANs, PVST allows traffic to be distributed across multiple switches, reducing congestion and improving performance.
+    
+    \item Root Bridge Election per VLANCompatibility with Cisco Devices:
+    
+    VST is a Cisco proprietary protocol and is typically used in Cisco environments. It is based on the original IEEE 802.1D standard but with VLAN-specific enhancements.
+    \item \textbf{Uses Common STP Concepts:}
+    
+    PVST uses the same roles and states as traditional STP:
+    \begin{itemize}
+        \item Root Bridge
+        \item Root Port (RP)
+        \item Designated Port (DP)
+        \item Blocked Port
     \end{itemize}
 \end{enumerate}
 
-\subsection{Exercises}
+\section*{How PVST Works:}
 \begin{itemize}
-    \item \textbf{Exercise 3.1a}: Convert from classic STP to PVST+.
-    \item \textbf{Exercise 3.1b}: Designate Switch1 as root for VLAN 10 and Switch2 as root for VLAN 20; confirm roles and port states with \texttt{show spanning-tree vlan <id>}.
+    \item \textbf{Root Bridge Election per VLAN:}
+    
+    Each VLAN elects its own Root Bridge based on the lowest Bridge ID (priority + MAC address). This allows different switches to act as the Root Bridge for different VLANs.
+
+    \item \textbf{Port Roles and Path Selection:}
+    
+    For each VLAN, PVST determines the Root Ports and Designated Ports independently, which results in different forwarding paths for different VLANs.
 \end{itemize}
 
-\section{Rapid Spanning Tree Protocol (RSTP / 802.1w)}
 
-\subsection{Overview}
+\section*{Benefits of PVST:}
 \begin{itemize}
-    \item \textbf{RSTP} improves convergence time significantly over 802.1D.
-    \item It redefines port roles and introduces faster transition to forwarding when the topology changes.
-\end{itemize}
+    \item \textbf{Flexibility:} Allows network administrators to optimize traffic flow for each VLAN.
+    \item \textbf{Load Balancing:} Distributes traffic across multiple links by having different root bridges for different VLANs.
+    \item \textbf{Faster Convergence:} PVST+ (an enhanced version) offers faster convergence times compared to traditional STP.
 
-\subsection{Key Upgrades}
-\begin{enumerate}
-    \item \textbf{New Port Roles}
-    \begin{itemize}
-        \item \textbf{Alternate Port}: Provides a backup path to the root if the current RP fails.
-        \item \textbf{Backup Port}: Backup for a DP on shared media segments.
-    \end{itemize}
-    \item \textbf{Faster Convergence}
-    \begin{itemize}
-        \item \textbf{Proposal/Agreement} handshake streamlines bringing ports up.
-        \item States are simplified to \textbf{Discarding}, \textbf{Learning}, \textbf{Forwarding}.
-    \end{itemize}
-    \item \textbf{Edge Ports}
-    \begin{itemize}
-        \item Similar to PortFast, edge ports move straight to Forwarding if connected to end devices.
-    \end{itemize}
-\end{enumerate}
-
-\subsection{Configuration}
-\begin{enumerate}
-    \item \textbf{Enable Rapid PVST+ (Cisco)}
-    \begin{lstlisting}
-    Switch(config)# spanning-tree mode rapid-pvst
-    \end{lstlisting}
-    \item \textbf{Verification}
-    \begin{lstlisting}
-    Switch# show spanning-tree
-    \end{lstlisting}
-    Look for an indication of \texttt{RSTP} or \texttt{rapid-pvst}.
-\end{enumerate}
-
-\subsection{Exercises}
-\begin{itemize}
-    \item \textbf{Exercise 3.2a}: Convert to Rapid PVST+ on all switches, then measure link-up to forwarding time.
-    \item \textbf{Exercise 3.2b}: Identify \textbf{Alternate Ports} in a redundant topology using \texttt{show spanning-tree} and observe quick failover.
-\end{itemize}
-
-\section{Multiple Spanning Tree Protocol (MSTP / 802.1s)}
-
-\subsection{Overview}
-\begin{itemize}
-    \item \textbf{MSTP} groups multiple VLANs into a \textbf{small number of MST instances}, reducing overhead compared to having a separate instance for every VLAN.
-    \item Maintains \textbf{compatibility} with older STP variants by appropriate boundary interactions.
-\end{itemize}
-
-\subsection{Concepts}
-\begin{enumerate}
-    \item \textbf{MST Region}: Defined by a shared \textbf{Region Name}, \textbf{Revision Number}, and identical \textbf{VLAN-to-instance} mappings.
-    \item \textbf{MST Instances}: Each instance (MSTI) runs its own spanning tree; VLANs assigned to an instance share that tree.
-    \item \textbf{Internal Spanning Tree (IST)} or \textbf{Instance 0}: Manages traffic for any VLANs not explicitly assigned to another instance and interacts with external STP domains.
-\end{enumerate}
-
-\subsection{Configuration (Cisco Example)}
-\begin{enumerate}
-    \item \textbf{Enable MST}
-    \begin{lstlisting}
-    Switch(config)# spanning-tree mode mst
-    \end{lstlisting}
-    \item \textbf{Enter MST Configuration Mode}
-    \begin{lstlisting}
-    Switch(config)# spanning-tree mst configuration
-    Switch(config-mst)# name MyRegion
-    Switch(config-mst)# revision 2
-    \end{lstlisting}
-    \item \textbf{VLAN Mapping}
-    \begin{lstlisting}
-    Switch(config-mst)# instance 1 vlan 10,20
-    Switch(config-mst)# instance 2 vlan 30,40
-    \end{lstlisting}
-    \item \textbf{Apply and Verify}
-    \begin{lstlisting}
-    Switch(config)# do show spanning-tree mst configuration
-    \end{lstlisting}
-    \item \textbf{Set Root}
-    \begin{lstlisting}
-    Switch(config)# spanning-tree mst 1 root primary
-    Switch(config)# spanning-tree mst 2 root secondary
-    \end{lstlisting}
-\end{enumerate}
-
-\subsection{Exercises}
-\begin{itemize}
-    \item \textbf{Exercise 3.3a}: Configure MST region for three switches, naming the region and assigning VLANs 10/20 to MSTI 1, and VLANs 30/40 to MSTI 2.
-    \item \textbf{Exercise 3.3b}: Make SwitchA the primary root for MSTI 1 and SwitchB the primary root for MSTI 2; verify with \texttt{show spanning-tree mst <instance>}.
-    \item \textbf{Exercise 3.3c}: Alter one switch’s region name or revision and observe the mismatch. Then fix the settings to restore a single region.
 \end{itemize}
 
 \newpage
-\section{Comparison of STP Variants}
+
+\chapter{PVST+ Lab Exercise: VLAN-Based Root Bridge Configuration}
+
+\section*{Network Topology Overview}
+In this scenario, you will configure \textbf{PVST+ (Per-VLAN Spanning Tree Plus)}, which allows separate spanning tree instances for each VLAN. The network consists of three switches (\textbf{SW1}, \textbf{SW2}, and \textbf{SW3}) and multiple VLANs with end devices connected to each switch.
 
 
-\arrayrulecolor[gray]{0.8}
-\renewcommand{\arraystretch}{1.5} 
-
-\begin{table}[h!]
+\begin{figure}[h]
     \centering
-    \resizebox{\textwidth}{!}{%
-    \begin{tabular}{
-        >{\raggedright\arraybackslash}p{3cm} 
-        >{\raggedright\arraybackslash}p{4cm} 
-        >{\raggedright\arraybackslash}p{4cm}
-        >{\raggedright\arraybackslash}p{4cm}
-    }
-    \toprule
-    \textbf{Feature}         & \textbf{PVST+}                     & \textbf{RSTP (802.1w)}           & \textbf{MSTP (802.1s)}                             \\
-    \midrule
-    \textbf{Instances}       & Per VLAN                            & Per VLAN with Rapid PVST+, or single in pure RSTP & Can create multiple MST instances, each mapped to specific VLANs \\
-    \midrule
-    \textbf{Convergence}     & Faster than 802.1D, but not as quick as RSTP & Very fast (seconds)          & Utilizes RSTP mechanics within each instance        \\
-    \midrule
-    \textbf{Scalability}     & Can be high overhead with many VLANs  & Straightforward in smaller setups & Highly scalable by grouping VLANs into fewer instances \\
-    \midrule
-    \textbf{Vendor Support}  & Cisco proprietary (PVST+)           & IEEE standard (802.1w)          & IEEE standard (802.1s)                            \\
-    \midrule
-    \textbf{Load Balancing}  & Per-VLAN root configuration         & If using Rapid PVST+, per-VLAN is possible & Assign different VLANs to separate MST instances  \\
-    \bottomrule
-    \end{tabular}
-    }
-    \caption{Comparison of STP Variants}
-    \label{tab:stp_comparison}
-\end{table}
+    \includegraphics[width=0.8\textwidth]{img/pvst01.png}
+    \caption{\textit{}}
+\end{figure}
 
 
-
-\section{Summary and Next Steps}
-We’ve explored \textbf{PVST+}, \textbf{RSTP}, and \textbf{MSTP}. Each has its strengths:
 \begin{itemize}
-    \item \textbf{PVST+} offers simple per-VLAN load balancing but becomes unwieldy in large environments.
-    \item \textbf{RSTP} speeds up convergence significantly.
-    \item \textbf{MSTP} scales more elegantly by combining multiple VLANs into fewer spanning tree instances.
+    \item \textbf{MAC Address Order:} \\
+    \textbf{MAC SW1 $<$ MAC SW2 $<$ MAC SW3} \\
+    (SW1 has the lowest MAC address.)
+    
+    \item \textbf{VLANs and Devices:}
+    \begin{itemize}
+        \item \textbf{VLAN 10:} PC1, PC4, PC7
+        \item \textbf{VLAN 20:} PC2, PC5, PC8
+        \item \textbf{VLAN 30:} PC3, PC6, PC9
+    \end{itemize}
 \end{itemize}
 
+\section*{Step-by-Step Configuration Tasks}
 
-In the next section, we’ll delve into \textbf{advanced STP tuning}---covering PortFast, BPDU Guard, and other enhancements that enhance stability and security.
-
-
-
-
-%---------------------------------------------------------------------------------------------
-\chapter{Advanced STP Tuning and Security}
-
-Having covered the basics and variants of STP, we now look at \textbf{advanced features and security mechanisms}. These tools help fine-tune STP for performance, minimize risk from misconfiguration, and defend against malicious or accidental loops.
-
-\section{STP Features and Enhancements}
-
-\subsection{PortFast}
-\begin{itemize}
-    \item \textbf{Definition}: Immediately transitions an interface to \textbf{Forwarding}, skipping Listening and Learning.
-    \item \textbf{Use Case}: Ideal on \textbf{access ports} connecting to PCs or other endpoints.
-    \item \textbf{Warning}: Do not enable on inter-switch or trunk links.
-\end{itemize}
-\textbf{Cisco CLI Example:}
-\begin{lstlisting}
-Switch(config)# interface range Fa0/1-2
-Switch(config-if-range)# spanning-tree portfast
-\end{lstlisting}
-
-\subsection{BPDU Guard}
-\begin{itemize}
-    \item \textbf{Definition}: Shuts down a PortFast-enabled port if a BPDU is received, preventing a rogue switch from influencing STP.
-    \item \textbf{Purpose}: Stops loops or root role changes triggered by unapproved devices.
-    \item \textbf{Behavior}: Moves the port into \textbf{err-disabled} upon detecting a BPDU.
-\end{itemize}
-\textbf{Cisco CLI Example:}
-\begin{lstlisting}
-Switch(config-if)# spanning-tree bpduguard enable
-\end{lstlisting}
-Or globally:
-\begin{lstlisting}
-Switch(config)# spanning-tree portfast bpduguard default
-\end{lstlisting}
-
-\subsection{Root Guard}
-\begin{itemize}
-    \item \textbf{Definition}: Prevents a port from becoming a root port if a superior BPDU arrives.
-    \item \textbf{Purpose}: Keeps the designated Root Bridge intact in the network, stopping unexpected root changes.
-    \item \textbf{Behavior}: A port receiving a superior BPDU goes into \textbf{root-inconsistent} (blocking) rather than allowing a new root.
-\end{itemize}
-\textbf{Cisco CLI Example:}
-\begin{lstlisting}
-Switch(config-if)# spanning-tree guard root
-\end{lstlisting}
-
-\subsection{Loop Guard}
-\begin{itemize}
-    \item \textbf{Definition}: Ensures a blocking port remains blocked if BPDUs are lost (unidirectional link).
-    \item \textbf{Purpose}: Avoid loops that could form when a port incorrectly transitions to forwarding after it stops seeing BPDUs.
-    \item \textbf{Behavior}: Port enters \textbf{loop-inconsistent} state if BPDU reception ceases unexpectedly.
-\end{itemize}
-\textbf{Cisco CLI Example:}
-\begin{lstlisting}
-Switch(config-if)# spanning-tree guard loop
-\end{lstlisting}
-
-\subsection{UDLD (Unidirectional Link Detection)}
-\begin{itemize}
-    \item \textbf{Definition}: Not strictly an STP feature but often used in tandem. Detects fiber or cable faults that create one-way traffic.
-    \item \textbf{Behavior}: In \textbf{aggressive} mode, UDLD disables a port if neighbor messages are not acknowledged correctly, preventing a hidden loop.
-    \item \textbf{Modes}: Normal (logs) vs. Aggressive (disables port).
-\end{itemize}
-\textbf{Cisco CLI Example:}
-\begin{lstlisting}
-Switch(config)# udld aggressive
-Switch(config)# interface gi0/1
-Switch(config-if)# udld port aggressive
-\end{lstlisting}
-
-\section{Load Balancing Techniques}
 \begin{enumerate}
-    \item \textbf{Adjusting VLAN Priorities}: Assign different VLANs to different root bridges (e.g., Switch A is root for VLAN 10, Switch B is root for VLAN 20).
-    \item \textbf{Tuning Path Costs}: Alter interface costs to steer traffic on specific links.
-    \item \textbf{Using Multiple Instances (MST)}: Group VLANs to different MST instances to distribute load.
+
+    \item \textbf{Set Inter-Switch Links to Trunk Mode} \\
+    Configure the links between the switches (\textbf{SW1, SW2, SW3}) to operate in \textbf{trunk mode} to allow VLAN traffic to pass through.
+    
+    
+    \item \textbf{Verify Current STP Status} \\
+    Before making further changes, \textbf{check the current STP status} to see how the network has chosen the Root Bridge for each VLAN.
+    
+
+    \item \textbf{Enable VTP on All Switches} \\
+    Configure \textbf{VTP (VLAN Trunking Protocol)} to manage VLANs centrally.
+    
+    \textbf{VTP Settings:}
+    \begin{itemize}
+        \item \textbf{Domain Name:} \texttt{network}
+        \item \textbf{Version:} \texttt{2}
+        \item \textbf{Password:} \texttt{CCNP}
+    \end{itemize}
+
+
+    - SW1 Configuration (VTP Master/Server):
+
+
+    - SW2 and SW3 Configuration (VTP Clients):
+
+
+    \item \textbf{Create VLANs 10, 20, and 30 on SW1 (VTP Server)} \\
+    Since \textbf{SW1} is the VTP Server, create the VLANs here, and they will propagate to \textbf{SW2} and \textbf{SW3}.
+    
+
+    \item \textbf{Verify STP Status After VLAN Creation} \\
+    After setting up VTP and VLANs, check how \textbf{PVST} has adjusted the spanning tree roles.
+
 \end{enumerate}
 
-\section{Configuration Best Practices}
-\begin{itemize}
-    \item \textbf{PortFast + BPDU Guard for Edge Ports}: Quickly bring up access ports and mitigate loops from rogue switches.
-    \item \textbf{Root Guard at Distribution/Core}: Keep the intended root stable in multi-layer designs.
-    \item \textbf{Loop Guard / UDLD on Trunks}: Protect against unidirectional failures on critical uplinks.
-    \item \textbf{Plan Load Balancing}: Distribute VLANs or adjust costs to spread traffic across redundant paths.
-    \item \textbf{Consistent STP Mode}: All switches should run the same STP variant to avoid conflicts.
-\end{itemize}
+\section*{PVST Root Bridge Configuration Per VLAN}
 
-\section{Exercises}
-
-\subsection*{Exercise 4.1: Securing Edge Ports with BPDU Guard}
-\begin{itemize}
-    \item \textbf{Objective}: Prevent loops caused by a rogue switch on an access port.
-    \item \textbf{Setup}: Single switch with multiple access ports.
-    \item \textbf{Tasks}:
-    \begin{enumerate}
-        \item Enable PortFast and BPDU Guard on access ports.
-        \item Attach another switch; watch it go err-disabled on receiving a BPDU.
-        \item Recover the port by manually shutting and enabling it.
-    \end{enumerate}
-    \item \textbf{Challenge}: What if you enable \texttt{spanning-tree portfast bpduguard default} globally?
-\end{itemize}
-
-\subsection*{Exercise 4.2: Root Guard Usage}
-\begin{itemize}
-    \item \textbf{Objective}: Prevent an access layer switch from becoming root in a distribution/core design.
-    \item \textbf{Setup}: Core switch and two access switches.
-    \item \textbf{Tasks}:
-    \begin{enumerate}
-        \item Enable Root Guard on the core-facing ports.
-        \item Temporarily set a lower priority on an access switch. Root Guard should block this attempt.
-        \item Check \texttt{show spanning-tree inconsistentports}.
-    \end{enumerate}
-    \item \textbf{Challenge}: Under what conditions might Root Guard complicate multi-vendor interoperability?
-\end{itemize}
-
-\subsection*{Exercise 4.3: Loop Guard to Prevent Unidirectional Loops}
-\begin{itemize}
-    \item \textbf{Objective}: Block a port if BPDUs suddenly go missing.
-    \item \textbf{Setup}: Two or more switches connected by trunks.
-    \item \textbf{Tasks}:
-    \begin{enumerate}
-        \item Enable Loop Guard on relevant trunk interfaces.
-        \item Simulate a unidirectional scenario.
-        \item Observe the port going into \textbf{loop-inconsistent} state rather than forwarding.
-    \end{enumerate}
-    \item \textbf{Challenge}: Compare Loop Guard vs. UDLD for unidirectional link protection.
-\end{itemize}
-
-\subsection*{Exercise 4.4: Balancing Traffic with MST or VLAN Priorities}
-\begin{itemize}
-    \item \textbf{Objective}: Use MST instances or PVST+ priority to distribute traffic.
-    \item \textbf{Setup}: Three-switch triangle, VLANs 10, 20, 30, 40.
-    \item \textbf{Tasks}:
-    \begin{enumerate}
-        \item \textbf{MST approach}: Assign VLANs 10/20 to MSTI 1, VLANs 30/40 to MSTI 2, then pick different root switches.
-        \item \textbf{PVST approach}: Pick different root switches for each VLAN.
-        \item Verify port roles with \texttt{show spanning-tree} or \texttt{show spanning-tree mst}.
-    \end{enumerate}
-    \item \textbf{Challenge}: Which method is more scalable and why?
-\end{itemize}
-
-\section{Summary}
-Advanced STP features like \textbf{BPDU Guard}, \textbf{Root Guard}, \textbf{Loop Guard}, and \textbf{UDLD} help protect against loops and minimize disruptions. \textbf{Load balancing} can be achieved through careful management of priorities or MST instances. Implementing these best practices fortifies your network against common pitfalls, malicious attacks, and physical link issues.
-
-The following section discusses \textbf{Monitoring and Troubleshooting} STP. We’ll look at the key commands to view the topology, how to interpret debug outputs, and how to systematically approach common STP issues.
-
-
-%---------------------------------------------------------------------------------------------
-\chapter{Monitoring and Troubleshooting}
-
-\section{Key Show Commands}
-\subsection{Global STP State}
-\begin{lstlisting}
-Switch# show spanning-tree
-\end{lstlisting}
-\begin{itemize}
-    \item Displays overall STP data for all VLANs or instances.
-    \item Identifies the \textbf{protocol} in use (STP, RSTP, MST, etc.), root info, and port roles.
-\end{itemize}
-\begin{lstlisting}
-Switch# show spanning-tree summary
-\end{lstlisting}
-\begin{itemize}
-    \item Shows a summarized STP configuration, including global settings (BPDU Guard, Loop Guard, etc.).
-\end{itemize}
-\begin{lstlisting}
-Switch# show spanning-tree detail
-\end{lstlisting}
-\begin{itemize}
-    \item Comprehensive listing for each VLAN or instance, including BPDU counts, timers, and topology changes.
-\end{itemize}
-
-\subsection{VLAN or Instance Specific}
-\begin{lstlisting}
-Switch# show spanning-tree vlan <vlan-id>
-\end{lstlisting}
-\begin{itemize}
-    \item Shows spanning tree data for a particular VLAN (PVST+/Rapid PVST+).
-\end{itemize}
-\begin{lstlisting}
-Switch# show spanning-tree mst <instance-id>
-\end{lstlisting}
-\begin{itemize}
-    \item For MSTP, displays details for a specific instance (root switch, port roles, etc.).
-\end{itemize}
-
-\subsection{Interface and Neighbor Info}
-\begin{lstlisting}
-Switch# show interfaces trunk
-\end{lstlisting}
-\begin{itemize}
-    \item Shows trunk ports and the VLANs allowed on them.
-\end{itemize}
-\begin{lstlisting}
-Switch# show interfaces <interface> switchport
-\end{lstlisting}
-\begin{itemize}
-    \item Displays access/trunk mode settings and VLAN membership.
-\end{itemize}
-\begin{lstlisting}
-Switch# show spanning-tree interface <interface> detail
-\end{lstlisting}
-\begin{itemize}
-    \item Provides port-specific STP parameters like cost, priority, designated bridge, etc.
-\end{itemize}
-
-\section{Debug Commands}
-\textbf{Use debug commands with care in live environments due to potential CPU load.}
-\begin{lstlisting}
-Switch# debug spanning-tree events
-\end{lstlisting}
-\begin{itemize}
-    \item Logs STP changes in real-time (port transitions, topology change notifications).
-\end{itemize}
-\begin{lstlisting}
-Switch# terminal monitor
-\end{lstlisting}
-\begin{itemize}
-    \item Allows debug messages to appear in terminal sessions (Telnet/SSH).
-\end{itemize}
-
-\section{Common STP Problems}
 \begin{enumerate}
-    \item \textbf{Priority Mismatches}
+
+    \item \textbf{Set Root Bridges for Each VLAN Using PVST+} \\
+    Configure different \textbf{Root Bridges} for each VLAN to optimize traffic flow:
+
     \begin{itemize}
-        \item Overlapping priority settings can cause frequent root elections.
+        \item \textbf{VLAN 10 Root Bridge:} Set \textbf{SW1} as the Root Bridge.
+        \item \textbf{VLAN 20 Root Bridge:} Set \textbf{SW2} as the Root Bridge.
+        \item \textbf{VLAN 30 Root Bridge:} Set \textbf{SW3} as the Root Bridge.
     \end{itemize}
-    \item \textbf{Edge Port Misconfiguration}
-    \begin{itemize}
-        \item Failure to enable BPDU Guard on user ports risks loops from unauthorized switches.
-    \end{itemize}
-    \item \textbf{Unidirectional Links}
-    \begin{itemize}
-        \item Missing BPDUs can cause a blocking port to forward unexpectedly. Use \textbf{UDLD} or \textbf{Loop Guard}.
-    \end{itemize}
-    \item \textbf{MST Region Inconsistency}
-    \begin{itemize}
-        \item Different name, revision, or VLAN mapping leads to multiple MST regions.
-    \end{itemize}
-    \item \textbf{VLAN Pruning Issues}
-    \begin{itemize}
-        \item If a VLAN is not allowed on a trunk, its STP process might become isolated.
-    \end{itemize}
-    \item \textbf{Physical Layer Defects}
-    \begin{itemize}
-        \item Faulty cables or transceivers can trigger loops or flapping ports.
-    \end{itemize}
+
+ 
+
+    - SW1 (Root for VLAN 10):
+
+
+    - SW2 (Root for VLAN 20):
+
+
+    - SW3 (Root for VLAN 30):
+
+
+    \textit{Note:} A lower priority value increases the likelihood of a switch becoming the Root Bridge. The default is 32768.
+
+    \item \textbf{Verify STP Status After Root Bridge Configuration} \\
+    After configuring the Root Bridges for each VLAN, verify that the changes were applied correctly.
+
+
+    \textbf{Question:}
+    \begin{enumerate}
+        \item Which switch is now the Root Bridge for each VLAN?
+        \item How did the Root Ports and Designated Ports change across the network?
+    \end{enumerate}
+\newpage
+    \item \textbf{Draw the active topology of each violin.} \\
+    - SW1 (Root for VLAN 10):
+
+
+    - SW2 (Root for VLAN 20):
+
+
+    - SW3 (Root for VLAN 30):
+    \begin{figure}[h]
+        \centering
+        \includegraphics[width=0.8\textwidth]{img/pvst01.png}
+        \caption{\textit{}}
+    \end{figure}
 \end{enumerate}
 
-\section{Troubleshooting Labs}
-\subsection*{Lab 5.1: Identifying a Loop}
-\begin{itemize}
-    \item \textbf{Scenario}: High CPU, excessive broadcasts, and random MAC flapping.
-    \item \textbf{Tasks}:
-    \begin{enumerate}
-        \item Check CPU usage, run \texttt{show spanning-tree} to find a port in Forwarding that shouldn’t be.
-        \item Correct the port’s mode or enable BPDU Guard.
-        \item Confirm network stabilizes.
-    \end{enumerate}
-\end{itemize}
 
-\subsection*{Lab 5.2: Mystery Root Bridge}
-\begin{itemize}
-    \item \textbf{Scenario}: Intended root for VLAN 10 is Switch A, but Switch C has a lower priority.
-    \item \textbf{Tasks}:
-    \begin{enumerate}
-        \item \texttt{show spanning-tree vlan 10} on each switch.
-        \item Adjust priorities to restore Switch A as root.
-        \item Verify results with \texttt{show spanning-tree vlan 10}.
-    \end{enumerate}
-\end{itemize}
+\newpage
 
-\subsection*{Lab 5.3: MST Region Mismatch}
-\begin{itemize}
-    \item \textbf{Scenario}: Three MST switches, but one has a different revision.
-    \item \textbf{Tasks}:
-    \begin{enumerate}
-        \item Use \texttt{show spanning-tree mst configuration} to locate mismatches.
-        \item Align the region name, revision, and VLAN mappings.
-        \item Confirm a single region forms.
-    \end{enumerate}
-\end{itemize}
+\section*{Configure PortFast for End Devices}
 
-\subsection*{Lab 5.4: Debugging PortFast Issues}
-\begin{itemize}
-    \item \textbf{Scenario}: PortFast is enabled on a port connected to a test switch.
-    \item \textbf{Tasks}:
-    \begin{enumerate}
-        \item \texttt{debug spanning-tree events}, connect the test switch.
-        \item Observe the BPDU Guard err-disable.
-        \item Restore the port after disconnecting the test switch.
-    \end{enumerate}
-\end{itemize}
-
-\section{General Troubleshooting Strategy}
 \begin{enumerate}
-    \item \textbf{Gather Symptoms}: Check logs, CPU, and interface counters.
-    \item \textbf{Layer-by-Layer Checks}: Confirm physical and VLAN configurations, then STP details (root, costs, priorities).
-    \item \textbf{Identify the Root Bridge}: Compare expected vs. actual.
-    \item \textbf{Examine Port States}: Look for misconfigured or unexpected Forwarding/Blocking ports.
-    \item \textbf{Check Security Features}: Ensure Root Guard, Loop Guard, BPDU Guard, and UDLD are configured where intended.
-    \item \textbf{Incremental Changes}: Fix one issue at a time, verify results before moving on.
+    \item \textbf{Enable PortFast on All PC Ports} \\
+    PortFast allows end devices (like PCs) to bypass STP's listening and learning states, enabling faster connections.
+
+    \textit{Task:} Configure \textbf{PortFast} on interfaces connected to PCs (e.g., \textbf{F0/3}, \textbf{F0/4}, \textbf{F0/5} on SW1).
+
+    \item \textbf{Verify Connectivity Between PC2 and PC3} \\
+    \textit{Task:} Test the connection between \textbf{PC2 (192.168.20.2)} and \textbf{PC3 (192.168.30.3)} using the \textbf{ping} command.
+
+
+    \item \textbf{Enable Debugging on SW3} \\
+    Monitor STP behavior during topology changes.
+
+    \textit{Task:} Turn on STP debugging on \textbf{SW3}.
+
+    \item \textbf{Shut Down Interfaces to Trigger Topology Changes} \\
+    Simulate link failures by shutting down specific interfaces:
+
+    \textit{Task:} Shut down \textbf{F0/1} on \textbf{SW3} and \textbf{F0/2} on \textbf{SW1}:
+
+
+    \item \textbf{Observe and Estimate New Topology} \\
+    After shutting down the interfaces:
+
+    \textit{Task:} Check the \textbf{new port roles} and \textbf{STP state} using:
+
+
+    \textbf{Question:} Which ports have become \textbf{Root Ports} or \textbf{Designated Ports}? Identify if any ports are now \textbf{Blocked}.
+
+    \item \textbf{Restore the Network to Its Original State} \\
+    Re-enable the interfaces to bring the network back to its initial state.
+
+    \textit{Task:}  Turn on \textbf{F0/1} on \textbf{SW3} and \textbf{F0/2} on \textbf{SW1}:
+
+
+    \item \textbf{Reduce Network Diameter for Faster Convergence} \\
+    The \textbf{network diameter} defines the maximum number of switches a BPDU can pass through. Reducing it speeds up convergence.
+
+    \textit{Task:} Reduce the \textbf{network diameter} from the default \textbf{7} to \textbf{2}.
+
+    \item \textbf{Check Forward Delay and Max Age Timers} \\
+    STP uses these timers to control how long switches stay in different states during convergence.
+
+    \textit{Task:} Verify \textbf{Forward Delay} and \textbf{Max Age} settings:
+
+    \item \textbf{Enable UplinkFast on SW2 for Faster Recovery} \\
+    \textbf{UplinkFast} speeds up STP convergence when a primary link fails by immediately switching to a backup link.
+
+    \textit{Task:} Enable \textbf{UplinkFast} on \textbf{SW2}:
+
+    \item \textbf{Set Max-Update-Rate to 100 Packets per Second} \\
+    Limit the number of update packets sent per second to prevent excessive flooding during topology changes.
+
+    \textit{Task:} Set \textbf{max-update-rate} to \textbf{100 packets/sec}:
+
+
+    \item \textbf{Verify Uplink Status on SW2} \\
+    \textit{Task:} Check if \textbf{UplinkFast} is working correctly:
+
 \end{enumerate}
 
-\section{Summary}
-Monitoring and troubleshooting STP hinges on mastering key commands to view the network’s topology, port roles, and event logs. Knowing typical pitfalls—such as priority misconfigurations, MST region mismatches, or unidirectional links—helps you quickly diagnose and rectify network instability.
+\section*{Discussion Questions}
 
-Next, we’ll bring everything together in \textbf{Practical Lab Scenarios}, combining the lessons from all previous sections for a comprehensive exercise in configuring, optimizing, and troubleshooting STP.
-
-%---------------------------------------------------------------------------------------------
-\chapter{Practical Lab Scenarios}
-
-\section{Scenario 1: Single-VLAN STP}
-\subsection{Objective}
-\begin{itemize}
-    \item Grasp \textbf{basic STP} operation in a single VLAN.
-    \item Observe \textbf{root election} and port role assignments.
-\end{itemize}
-
-\subsection{Topology}
-\begin{itemize}
-    \item \textbf{Three switches} in a triangle (A, B, C).
-    \item \textbf{VLAN 1} on all trunk interfaces or a single VLAN of choice.
-\end{itemize}
-
-\subsection{Tasks}
 \begin{enumerate}
-    \item \textbf{Initial Setup}: Clear configs, ensure STP is enabled.
-    \item \textbf{Auto-Election}: Power on, wait for convergence. Use \texttt{show spanning-tree} on each switch to see the Root Bridge.
-    \item \textbf{Forcing a Root}: Configure Switch A’s priority:
-    \begin{lstlisting}
-    SwitchA(config)# spanning-tree vlan 1 priority 4096
-    \end{lstlisting}
-    \item \textbf{Verification}: Disconnect/reconnect cables to witness STP re-convergence.
+    \item How did reducing the network diameter impact convergence speed?
+    \item After enabling UplinkFast, how quickly did SW2 recover from link failures?
 \end{enumerate}
 
-\subsection{Reflection}
-\begin{itemize}
-    \item Which switch was initially root?
-    \item How did the manual priority setting affect the topology?
-\end{itemize}
 
-\section{Scenario 2: Multi-VLAN with PVST+}
-\subsection{Objective}
-\begin{itemize}
-    \item Implement \textbf{Per-VLAN Spanning Tree}.
-    \item Use \textbf{load balancing} by choosing different roots for different VLANs.
-\end{itemize}
-
-\subsection{Topology}
-\begin{itemize}
-    \item \textbf{Three or four switches} in a partial mesh.
-    \item VLANs \textbf{10} and \textbf{20} exist everywhere.
-\end{itemize}
-
-\subsection{Tasks}
-\begin{enumerate}
-    \item \textbf{Create VLANs}: On each switch, add VLAN 10 and 20, allow them on trunks.
-    \item \textbf{Root Assignments}:
-    \begin{enumerate}
-        \item Switch A is root for VLAN 10:
-        \begin{lstlisting}
-        SwitchA(config)# spanning-tree vlan 10 root primary
-        \end{lstlisting}
-        \item Switch B is root for VLAN 20:
-        \begin{lstlisting}
-        SwitchB(config)# spanning-tree vlan 20 root primary
-        \end{lstlisting}
-    \end{enumerate}
-    \item \textbf{Verify}: Use \texttt{show spanning-tree vlan 10} and \texttt{show spanning-tree vlan 20} to confirm root roles and blocked ports.
-\end{enumerate}
-
-\subsection{Reflection}
-\begin{itemize}
-    \item How did the network partition different VLAN paths?
-    \item Was load balancing achieved?
-\end{itemize}
-
-\section{Scenario 3: Rapid PVST+}
-\subsection{Objective}
-\begin{itemize}
-    \item Transition to \textbf{Rapid PVST+} for faster convergence.
-    \item Observe reduced recovery times after link changes.
-\end{itemize}
-
-\subsection{Topology}
-\begin{itemize}
-    \item \textbf{Three switches} in a triangle, with VLANs 10 and 20.
-\end{itemize}
-
-\subsection{Tasks}
-\begin{enumerate}
-    \item \textbf{Initial}: Document root placements under classic STP/PVST+.
-    \item \textbf{Enable Rapid PVST+}:
-    \begin{lstlisting}
-    Switch(config)# spanning-tree mode rapid-pvst
-    \end{lstlisting}
-    \item \textbf{Test Convergence}: Disconnect a trunk; time how quickly forwarding resumes.
-\end{enumerate}
-
-\subsection{Reflection}
-\begin{itemize}
-    \item How does convergence compare with classic STP?
-    \item Which ports become \textbf{Alternate}?
-\end{itemize}
-
-\section{Scenario 4: MSTP with Four VLANs}
-\subsection{Objective}
-\begin{itemize}
-    \item Implement \textbf{MSTP}, assigning VLANs to different MST instances.
-    \item Ensure consistent MST region settings.
-\end{itemize}
-
-\subsection{Topology}
-\begin{itemize}
-    \item \textbf{Three or four switches}, VLANs \textbf{10, 20, 30, 40}.
-\end{itemize}
-
-\subsection{Tasks}
-\begin{enumerate}
-    \item \textbf{Enable MST}:
-    \begin{lstlisting}
-    Switch(config)# spanning-tree mode mst
-    Switch(config)# spanning-tree mst configuration
-    \end{lstlisting}
-    \item \textbf{Map VLANs}:
-    \begin{lstlisting}
-    Switch(config-mst)# instance 1 vlan 10,20
-    Switch(config-mst)# instance 2 vlan 30,40
-    \end{lstlisting}
-    \item \textbf{Root Selection}: Switch A root for MSTI 1; Switch B root for MSTI 2.
-    \item \textbf{Check}: Use \texttt{show spanning-tree mst configuration} on each switch.
-\end{enumerate}
-
-\subsection{Reflection}
-\begin{itemize}
-    \item Does MST simplify or complicate your setup for multiple VLANs?
-    \item Were the MST instances created and recognized correctly?
-\end{itemize}
-
-\section{Scenario 5: Security Hardening}
-\subsection{Objective}
-\begin{itemize}
-    \item Safeguard the network with features like \textbf{BPDU Guard}, \textbf{Root Guard}, \textbf{Loop Guard}, and \textbf{UDLD}.
-\end{itemize}
-
-\subsection{Topology}
-\begin{itemize}
-    \item \textbf{Core/Distribution/Access} setup with multiple VLANs.
-\end{itemize}
-
-\subsection{Tasks}
-\begin{enumerate}
-    \item \textbf{BPDU Guard} on access ports:
-    \begin{lstlisting}
-    Switch(config-if)# spanning-tree portfast
-    Switch(config-if)# spanning-tree bpduguard enable
-    \end{lstlisting}
-    \item \textbf{Root Guard} on core-facing ports:
-    \begin{lstlisting}
-    Switch(config-if)# spanning-tree guard root
-    \end{lstlisting}
-    \item \textbf{Loop Guard or UDLD} on trunk links:
-    \begin{lstlisting}
-    Switch(config-if)# spanning-tree guard loop
-    \end{lstlisting}
-    or
-    \begin{lstlisting}
-    Switch(config-if)# udld port aggressive
-    \end{lstlisting}
-    \item \textbf{Testing}: Plug in a rogue switch to an access port, attempt to override the root, simulate a unidirectional failure.
-\end{enumerate}
-
-\subsection{Reflection}
-\begin{itemize}
-    \item Which of these features is most critical in your environment?
-    \item Did you observe the correct error-disable or inconsistent states?
-\end{itemize}
-
-\section{General Tips for All Labs}
-\begin{itemize}
-    \item \textbf{Diagram Everything}: Visualize your switch interconnections and VLAN design.
-    \item \textbf{Compare Before/After}: Use \texttt{show spanning-tree} outputs to see changes after each step.
-    \item \textbf{Small Steps}: Change one parameter at a time, confirm, then proceed.
-    \item \textbf{Troubleshoot Methodically}: If a loop or unexpected behavior appears, revert to a known good state and make incremental adjustments.
-\end{itemize}
-
-\section{Conclusion}
-By tackling these \textbf{end-to-end lab scenarios}, you consolidate all the knowledge from \textbf{basic STP} to \textbf{advanced tuning}:
-\begin{itemize}
-    \item Setting up \textbf{classic STP} and verifying root selection.
-    \item Employing \textbf{PVST+} or \textbf{Rapid PVST+} for multi-VLAN networks with quicker failover.
-    \item Scaling and load balancing using \textbf{MSTP}.
-    \item Hardening STP ports with \textbf{PortFast, BPDU Guard, Root Guard, Loop Guard,} and \textbf{UDLD}.
-\end{itemize}
-
-Real-world proficiency in STP emerges through \textbf{repetition, observation, and troubleshooting}. Continue to modify these labs, add more VLANs, or experiment with varied link costs and see how STP adapts in each scenario.
-
-
-%---------------------------------------------------------------------------------------------
-\chapter{Additional Resources}
-
-Below are recommendations to further enhance your understanding and stay current with evolving standards and techniques related to Spanning Tree.
-
-\section{Official Documentation}
-\begin{itemize}
-    \item \textbf{Cisco Official Documentation}
-    \begin{itemize}
-        \item \href{https://www.cisco.com/c/en/us/tech/lan-switching/spanning-tree-protocol/index.html}{Cisco STP Technical Resources}
-        \item \href{https://www.cisco.com/c/en/us/td/docs/switches/lan}{PVST+ and RPVST+ Guides}
-        \item \href{https://www.cisco.com/c/en/us/support/docs/lan-switching/spanning-tree-protocol}{MST Deployment Guides}
-    \end{itemize}
-    \item \textbf{IEEE Standards}
-    \begin{itemize}
-        \item \textbf{IEEE 802.1D} (classic STP)
-        \item \textbf{IEEE 802.1w} (RSTP)
-        \item \textbf{IEEE 802.1s} (MSTP)
-        \item Available through the \href{https://ieeexplore.ieee.org/}{IEEE Xplore Library}.
-    \end{itemize}
-\end{itemize}
-
-\section{Books and Study Guides}
-\begin{itemize}
-    \item \textbf{Cisco Press}
-    \begin{itemize}
-        \item \textit{CCNA 200-301 Official Cert Guide} by Wendell Odom (introductory coverage).
-        \item \textit{CCNP ENCOR 350-401 Official Cert Guide} by Brad Edgeworth (advanced STP).
-        \item \textit{CCIE R\&S / Enterprise} materials (deep dives into STP tuning).
-    \end{itemize}
-    \item \textit{LAN Switching Fundamentals} by Cisco Press \textendash{} In-depth coverage of Layer 2 switching and STP mechanics.
-\end{itemize}
-
-\section{Online Articles and Video Tutorials}
-\begin{itemize}
-    \item \textbf{Cisco Learning Network}
-    \begin{itemize}
-        \item Community forums discussing STP best practices.
-    \end{itemize}
-    \item \textbf{NetworkLessons.com}
-    \begin{itemize}
-        \item Concise lessons on STP, RSTP, PVST+, MSTP, with lab examples.
-    \end{itemize}
-    \item \textbf{Popular YouTube Channels}
-    \begin{itemize}
-        \item \textit{Network Chuck}, \textit{Keith Barker}, and \textit{David Bombal} often cover STP setups and troubleshooting.
-    \end{itemize}
-\end{itemize}
-
-\section{Lab Simulation Tools}
-\begin{itemize}
-    \item \textbf{Cisco Packet Tracer} \textendash{} Ideal for CCNA-level STP labs.
-    \item \textbf{GNS3 / EVE-NG} \textendash{} Allows more advanced multi-vendor topologies, suitable for CCNP/CCIE practice.
-    \item \textbf{Cisco Modeling Labs (VIRL)} \textendash{} Official Cisco platform for simulating IOS-based environments.
-\end{itemize}
-
-\section{Industry Designs and Best Practices}
-\begin{itemize}
-    \item \textbf{Cisco Validated Designs (CVDs)}
-    \begin{itemize}
-        \item Blueprint-like documents for enterprise networks, including STP considerations.
-        \item \href{https://www.cisco.com/c/en/us/solutions/enterprise/design-zone.html}{Cisco Design Zone}
-    \end{itemize}
-    \item \textbf{Enterprise Architecture Guides}
-    \begin{itemize}
-        \item Cover campus design, VLAN distribution, and STP hierarchy.
-    \end{itemize}
-\end{itemize}
-
-\section{Conclusion}
-By leveraging official standards, Cisco documentation, lab tools, and design references, you can further \textbf{refine your STP skills}. Continuous practice\textemdash configuring, breaking, and fixing STP scenarios\textemdash remains the best way to cement your knowledge and become an adept network professional.
-
-\textbf{Good luck on your journey to mastering Spanning Tree Protocol!}
-
-
-%=============================================================================================
 \end{document}
