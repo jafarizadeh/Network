@@ -19,7 +19,8 @@
 \usepackage{graphicx}
 \usepackage{ocgx2}
 \usepackage{lipsum}
-
+\usepackage{tcolorbox}
+\usepackage{caption}
 
 % Configuration pour les listings de code
 \definecolor{codebg}{RGB}{245,245,245}
@@ -100,68 +101,237 @@ The MAC addresses of the switches are as follows:
     {MAC SW1 $<$ MAC SW2 $<$ MAC SW3 $<$ MAC SW4 $<$ MAC SW6 $<$ MAC SW6}
 \end{center}
 This means \textbf{SW1} has the lowest MAC address and \textbf{SW6} has the highest.
-
+\newpage
 \section*{Step-by-Step Tasks}
 
 \begin{enumerate}
     \item \textbf{Switch STP Mode to Traditional STP} \\
     Change the STP mode on all switches to \textbf{traditional STP (IEEE 802.1D)}. 
-    
-    
-    
+
+%==========================
+    \switchocg{codeblock}{%
+    \color{black}\underline{Click here to display the answer:}%
+}
+
+
+\begin{ocg}{Code Block}{codeblock}{0}
+\vspace{0.5cm}
+\begin{lstlisting}
+Switch(config)# spanning-tree mode stp
+\end{lstlisting}
+
+\end{ocg}
+%=================================
+
     \item \textbf{Disable Unused Interfaces} \\
     Turn off any extra or unused interfaces to prevent unnecessary loops.
 
-    
+%==========================
+\switchocg{codeblock}{%
+\color{black}\underline{Click here to display the answer:}%
+}
+
+
+\begin{ocg}{Code Block}{codeblock}{0}
+\vspace{0.5cm}
+\begin{lstlisting}
+Switch(config)# interface [interface-id]
+Switch(config)# shutdown
+
+\end{lstlisting}
+
+\end{ocg}
+%=================================
+
+
     \item \textbf{Set Links to Point-to-Point Mode} \\
     Configure all links between switches as \textbf{Point-to-Point (P2P)} to optimize STP convergence.
 
-    
+%==========================
+\switchocg{codeblock}{%
+\color{black}\underline{Click here to display the answer:}%
+}
+
+
+\begin{ocg}{Code Block}{codeblock}{0}
+\vspace{0.5cm}
+\begin{lstlisting}
+Switch(config)# spanning-tree link-type point-to-point
+
+
+\end{lstlisting}
+
+\end{ocg}
+%=================================
+
     \item \textbf{Verify Bridge IDs} \\
     Check the \textbf{Bridge ID} for each switch to see how STP will select the Root Bridge.
 
+%==========================
+\switchocg{codeblock}{%
+\color{black}\underline{Click here to display the answer:}%
+}
+
+
+\begin{ocg}{Code Block}{codeblock}{0}
+\vspace{0.5cm}
+\begin{lstlisting}
+Switch(config)# show spanning-tree
+\end{lstlisting}
+
+\end{ocg}
+%=================================
     
     \item \textbf{Predict the Root Bridge} \\
     Based on the MAC addresses provided (\textbf{SW1 $<$ SW2 $<$ SW3 $<$ SW4 $<$ SW5 $<$ SW6}), estimate which switch will become the Root Bridge.
     \begin{itemize}
         \item \textit{Question:} Which switch is likely to be the Root Bridge and why?
     \end{itemize}
+
     
-    \item \textbf{Change the Root Bridge by Adjusting Priority} \\
-    Modify the \textbf{priority} settings so that the switch identified in the diagram becomes the Root Bridge.
-    \begin{itemize}
-        
-        \item \textit{Note:} Lower priority values increase the chance of a switch becoming the Root Bridge.
-    \end{itemize}
-    
-    \item \textbf{Calculate Path Costs for Active Ports} \\
-    For each non-root switch, \textbf{calculate the cost} of paths to the Root Bridge based on link speeds. Use standard STP cost values:
-    \begin{itemize}
-        \item Gigabit Ethernet (1 Gbps) = 4
-        \item Fast Ethernet (100 Mbps) = 19
-    \end{itemize}
-    
+%==========================
+
+\switchocg{codeblock}{
+    \color{black}\underline{Click here to display the answer:}%
+}
+
+\begin{ocg}{Code Block}{codeblock}{0}
+\vspace{0.5cm}
+\tcbset{colback=gray!10, colframe=gray!50, boxrule=0.5pt, arc=4pt, left=4pt, right=4pt, top=4pt, bottom=4pt}
+\begin{tcolorbox}
+\small{
+The switch with the lowest MAC address will be selected as the Root Bridge. According to the provided MAC address order:
+
+MAC SW1 < MAC SW2 < MAC SW3 < MAC SW4
+
+Therefore, SW1 will be the Root Bridge.
+}
+\end{tcolorbox}
+\end{ocg}
+
+%=================================
+
+
     \item \textbf{Estimate Root Ports} \\
     Identify the \textbf{Root Port} on each non-root switch. This is the port with the lowest path cost to the Root Bridge.
     \begin{itemize}
         \item \textit{Question:} Which port will be the Root Port on SW2, SW3, SW4, SW5, and SW6?
     \end{itemize}
+
+        %==========================
+
+\switchocg{codeblock}{
+    \color{black}\underline{Click here to display the answer:}%
+}
+
+\begin{ocg}{Code Block}{codeblock}{0}
+\vspace{0.5cm}
+\tcbset{colback=gray!10, colframe=gray!50, boxrule=0.5pt, arc=4pt, left=4pt, right=4pt, top=4pt, bottom=4pt}
+\begin{tcolorbox}
+\small{
+    \begin{itemize}
+        \item \textbf{SW2:}
+        \begin{itemize}
+            \item \textit{G0/1 $\rightarrow$ SW1 (cost = 4)}
+        \end{itemize}
+        
+        \item \textbf{SW3:}
+        \begin{itemize}
+            \item \textit{G0/1 $\rightarrow$ SW2 (cost = 4) + G0/1 $\rightarrow$ SW1 (cost = 4) = 8}
+        \end{itemize}
+        
+        \item \textbf{SW4:}
+        \begin{itemize}
+            \item \textit{G0/1 $\rightarrow$ SW1 (cost = 4)}
+        \end{itemize}
+        
+        \item \textbf{SW5:}
+        \begin{itemize}
+            \item \textit{F0/1 $\rightarrow$ SW3 (cost = 19) + G0/1 $\rightarrow$ SW2 (cost = 4) + G0/1 $\rightarrow$ SW1 (cost = 4) = 27}
+        \end{itemize}
+        
+        \item \textbf{SW6:}
+        \begin{itemize}
+            \item \textit{F0/1 $\rightarrow$ SW4 (cost = 19) + G0/1 $\rightarrow$ SW1 (cost = 4) = 23}
+        \end{itemize}
+    \end{itemize}
+}
+\end{tcolorbox}
+\end{ocg}
+
+%=================================
     
     \item \textbf{How Many Root Bridges Are There in a Network?}
     \begin{itemize}
         \item \textit{Question:} In any given STP-enabled network, how many Root Bridges can exist?
     \end{itemize}
-    
+        %==========================
+
+        \switchocg{codeblock}{
+            \color{black}\underline{Click here to display the answer:}%
+        }
+        
+        \begin{ocg}{Code Block}{codeblock}{0}
+        \vspace{0.5cm}
+        \tcbset{colback=gray!10, colframe=gray!50, boxrule=0.5pt, arc=4pt, left=4pt, right=4pt, top=4pt, bottom=4pt}
+        \begin{tcolorbox}
+        \small{
+            In any STP-enabled network, there can only be one Root Bridge per VLAN.
+        }
+        \end{tcolorbox}
+        \end{ocg}
+        
+        %=================================
+
+
     \item \textbf{How Many Root Ports Are There in a Network?}
     \begin{itemize}
         \item \textit{Question:} In any given STP-enabled network, how many Root Port can exist?
     \end{itemize}
+        %==========================
 
+        \switchocg{codeblock}{
+            \color{black}\underline{Click here to display the answer:}%
+        }
+        
+        \begin{ocg}{Code Block}{codeblock}{0}
+        \vspace{0.5cm}
+        \tcbset{colback=gray!10, colframe=gray!50, boxrule=0.5pt, arc=4pt, left=4pt, right=4pt, top=4pt, bottom=4pt}
+        \begin{tcolorbox}
+        \small{
+            Each non-root switch will have one Root Port. Since SW1 is the Root Bridge and there are 5 other switches (SW2, SW3, SW4, SW5, SW6), there will be:
+
+Total Root Ports = 5
+        }
+        \end{tcolorbox}
+        \end{ocg}
+        
+        %=================================
 
     \item \textbf{How Many Designated Ports (DP) Are in the Topology?}
     \begin{itemize}
         \item \textit{Question:} In any STP-enabled topology, how many Designated Ports (DP) will there be?
     \end{itemize}
+
+            %---,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,---
+
+            \switchocg{codeblock}{
+                \color{black}\underline{Click here to display the answer:}%
+            }
+            
+            \begin{ocg}{Code Block}{codeblock}{0}
+            \vspace{0.5cm}
+            \tcbset{colback=gray!10, colframe=gray!50, boxrule=0.5pt, arc=4pt, left=4pt, right=4pt, top=4pt, bottom=4pt}
+            \begin{tcolorbox}
+            \small{
+                In any STP-enabled topology, each network segment will have exactly one Designated Port (DP).
+
+                A network segment is a link between two switches or a switch and an end device.
+            }
+            \end{tcolorbox}
+            \end{ocg}
+            
+            %---''''''''''''''''''''''''''''''''---
 
     \item \textbf{Estimate the Designated Ports on Each Switch}
     \begin{itemize}
@@ -169,17 +339,62 @@ This means \textbf{SW1} has the lowest MAC address and \textbf{SW6} has the high
     \end{itemize}
 
     \item \textbf{Verify Designated Ports Using Commands}
+%---,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,---
+\switchocg{codeblock}{%
+\color{black}\underline{Click here to display the answer:}%
+}
+
+
+\begin{ocg}{Code Block}{codeblock}{0}
+\vspace{0.5cm}
+\begin{lstlisting}
+Switch(config)# show spanning-tree
+\end{lstlisting}
+
+\end{ocg}
+%---''''''''''''''''''''''''''''''''---
 
     \item \textbf{Are All Root Bridge Ports Designated Ports?}
     \begin{itemize}
         \item \textit{Question:} Based on your observations, can you conclude that all ports on the Root Bridge are Designated Ports?
     \end{itemize}
+%---,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,---
 
+\switchocg{codeblock}{
+    \color{black}\underline{Click here to display the answer:}%
+}
+
+\begin{ocg}{Code Block}{codeblock}{0}
+\vspace{0.5cm}
+\tcbset{colback=gray!10, colframe=gray!50, boxrule=0.5pt, arc=4pt, left=4pt, right=4pt, top=4pt, bottom=4pt}
+\begin{tcolorbox}
+\small{
+    Yes, all ports on the Root Bridge are Designated Ports (DPs). The Root Bridge does not have any Root Ports because it is the reference point for all path calculations. Since it provides the shortest path to itself, all its ports are designated to forward traffic.
+}
+\end{tcolorbox}
+\end{ocg}
+
+%---''''''''''''''''''''''''''''''''---
     \item \textbf{Change the Port Cost of G0/2 on SW4}
     \begin{itemize}
         \item Modify the path cost of interface G0/2 on SW4 to 15. This will influence STP’s decision on which path to use. 
     \end{itemize}
+%---,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,---
+\switchocg{codeblock}{%
+\color{black}\underline{Click here to display the answer:}%
+}
 
+
+\begin{ocg}{Code Block}{codeblock}{0}
+\vspace{0.5cm}
+\begin{lstlisting}
+Switch(config)# interface g0/2
+Switch(config-if)# spanning-tree cost 15
+
+\end{lstlisting}
+
+\end{ocg}
+%---''''''''''''''''''''''''''''''''---
     \begin{figure}[h]
         \centering
         \includegraphics[width=0.9\textwidth]{img/stp02.png}
@@ -192,44 +407,122 @@ This means \textbf{SW1} has the lowest MAC address and \textbf{SW6} has the high
     \begin{itemize}
         \item If you remove the link connected to G0/1 on SW4 (Figure 1.2), which port will become the new Root Port? Explain your reasoning based on path costs and STP rules.
         \item \textit{Hint:} Consider which remaining port on SW4 has the lowest cost path to the Root Bridge.
+        
+%---,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,---
+
+\switchocg{codeblock}{
+    \color{black}\underline{Click here to display the answer:}%
+}
+
+\begin{ocg}{Code Block}{codeblock}{0}
+\vspace{0.5cm}
+\tcbset{colback=gray!10, colframe=gray!50, boxrule=0.5pt, arc=4pt, left=4pt, right=4pt, top=4pt, bottom=4pt}
+\begin{tcolorbox}
+\small{
+    
+        
+        \begin{itemize}
+            \item \textit{F0/2 $\rightarrow$ SW2 (cost = 19) + G0/1 $\rightarrow$ SW1 (cost = 4) = 23}
+            \item \textit{G0/2 $\rightarrow$ SW3 (cost = 15) + G0/1 $\rightarrow$ SW2 (cost = 4) + G0/1 $\rightarrow$ SW1 (cost = 4)= 23}
+        \end{itemize}
+        In cases where the interface costs are equal, a tiebreaker is required. In such situations, the path with the lower Bridge ID (BID) of the sending switch is selected.
+
+        Since the MAC address of Switch 2 is lower than that of Switch 3, the interface Fa0/1 is selected.
+}
+\end{tcolorbox}
+\end{ocg}
+
+%---''''''''''''''''''''''''''''''''---
     \end{itemize}
 
-    \item \textbf{Identify Root Ports with SW1 as the Root Bridge}
-    \begin{itemize}
-        \item In this topology, assuming SW1 is the Root Bridge, identify the Root Ports on the other switches (SW2, SW3, SW4, SW5, and SW6).
- 
-    \end{itemize}
-
-    \item \textbf{Change the Port ID to Influence Link Selection}
-    \begin{itemize}
-        \item STP uses Port IDs as a tie-breaker when path costs are equal. By adjusting the Port Priority (which is part of the Port ID), you can influence which link STP selects as the active path.
-        \item \textit{Task:} Change the Port Priority of specific interfaces to modify STP’s link selection.
-    \end{itemize}
     
 \end{enumerate}
 
 \newpage
-\section*{Additional exercises}
+\section*{Additional Exercises}
+
 \subsection*{Draw the Active Topology for Each Scenario}
 
-
-\begin{figure}[h]
+\begin{minipage}{0.4\textwidth}
     \centering
-    \includegraphics[width=0.4\textwidth]{img/stp03.png}
-    \caption{\textit{}}
-\end{figure}
+    \includegraphics[width=\linewidth]{img/stp03.png}
+    \captionof{figure}{\textit{Scenario 1 Topology}}
+\end{minipage}%
+\hfill
+\begin{minipage}{0.55\textwidth}
+\vspace{2cm}
+%---,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,---
 
-\begin{figure}[h]
-    \centering
-    \includegraphics[width=0.4\textwidth]{img/stp04.png}
-    \caption{\textit{}}
-\end{figure}
+\switchocg{codeblock}{
+    \color{black}\underline{Click here to display the answer:}%
+}
 
-\begin{figure}[h]
+\begin{ocg}{Code Block}{codeblock}{0}
+
+\tcbset{colback=gray!10, colframe=gray!50, boxrule=0.5pt, arc=4pt, left=4pt, right=4pt, top=4pt, bottom=4pt}
+\begin{tcolorbox}
+    \includegraphics[width=\linewidth]{img/stp03active.png}
+\end{tcolorbox}
+\end{ocg}
+
+%---''''''''''''''''''''''''''''''''---
+    
+\end{minipage}
+\vspace{2cm}
+
+
+\begin{minipage}{0.4\textwidth}
     \centering
-    \includegraphics[width=0.5\textwidth]{img/stp05.png}
-    \caption{\textit{}}
-\end{figure}
+    \includegraphics[width=\linewidth]{img/stp04.png}
+    \captionof{figure}{\textit{Scenario 2 Topology}}
+\end{minipage}%
+\hfill
+\begin{minipage}{0.55\textwidth}
+
+    %---,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,---
+    
+    \switchocg{codeblock}{
+        \color{black}\underline{Click here to display the answer:}%
+    }
+    
+    \begin{ocg}{Code Block}{codeblock}{0}
+    
+    \tcbset{colback=gray!10, colframe=gray!50, boxrule=0.5pt, arc=4pt, left=4pt, right=4pt, top=4pt, bottom=4pt}
+    \begin{tcolorbox}
+    
+        \includegraphics[width=\linewidth]{img/stp04active.png}
+    \end{tcolorbox}
+    \end{ocg}
+    
+    %---''''''''''''''''''''''''''''''''---    
+\end{minipage}
+
+\newpage
+
+    \centering
+    \includegraphics[width=0.7\textwidth]{img/stp05.png}
+    \captionof{figure}{\textit{Scenario 3 Topology}}
+ \vspace{2cm}
+
+ \begin{minipage}{0.55\textwidth}
+   %---,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,---
+    
+    \switchocg{codeblock}{
+        \color{black}\underline{Click here to display the answer:}%
+    }
+    
+    \begin{ocg}{Code Block}{codeblock}{0}
+    
+    \tcbset{colback=gray!10, colframe=gray!50, boxrule=0.5pt, arc=4pt, left=4pt, right=4pt, top=4pt, bottom=4pt}
+    \begin{tcolorbox}
+    
+        \includegraphics[width=1\textwidth]{img/stp05active.png}
+    \end{tcolorbox}
+    \end{ocg}
+    
+    %---''''''''''''''''''''''''''''''''---   
+\end{minipage}
+
 
 %------------------------------------------------------
 % Chapter 2: STP Root Bridge
@@ -586,13 +879,8 @@ Securing the \textbf{Spanning Tree Protocol} topology is essential for maintaini
 \end{enumerate}
 
 
-
-Here is some regular text. \\
-\vspace{0.5cm}
-
-
 \switchocg{codeblock}{%
-    \color{black}\underline{Click here to reveal the code!}%
+    \color{black}\underline{Click here to display the answer:}%
 }
 
 
