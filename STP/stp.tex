@@ -47,22 +47,22 @@
 
 %----- MODERN TITLE PAGE -----%
 \begin{titlepage}
-    \centering
-    \vspace*{4cm}
-    {\Huge \textbf{Spanning Tree Protocol (STP) Workbook}\par}
-    \vspace{0.8cm}
-    {\Large A Hands-On Guide to PVST+, RSTP, and MSTP\par}
-    \vspace{0.3cm}
-    \rule{0.9\textwidth}{1pt}
-    
-    \vspace{0.6cm}
-    {\large \textbf{Mehdi JAFARI ZADEH}}\par
-    \vspace{0.3cm}
+	\centering
+	\vspace*{4cm}
+	{\Huge \textbf{Spanning Tree Protocol (STP) Workbook}\par}
+	\vspace{0.8cm}
+	{\Large A Hands-On Guide to PVST+, RSTP, and MSTP\par}
+	\vspace{0.3cm}
+	\rule{0.9\textwidth}{1pt}
 
-    
-    \vfill
-    \textbf{Date:} \today
-    \vspace{2cm}
+	\vspace{0.6cm}
+	{\large \textbf{Mehdi JAFARI ZADEH}}\par
+	\vspace{0.3cm}
+
+
+	\vfill
+	\textbf{Date:} \today
+	\vspace{2cm}
 \end{titlepage}
 
 
@@ -86,9 +86,9 @@ Within each switch (except for the Root Bridge), the Root Port is the interface 
 
 
 \begin{figure}[h]
-    \centering
-    \includegraphics[width=0.9\textwidth]{img/stp01.png}
-    \caption{\textit{}}
+	\centering
+	\includegraphics[width=0.9\textwidth]{img/stp01.png}
+	\caption{\textit{}}
 \end{figure}
 
 \subsection*{Network Topology Overview}
@@ -98,344 +98,344 @@ In this exercise, you will work with the network topology as described below. Th
 
 The MAC addresses of the switches are as follows:
 \begin{center}
-    {MAC SW1 $<$ MAC SW2 $<$ MAC SW3 $<$ MAC SW4 $<$ MAC SW6 $<$ MAC SW6}
+	{MAC SW1 $<$ MAC SW2 $<$ MAC SW3 $<$ MAC SW4 $<$ MAC SW6 $<$ MAC SW6}
 \end{center}
 This means \textbf{SW1} has the lowest MAC address and \textbf{SW6} has the highest.
 \newpage
 \section*{Step-by-Step Tasks}
 
 \begin{enumerate}
-    \item \textbf{Switch STP Mode to Traditional STP} \\
-    Change the STP mode on all switches to \textbf{traditional STP (IEEE 802.1D)}. 
+	\item \textbf{Switch STP Mode to Traditional STP} \\
+	      Change the STP mode on all switches to \textbf{traditional STP (IEEE 802.1D)}.
 
-%==========================
-    \switchocg{codeblock}{%
-    \color{black}\underline{Click here to display the answer:}%
-}
+	      %==========================
+	      \switchocg{codeblock}{%
+		      \color{black}\underline{Click here to display the answer:}%
+	      }
 
 
-\begin{ocg}{Code Block}{codeblock}{0}
-\vspace{0.5cm}
-\begin{lstlisting}
+	      \begin{ocg}{Code Block}{codeblock}{0}
+		      \vspace{0.5cm}
+		      \begin{lstlisting}
 Switch(config)# spanning-tree mode stp
 \end{lstlisting}
 
-\end{ocg}
-%=================================
+	      \end{ocg}
+	      %=================================
 
-    \item \textbf{Disable Unused Interfaces} \\
-    Turn off any extra or unused interfaces to prevent unnecessary loops.
+	\item \textbf{Disable Unused Interfaces} \\
+	      Turn off any extra or unused interfaces to prevent unnecessary loops.
 
-%==========================
-\switchocg{codeblock}{%
-\color{black}\underline{Click here to display the answer:}%
-}
+	      %==========================
+	      \switchocg{codeblock}{%
+		      \color{black}\underline{Click here to display the answer:}%
+	      }
 
 
-\begin{ocg}{Code Block}{codeblock}{0}
-\vspace{0.5cm}
-\begin{lstlisting}
+	      \begin{ocg}{Code Block}{codeblock}{0}
+		      \vspace{0.5cm}
+		      \begin{lstlisting}
 Switch(config)# interface [interface-id]
 Switch(config)# shutdown
 
 \end{lstlisting}
 
-\end{ocg}
-%=================================
+	      \end{ocg}
+	      %=================================
 
 
-    \item \textbf{Set Links to Point-to-Point Mode} \\
-    Configure all links between switches as \textbf{Point-to-Point (P2P)} to optimize STP convergence.
+	\item \textbf{Set Links to Point-to-Point Mode} \\
+	      Configure all links between switches as \textbf{Point-to-Point (P2P)} to optimize STP convergence.
 
-%==========================
-\switchocg{codeblock}{%
-\color{black}\underline{Click here to display the answer:}%
-}
+	      %==========================
+	      \switchocg{codeblock}{%
+		      \color{black}\underline{Click here to display the answer:}%
+	      }
 
 
-\begin{ocg}{Code Block}{codeblock}{0}
-\vspace{0.5cm}
-\begin{lstlisting}
+	      \begin{ocg}{Code Block}{codeblock}{0}
+		      \vspace{0.5cm}
+		      \begin{lstlisting}
 Switch(config)# spanning-tree link-type point-to-point
 
 
 \end{lstlisting}
 
-\end{ocg}
-%=================================
+	      \end{ocg}
+	      %=================================
 
-    \item \textbf{Verify Bridge IDs} \\
-    Check the \textbf{Bridge ID} for each switch to see how STP will select the Root Bridge.
+	\item \textbf{Verify Bridge IDs} \\
+	      Check the \textbf{Bridge ID} for each switch to see how STP will select the Root Bridge.
 
-%==========================
-\switchocg{codeblock}{%
-\color{black}\underline{Click here to display the answer:}%
-}
+	      %==========================
+	      \switchocg{codeblock}{%
+		      \color{black}\underline{Click here to display the answer:}%
+	      }
 
 
-\begin{ocg}{Code Block}{codeblock}{0}
-\vspace{0.5cm}
-\begin{lstlisting}
+	      \begin{ocg}{Code Block}{codeblock}{0}
+		      \vspace{0.5cm}
+		      \begin{lstlisting}
 Switch(config)# show spanning-tree
 \end{lstlisting}
 
-\end{ocg}
-%=================================
-    
-    \item \textbf{Predict the Root Bridge} \\
-    Based on the MAC addresses provided (\textbf{SW1 $<$ SW2 $<$ SW3 $<$ SW4 $<$ SW5 $<$ SW6}), estimate which switch will become the Root Bridge.
-    \begin{itemize}
-        \item \textit{Question:} Which switch is likely to be the Root Bridge and why?
-    \end{itemize}
+	      \end{ocg}
+	      %=================================
 
-    
-%==========================
-
-\switchocg{codeblock}{
-    \color{black}\underline{Click here to display the answer:}%
-}
-
-\begin{ocg}{Code Block}{codeblock}{0}
-\vspace{0.5cm}
-\tcbset{colback=gray!10, colframe=gray!50, boxrule=0.5pt, arc=4pt, left=4pt, right=4pt, top=4pt, bottom=4pt}
-\begin{tcolorbox}
-\small{
-The switch with the lowest MAC address will be selected as the Root Bridge. According to the provided MAC address order:
-
-MAC SW1 < MAC SW2 < MAC SW3 < MAC SW4
-
-Therefore, SW1 will be the Root Bridge.
-}
-\end{tcolorbox}
-\end{ocg}
-
-%=================================
+	\item \textbf{Predict the Root Bridge} \\
+	      Based on the MAC addresses provided (\textbf{SW1 $<$ SW2 $<$ SW3 $<$ SW4 $<$ SW5 $<$ SW6}), estimate which switch will become the Root Bridge.
+	      \begin{itemize}
+		      \item \textit{Question:} Which switch is likely to be the Root Bridge and why?
+	      \end{itemize}
 
 
-    \item \textbf{Estimate Root Ports} \\
-    Identify the \textbf{Root Port} on each non-root switch. This is the port with the lowest path cost to the Root Bridge.
-    \begin{itemize}
-        \item \textit{Question:} Which port will be the Root Port on SW2, SW3, SW4, SW5, and SW6?
-    \end{itemize}
+	      %==========================
 
-        %==========================
+	      \switchocg{codeblock}{
+		      \color{black}\underline{Click here to display the answer:}%
+	      }
 
-\switchocg{codeblock}{
-    \color{black}\underline{Click here to display the answer:}%
-}
+	      \begin{ocg}{Code Block}{codeblock}{0}
+		      \vspace{0.5cm}
+		      \tcbset{colback=gray!10, colframe=gray!50, boxrule=0.5pt, arc=4pt, left=4pt, right=4pt, top=4pt, bottom=4pt}
+		      \begin{tcolorbox}
+			      \small{
+				      The switch with the lowest MAC address will be selected as the Root Bridge. According to the provided MAC address order:
 
-\begin{ocg}{Code Block}{codeblock}{0}
-\vspace{0.5cm}
-\tcbset{colback=gray!10, colframe=gray!50, boxrule=0.5pt, arc=4pt, left=4pt, right=4pt, top=4pt, bottom=4pt}
-\begin{tcolorbox}
-\small{
-    \begin{itemize}
-        \item \textbf{SW2:}
-        \begin{itemize}
-            \item \textit{G0/1 $\rightarrow$ SW1 (cost = 4)}
-        \end{itemize}
-        
-        \item \textbf{SW3:}
-        \begin{itemize}
-            \item \textit{G0/1 $\rightarrow$ SW2 (cost = 4) + G0/1 $\rightarrow$ SW1 (cost = 4) = 8}
-        \end{itemize}
-        
-        \item \textbf{SW4:}
-        \begin{itemize}
-            \item \textit{G0/1 $\rightarrow$ SW1 (cost = 4)}
-        \end{itemize}
-        
-        \item \textbf{SW5:}
-        \begin{itemize}
-            \item \textit{F0/1 $\rightarrow$ SW3 (cost = 19) + G0/1 $\rightarrow$ SW2 (cost = 4) + G0/1 $\rightarrow$ SW1 (cost = 4) = 27}
-        \end{itemize}
-        
-        \item \textbf{SW6:}
-        \begin{itemize}
-            \item \textit{F0/1 $\rightarrow$ SW4 (cost = 19) + G0/1 $\rightarrow$ SW1 (cost = 4) = 23}
-        \end{itemize}
-    \end{itemize}
-}
-\end{tcolorbox}
-\end{ocg}
+				      MAC SW1 < MAC SW2 < MAC SW3 < MAC SW4
 
-%=================================
-    
-    \item \textbf{How Many Root Bridges Are There in a Network?}
-    \begin{itemize}
-        \item \textit{Question:} In any given STP-enabled network, how many Root Bridges can exist?
-    \end{itemize}
-        %==========================
+				      Therefore, SW1 will be the Root Bridge.
+			      }
+		      \end{tcolorbox}
+	      \end{ocg}
 
-        \switchocg{codeblock}{
-            \color{black}\underline{Click here to display the answer:}%
-        }
-        
-        \begin{ocg}{Code Block}{codeblock}{0}
-        \vspace{0.5cm}
-        \tcbset{colback=gray!10, colframe=gray!50, boxrule=0.5pt, arc=4pt, left=4pt, right=4pt, top=4pt, bottom=4pt}
-        \begin{tcolorbox}
-        \small{
-            In any STP-enabled network, there can only be one Root Bridge per VLAN.
-        }
-        \end{tcolorbox}
-        \end{ocg}
-        
-        %=================================
+	      %=================================
 
 
-    \item \textbf{How Many Root Ports Are There in a Network?}
-    \begin{itemize}
-        \item \textit{Question:} In any given STP-enabled network, how many Root Port can exist?
-    \end{itemize}
-        %==========================
+	\item \textbf{Estimate Root Ports} \\
+	      Identify the \textbf{Root Port} on each non-root switch. This is the port with the lowest path cost to the Root Bridge.
+	      \begin{itemize}
+		      \item \textit{Question:} Which port will be the Root Port on SW2, SW3, SW4, SW5, and SW6?
+	      \end{itemize}
 
-        \switchocg{codeblock}{
-            \color{black}\underline{Click here to display the answer:}%
-        }
-        
-        \begin{ocg}{Code Block}{codeblock}{0}
-        \vspace{0.5cm}
-        \tcbset{colback=gray!10, colframe=gray!50, boxrule=0.5pt, arc=4pt, left=4pt, right=4pt, top=4pt, bottom=4pt}
-        \begin{tcolorbox}
-        \small{
-            Each non-root switch will have one Root Port. Since SW1 is the Root Bridge and there are 5 other switches (SW2, SW3, SW4, SW5, SW6), there will be:
+	      %==========================
 
-Total Root Ports = 5
-        }
-        \end{tcolorbox}
-        \end{ocg}
-        
-        %=================================
+	      \switchocg{codeblock}{
+		      \color{black}\underline{Click here to display the answer:}%
+	      }
 
-    \item \textbf{How Many Designated Ports (DP) Are in the Topology?}
-    \begin{itemize}
-        \item \textit{Question:} In any STP-enabled topology, how many Designated Ports (DP) will there be?
-    \end{itemize}
+	      \begin{ocg}{Code Block}{codeblock}{0}
+		      \vspace{0.5cm}
+		      \tcbset{colback=gray!10, colframe=gray!50, boxrule=0.5pt, arc=4pt, left=4pt, right=4pt, top=4pt, bottom=4pt}
+		      \begin{tcolorbox}
+			      \small{
+				      \begin{itemize}
+					      \item \textbf{SW2:}
+					            \begin{itemize}
+						            \item \textit{G0/1 $\rightarrow$ SW1 (cost = 4)}
+					            \end{itemize}
 
-            %---,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,---
+					      \item \textbf{SW3:}
+					            \begin{itemize}
+						            \item \textit{G0/1 $\rightarrow$ SW2 (cost = 4) + G0/1 $\rightarrow$ SW1 (cost = 4) = 8}
+					            \end{itemize}
 
-            \switchocg{codeblock}{
-                \color{black}\underline{Click here to display the answer:}%
-            }
-            
-            \begin{ocg}{Code Block}{codeblock}{0}
-            \vspace{0.5cm}
-            \tcbset{colback=gray!10, colframe=gray!50, boxrule=0.5pt, arc=4pt, left=4pt, right=4pt, top=4pt, bottom=4pt}
-            \begin{tcolorbox}
-            \small{
-                In any STP-enabled topology, each network segment will have exactly one Designated Port (DP).
+					      \item \textbf{SW4:}
+					            \begin{itemize}
+						            \item \textit{G0/1 $\rightarrow$ SW1 (cost = 4)}
+					            \end{itemize}
 
-                A network segment is a link between two switches or a switch and an end device.
-            }
-            \end{tcolorbox}
-            \end{ocg}
-            
-            %---''''''''''''''''''''''''''''''''---
+					      \item \textbf{SW5:}
+					            \begin{itemize}
+						            \item \textit{F0/1 $\rightarrow$ SW3 (cost = 19) + G0/1 $\rightarrow$ SW2 (cost = 4) + G0/1 $\rightarrow$ SW1 (cost = 4) = 27}
+					            \end{itemize}
 
-    \item \textbf{Estimate the Designated Ports on Each Switch}
-    \begin{itemize}
-        \item Before using any commands, predict which ports will be Designated Ports on each switch in the topology. 
-    \end{itemize}
+					      \item \textbf{SW6:}
+					            \begin{itemize}
+						            \item \textit{F0/1 $\rightarrow$ SW4 (cost = 19) + G0/1 $\rightarrow$ SW1 (cost = 4) = 23}
+					            \end{itemize}
+				      \end{itemize}
+			      }
+		      \end{tcolorbox}
+	      \end{ocg}
 
-    \item \textbf{Verify Designated Ports Using Commands}
-%---,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,---
-\switchocg{codeblock}{%
-\color{black}\underline{Click here to display the answer:}%
-}
+	      %=================================
+
+	\item \textbf{How Many Root Bridges Are There in a Network?}
+	      \begin{itemize}
+		      \item \textit{Question:} In any given STP-enabled network, how many Root Bridges can exist?
+	      \end{itemize}
+	      %==========================
+
+	      \switchocg{codeblock}{
+		      \color{black}\underline{Click here to display the answer:}%
+	      }
+
+	      \begin{ocg}{Code Block}{codeblock}{0}
+		      \vspace{0.5cm}
+		      \tcbset{colback=gray!10, colframe=gray!50, boxrule=0.5pt, arc=4pt, left=4pt, right=4pt, top=4pt, bottom=4pt}
+		      \begin{tcolorbox}
+			      \small{
+				      In any STP-enabled network, there can only be one Root Bridge per VLAN.
+			      }
+		      \end{tcolorbox}
+	      \end{ocg}
+
+	      %=================================
 
 
-\begin{ocg}{Code Block}{codeblock}{0}
-\vspace{0.5cm}
-\begin{lstlisting}
+	\item \textbf{How Many Root Ports Are There in a Network?}
+	      \begin{itemize}
+		      \item \textit{Question:} In any given STP-enabled network, how many Root Port can exist?
+	      \end{itemize}
+	      %==========================
+
+	      \switchocg{codeblock}{
+		      \color{black}\underline{Click here to display the answer:}%
+	      }
+
+	      \begin{ocg}{Code Block}{codeblock}{0}
+		      \vspace{0.5cm}
+		      \tcbset{colback=gray!10, colframe=gray!50, boxrule=0.5pt, arc=4pt, left=4pt, right=4pt, top=4pt, bottom=4pt}
+		      \begin{tcolorbox}
+			      \small{
+				      Each non-root switch will have one Root Port. Since SW1 is the Root Bridge and there are 5 other switches (SW2, SW3, SW4, SW5, SW6), there will be:
+
+				      Total Root Ports = 5
+			      }
+		      \end{tcolorbox}
+	      \end{ocg}
+
+	      %=================================
+
+	\item \textbf{How Many Designated Ports (DP) Are in the Topology?}
+	      \begin{itemize}
+		      \item \textit{Question:} In any STP-enabled topology, how many Designated Ports (DP) will there be?
+	      \end{itemize}
+
+	      %---,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,---
+
+	      \switchocg{codeblock}{
+		      \color{black}\underline{Click here to display the answer:}%
+	      }
+
+	      \begin{ocg}{Code Block}{codeblock}{0}
+		      \vspace{0.5cm}
+		      \tcbset{colback=gray!10, colframe=gray!50, boxrule=0.5pt, arc=4pt, left=4pt, right=4pt, top=4pt, bottom=4pt}
+		      \begin{tcolorbox}
+			      \small{
+				      In any STP-enabled topology, each network segment will have exactly one Designated Port (DP).
+
+				      A network segment is a link between two switches or a switch and an end device.
+			      }
+		      \end{tcolorbox}
+	      \end{ocg}
+
+	      %---''''''''''''''''''''''''''''''''---
+
+	\item \textbf{Estimate the Designated Ports on Each Switch}
+	      \begin{itemize}
+		      \item Before using any commands, predict which ports will be Designated Ports on each switch in the topology.
+	      \end{itemize}
+
+	\item \textbf{Verify Designated Ports Using Commands}
+	      %---,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,---
+	      \switchocg{codeblock}{%
+		      \color{black}\underline{Click here to display the answer:}%
+	      }
+
+
+	      \begin{ocg}{Code Block}{codeblock}{0}
+		      \vspace{0.5cm}
+		      \begin{lstlisting}
 Switch(config)# show spanning-tree
 \end{lstlisting}
 
-\end{ocg}
-%---''''''''''''''''''''''''''''''''---
+	      \end{ocg}
+	      %---''''''''''''''''''''''''''''''''---
 
-    \item \textbf{Are All Root Bridge Ports Designated Ports?}
-    \begin{itemize}
-        \item \textit{Question:} Based on your observations, can you conclude that all ports on the Root Bridge are Designated Ports?
-    \end{itemize}
-%---,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,---
+	\item \textbf{Are All Root Bridge Ports Designated Ports?}
+	      \begin{itemize}
+		      \item \textit{Question:} Based on your observations, can you conclude that all ports on the Root Bridge are Designated Ports?
+	      \end{itemize}
+	      %---,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,---
 
-\switchocg{codeblock}{
-    \color{black}\underline{Click here to display the answer:}%
-}
+	      \switchocg{codeblock}{
+		      \color{black}\underline{Click here to display the answer:}%
+	      }
 
-\begin{ocg}{Code Block}{codeblock}{0}
-\vspace{0.5cm}
-\tcbset{colback=gray!10, colframe=gray!50, boxrule=0.5pt, arc=4pt, left=4pt, right=4pt, top=4pt, bottom=4pt}
-\begin{tcolorbox}
-\small{
-    Yes, all ports on the Root Bridge are Designated Ports (DPs). The Root Bridge does not have any Root Ports because it is the reference point for all path calculations. Since it provides the shortest path to itself, all its ports are designated to forward traffic.
-}
-\end{tcolorbox}
-\end{ocg}
+	      \begin{ocg}{Code Block}{codeblock}{0}
+		      \vspace{0.5cm}
+		      \tcbset{colback=gray!10, colframe=gray!50, boxrule=0.5pt, arc=4pt, left=4pt, right=4pt, top=4pt, bottom=4pt}
+		      \begin{tcolorbox}
+			      \small{
+				      Yes, all ports on the Root Bridge are Designated Ports (DPs). The Root Bridge does not have any Root Ports because it is the reference point for all path calculations. Since it provides the shortest path to itself, all its ports are designated to forward traffic.
+			      }
+		      \end{tcolorbox}
+	      \end{ocg}
 
-%---''''''''''''''''''''''''''''''''---
-    \item \textbf{Change the Port Cost of G0/2 on SW4}
-    \begin{itemize}
-        \item Modify the path cost of interface G0/2 on SW4 to 15. This will influence STP’s decision on which path to use. 
-    \end{itemize}
-%---,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,---
-\switchocg{codeblock}{%
-\color{black}\underline{Click here to display the answer:}%
-}
+	      %---''''''''''''''''''''''''''''''''---
+	\item \textbf{Change the Port Cost of G0/2 on SW4}
+	      \begin{itemize}
+		      \item Modify the path cost of interface G0/2 on SW4 to 15. This will influence STP’s decision on which path to use.
+	      \end{itemize}
+	      %---,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,---
+	      \switchocg{codeblock}{%
+		      \color{black}\underline{Click here to display the answer:}%
+	      }
 
 
-\begin{ocg}{Code Block}{codeblock}{0}
-\vspace{0.5cm}
-\begin{lstlisting}
+	      \begin{ocg}{Code Block}{codeblock}{0}
+		      \vspace{0.5cm}
+		      \begin{lstlisting}
 Switch(config)# interface g0/2
 Switch(config-if)# spanning-tree cost 15
 
 \end{lstlisting}
 
-\end{ocg}
-%---''''''''''''''''''''''''''''''''---
-    \begin{figure}[h]
-        \centering
-        \includegraphics[width=0.9\textwidth]{img/stp02.png}
-        \caption{\textit{}}
-    \end{figure}
-    \newpage
+	      \end{ocg}
+	      %---''''''''''''''''''''''''''''''''---
+	      \begin{figure}[h]
+		      \centering
+		      \includegraphics[width=0.9\textwidth]{img/stp02.png}
+		      \caption{\textit{}}
+	      \end{figure}
+	      \newpage
 
 
-    \item \textbf{Predict the New Root Port on SW4 After Link Removal}
-    \begin{itemize}
-        \item If you remove the link connected to G0/1 on SW4 (Figure 1.2), which port will become the new Root Port? Explain your reasoning based on path costs and STP rules.
-        \item \textit{Hint:} Consider which remaining port on SW4 has the lowest cost path to the Root Bridge.
-        
-%---,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,---
+	\item \textbf{Predict the New Root Port on SW4 After Link Removal}
+	      \begin{itemize}
+		      \item If you remove the link connected to G0/1 on SW4 (Figure 1.2), which port will become the new Root Port? Explain your reasoning based on path costs and STP rules.
+		      \item \textit{Hint:} Consider which remaining port on SW4 has the lowest cost path to the Root Bridge.
 
-\switchocg{codeblock}{
-    \color{black}\underline{Click here to display the answer:}%
-}
+		            %---,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,---
 
-\begin{ocg}{Code Block}{codeblock}{0}
-\vspace{0.5cm}
-\tcbset{colback=gray!10, colframe=gray!50, boxrule=0.5pt, arc=4pt, left=4pt, right=4pt, top=4pt, bottom=4pt}
-\begin{tcolorbox}
-\small{
-    
-        
-        \begin{itemize}
-            \item \textit{F0/2 $\rightarrow$ SW2 (cost = 19) + G0/1 $\rightarrow$ SW1 (cost = 4) = 23}
-            \item \textit{G0/2 $\rightarrow$ SW3 (cost = 15) + G0/1 $\rightarrow$ SW2 (cost = 4) + G0/1 $\rightarrow$ SW1 (cost = 4)= 23}
-        \end{itemize}
-        In cases where the interface costs are equal, a tiebreaker is required. In such situations, the path with the lower Bridge ID (BID) of the sending switch is selected.
+		            \switchocg{codeblock}{
+			            \color{black}\underline{Click here to display the answer:}%
+		            }
 
-        Since the MAC address of Switch 2 is lower than that of Switch 3, the interface Fa0/1 is selected.
-}
-\end{tcolorbox}
-\end{ocg}
+		            \begin{ocg}{Code Block}{codeblock}{0}
+			            \vspace{0.5cm}
+			            \tcbset{colback=gray!10, colframe=gray!50, boxrule=0.5pt, arc=4pt, left=4pt, right=4pt, top=4pt, bottom=4pt}
+			            \begin{tcolorbox}
+				            \small{
 
-%---''''''''''''''''''''''''''''''''---
-    \end{itemize}
 
-    
+					            \begin{itemize}
+						            \item \textit{F0/2 $\rightarrow$ SW2 (cost = 19) + G0/1 $\rightarrow$ SW1 (cost = 4) = 23}
+						            \item \textit{G0/2 $\rightarrow$ SW3 (cost = 15) + G0/1 $\rightarrow$ SW2 (cost = 4) + G0/1 $\rightarrow$ SW1 (cost = 4)= 23}
+					            \end{itemize}
+					            In cases where the interface costs are equal, a tiebreaker is required. In such situations, the path with the lower Bridge ID (BID) of the sending switch is selected.
+
+					            Since the MAC address of Switch 2 is lower than that of Switch 3, the interface Fa0/1 is selected.
+				            }
+			            \end{tcolorbox}
+		            \end{ocg}
+
+		            %---''''''''''''''''''''''''''''''''---
+	      \end{itemize}
+
+
 \end{enumerate}
 
 \newpage
@@ -444,83 +444,83 @@ Switch(config-if)# spanning-tree cost 15
 \subsection*{Draw the Active Topology for Each Scenario}
 
 \begin{minipage}{0.4\textwidth}
-    \centering
-    \includegraphics[width=\linewidth]{img/stp03.png}
-    \captionof{figure}{\textit{Scenario 1 Topology}}
+	\centering
+	\includegraphics[width=\linewidth]{img/stp03.png}
+	\captionof{figure}{\textit{Scenario 1 Topology}}
 \end{minipage}%
 \hfill
 \begin{minipage}{0.55\textwidth}
-\vspace{2cm}
-%---,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,---
+	\vspace{2cm}
+	%---,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,---
 
-\switchocg{codeblock}{
-    \color{black}\underline{Click here to display the answer:}%
-}
+	\switchocg{codeblock}{
+		\color{black}\underline{Click here to display the answer:}%
+	}
 
-\begin{ocg}{Code Block}{codeblock}{0}
+	\begin{ocg}{Code Block}{codeblock}{0}
 
-\tcbset{colback=gray!10, colframe=gray!50, boxrule=0.5pt, arc=4pt, left=4pt, right=4pt, top=4pt, bottom=4pt}
-\begin{tcolorbox}
-    \includegraphics[width=\linewidth]{img/stp03active.png}
-\end{tcolorbox}
-\end{ocg}
+		\tcbset{colback=gray!10, colframe=gray!50, boxrule=0.5pt, arc=4pt, left=4pt, right=4pt, top=4pt, bottom=4pt}
+		\begin{tcolorbox}
+			\includegraphics[width=\linewidth]{img/stp03active.png}
+		\end{tcolorbox}
+	\end{ocg}
 
-%---''''''''''''''''''''''''''''''''---
-    
+	%---''''''''''''''''''''''''''''''''---
+
 \end{minipage}
 \vspace{2cm}
 
 
 \begin{minipage}{0.4\textwidth}
-    \centering
-    \includegraphics[width=\linewidth]{img/stp04.png}
-    \captionof{figure}{\textit{Scenario 2 Topology}}
+	\centering
+	\includegraphics[width=\linewidth]{img/stp04.png}
+	\captionof{figure}{\textit{Scenario 2 Topology}}
 \end{minipage}%
 \hfill
 \begin{minipage}{0.55\textwidth}
 
-    %---,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,---
-    
-    \switchocg{codeblock}{
-        \color{black}\underline{Click here to display the answer:}%
-    }
-    
-    \begin{ocg}{Code Block}{codeblock}{0}
-    
-    \tcbset{colback=gray!10, colframe=gray!50, boxrule=0.5pt, arc=4pt, left=4pt, right=4pt, top=4pt, bottom=4pt}
-    \begin{tcolorbox}
-    
-        \includegraphics[width=\linewidth]{img/stp04active.png}
-    \end{tcolorbox}
-    \end{ocg}
-    
-    %---''''''''''''''''''''''''''''''''---    
+	%---,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,---
+
+	\switchocg{codeblock}{
+		\color{black}\underline{Click here to display the answer:}%
+	}
+
+	\begin{ocg}{Code Block}{codeblock}{0}
+
+		\tcbset{colback=gray!10, colframe=gray!50, boxrule=0.5pt, arc=4pt, left=4pt, right=4pt, top=4pt, bottom=4pt}
+		\begin{tcolorbox}
+
+			\includegraphics[width=\linewidth]{img/stp04active.png}
+		\end{tcolorbox}
+	\end{ocg}
+
+	%---''''''''''''''''''''''''''''''''---    
 \end{minipage}
 
 \newpage
 
-    \centering
-    \includegraphics[width=0.7\textwidth]{img/stp05.png}
-    \captionof{figure}{\textit{Scenario 3 Topology}}
- \vspace{2cm}
+\centering
+\includegraphics[width=0.7\textwidth]{img/stp05.png}
+\captionof{figure}{\textit{Scenario 3 Topology}}
+\vspace{2cm}
 
- \begin{minipage}{0.55\textwidth}
-   %---,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,---
-    
-    \switchocg{codeblock}{
-        \color{black}\underline{Click here to display the answer:}%
-    }
-    
-    \begin{ocg}{Code Block}{codeblock}{0}
-    
-    \tcbset{colback=gray!10, colframe=gray!50, boxrule=0.5pt, arc=4pt, left=4pt, right=4pt, top=4pt, bottom=4pt}
-    \begin{tcolorbox}
-    
-        \includegraphics[width=1\textwidth]{img/stp05active.png}
-    \end{tcolorbox}
-    \end{ocg}
-    
-    %---''''''''''''''''''''''''''''''''---   
+\begin{minipage}{0.55\textwidth}
+	%---,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,---
+
+	\switchocg{codeblock}{
+		\color{black}\underline{Click here to display the answer:}%
+	}
+
+	\begin{ocg}{Code Block}{codeblock}{0}
+
+		\tcbset{colback=gray!10, colframe=gray!50, boxrule=0.5pt, arc=4pt, left=4pt, right=4pt, top=4pt, bottom=4pt}
+		\begin{tcolorbox}
+
+			\includegraphics[width=1\textwidth]{img/stp05active.png}
+		\end{tcolorbox}
+	\end{ocg}
+
+	%---''''''''''''''''''''''''''''''''---   
 \end{minipage}
 
 
@@ -535,110 +535,211 @@ Per-VLAN Spanning Tree (PVST) is a version of the Spanning Tree Protocol (STP) t
 
 \section*{Key Features of PVST:}
 \begin{enumerate}
-    \item \textbf{Separate Spanning Tree per VLAN:}
-    \newline
-    Each VLAN runs its own independent instance of STP, meaning the topology can be optimized differently for each VLAN.
-    \item \textbf{Improved Load Balancing:}
-    
-    By assigning different root bridges to different VLANs, PVST allows traffic to be distributed across multiple switches, reducing congestion and improving performance.
-    
-    \item Root Bridge Election per VLANCompatibility with Cisco Devices:
-    
-    VST is a Cisco proprietary protocol and is typically used in Cisco environments. It is based on the original IEEE 802.1D standard but with VLAN-specific enhancements.
-    \item \textbf{Uses Common STP Concepts:}
-    
-    PVST uses the same roles and states as traditional STP:
-    \begin{itemize}
-        \item Root Bridge
-        \item Root Port (RP)
-        \item Designated Port (DP)
-        \item Blocked Port
-    \end{itemize}
+	\item \textbf{Separate Spanning Tree per VLAN:}
+	      \newline
+	      Each VLAN runs its own independent instance of STP, meaning the topology can be optimized differently for each VLAN.
+	\item \textbf{Improved Load Balancing:}
+
+	      By assigning different root bridges to different VLANs, PVST allows traffic to be distributed across multiple switches, reducing congestion and improving performance.
+
+	\item Root Bridge Election per VLANCompatibility with Cisco Devices:
+
+	      VST is a Cisco proprietary protocol and is typically used in Cisco environments. It is based on the original IEEE 802.1D standard but with VLAN-specific enhancements.
+	\item \textbf{Uses Common STP Concepts:}
+
+	      PVST uses the same roles and states as traditional STP:
+	      \begin{itemize}
+		      \item Root Bridge
+		      \item Root Port (RP)
+		      \item Designated Port (DP)
+		      \item Blocked Port
+	      \end{itemize}
 \end{enumerate}
 
 \section*{How PVST Works:}
 \begin{itemize}
-    \item \textbf{Root Bridge Election per VLAN:}
-    
-    Each VLAN elects its own Root Bridge based on the lowest Bridge ID (priority + MAC address). This allows different switches to act as the Root Bridge for different VLANs.
+	\item \textbf{Root Bridge Election per VLAN:}
 
-    \item \textbf{Port Roles and Path Selection:}
-    
-    For each VLAN, PVST determines the Root Ports and Designated Ports independently, which results in different forwarding paths for different VLANs.
+	      Each VLAN elects its own Root Bridge based on the lowest Bridge ID (priority + MAC address). This allows different switches to act as the Root Bridge for different VLANs.
+
+	\item \textbf{Port Roles and Path Selection:}
+
+	      For each VLAN, PVST determines the Root Ports and Designated Ports independently, which results in different forwarding paths for different VLANs.
 \end{itemize}
 
 
 \section*{Benefits of PVST:}
 \begin{itemize}
-    \item \textbf{Flexibility:} Allows network administrators to optimize traffic flow for each VLAN.
-    \item \textbf{Load Balancing:} Distributes traffic across multiple links by having different root bridges for different VLANs.
-    \item \textbf{Faster Convergence:} PVST+ (an enhanced version) offers faster convergence times compared to traditional STP.
+	\item \textbf{Flexibility:} Allows network administrators to optimize traffic flow for each VLAN.
+	\item \textbf{Load Balancing:} Distributes traffic across multiple links by having different root bridges for different VLANs.
+	\item \textbf{Faster Convergence:} PVST+ (an enhanced version) offers faster convergence times compared to traditional STP.
 
 \end{itemize}
 
 \newpage
 
-\chapter{PVST+ Lab Exercise: VLAN-Based Root Bridge Configuration}
+\section*{PVST+ Lab Exercise: VLAN-Based Root Bridge Configuration}
 
-\section*{Network Topology Overview}
+\subsection*{Network Topology Overview}
 In this scenario, you will configure \textbf{PVST+ (Per-VLAN Spanning Tree Plus)}, which allows separate spanning tree instances for each VLAN. The network consists of three switches (\textbf{SW1}, \textbf{SW2}, and \textbf{SW3}) and multiple VLANs with end devices connected to each switch.
 
 
 \begin{figure}[h]
-    \centering
-    \includegraphics[width=0.8\textwidth]{img/pvst01.png}
-    \caption{\textit{}}
+	\centering
+	\includegraphics[width=0.8\textwidth]{img/pvst01.png}
+	\caption{\textit{}}
 \end{figure}
 
 
 \begin{itemize}
-    \item \textbf{MAC Address Order:} \\
-    \textbf{MAC SW1 $<$ MAC SW2 $<$ MAC SW3} \\
-    (SW1 has the lowest MAC address.)
-    
-    \item \textbf{VLANs and Devices:}
-    \begin{itemize}
-        \item \textbf{VLAN 10:} PC1, PC4, PC7
-        \item \textbf{VLAN 20:} PC2, PC5, PC8
-        \item \textbf{VLAN 30:} PC3, PC6, PC9
-    \end{itemize}
-\end{itemize}
+	\item \textbf{MAC Address Order:} \\
+	      \textbf{MAC SW1 $<$ MAC SW2 $<$ MAC SW3} \\
+	      (SW1 has the lowest MAC address.)
 
-\section*{Step-by-Step Configuration Tasks}
+	\item \textbf{VLANs and Devices:}
+	      \begin{itemize}
+		      \item \textbf{VLAN 10:} PC1, PC4, PC7
+		      \item \textbf{VLAN 20:} PC2, PC5, PC8
+		      \item \textbf{VLAN 30:} PC3, PC6, PC9
+	      \end{itemize}
+\end{itemize}
+\newpage
+\subsection*{Step-by-Step Configuration Tasks}
 
 \begin{enumerate}
 
-    \item \textbf{Set Inter-Switch Links to Trunk Mode} \\
-    Configure the links between the switches (\textbf{SW1, SW2, SW3}) to operate in \textbf{trunk mode} to allow VLAN traffic to pass through.
-    
-    
-    \item \textbf{Verify Current STP Status} \\
-    Before making further changes, \textbf{check the current STP status} to see how the network has chosen the Root Bridge for each VLAN.
-    
+	\item \textbf{Set Inter-Switch Links to Trunk Mode} \\
+	      Configure the links between the switches (\textbf{SW1, SW2, SW3}) to operate in \textbf{trunk mode} to allow VLAN traffic to pass through.
 
-    \item \textbf{Enable VTP on All Switches} \\
-    Configure \textbf{VTP (VLAN Trunking Protocol)} to manage VLANs centrally.
-    
-    \textbf{VTP Settings:}
-    \begin{itemize}
-        \item \textbf{Domain Name:} \texttt{network}
-        \item \textbf{Version:} \texttt{2}
-        \item \textbf{Password:} \texttt{CCNP}
-    \end{itemize}
+	      %---,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,---
+	      \switchocg{codeblock}{%
+		      \color{black}\underline{Click here to display the answer:}%
+	      }
 
 
-    - SW1 Configuration (VTP Master/Server):
+	      \begin{ocg}{Code Block}{codeblock}{0}
+		      \vspace{0.5cm}
+		      \begin{lstlisting}
+interface range f0/1 - 2
+switchport mode trunk
+\end{lstlisting}
+
+	      \end{ocg}
+	      %---''''''''''''''''''''''''''''''''---   
+	\item \textbf{Verify Current STP Status} \\
+	      Before making further changes, \textbf{check the current STP status} to see how the network has chosen the Root Bridge for each VLAN.
+
+	      %---,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,---
+	      \switchocg{codeblock}{%
+		      \color{black}\underline{Click here to display the answer:}%
+	      }
 
 
-    - SW2 and SW3 Configuration (VTP Clients):
+	      \begin{ocg}{Code Block}{codeblock}{0}
+		      \vspace{0.5cm}
+		      \begin{lstlisting}
+show spanning-tree
+\end{lstlisting}
+
+	      \end{ocg}
+	      %---''''''''''''''''''''''''''''''''---  
+
+	\item \textbf{Enable VTP on All Switches} \\
+	      Configure \textbf{VTP (VLAN Trunking Protocol)} to manage VLANs centrally.
+
+	      \textbf{VTP Settings:}
+	      \begin{itemize}
+		      \item \textbf{Domain Name:} \texttt{network}
+		      \item \textbf{Version:} \texttt{2}
+		      \item \textbf{Password:} \texttt{CCNP}
+	      \end{itemize}
 
 
-    \item \textbf{Create VLANs 10, 20, and 30 on SW1 (VTP Server)} \\
-    Since \textbf{SW1} is the VTP Server, create the VLANs here, and they will propagate to \textbf{SW2} and \textbf{SW3}.
-    
+	      - SW1 Configuration (VTP Master/Server):
 
-    \item \textbf{Verify STP Status After VLAN Creation} \\
-    After setting up VTP and VLANs, check how \textbf{PVST} has adjusted the spanning tree roles.
+	      %---,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,---
+	      \switchocg{codeblock}{%
+		      \color{black}\underline{Click here to display the answer:}%
+	      }
+
+
+	      \begin{ocg}{Code Block}{codeblock}{0}
+		      \vspace{0.5cm}
+		      \begin{lstlisting}
+vtp domain network
+vtp mode server
+vtp version 2
+vtp password CCNP
+\end{lstlisting}
+
+	      \end{ocg}
+	      %---''''''''''''''''''''''''''''''''---
+
+	      - SW2 and SW3 Configuration (VTP Clients):
+
+	      %---,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,---
+	      \switchocg{codeblock}{%
+		      \color{black}\underline{Click here to display the answer:}%
+	      }
+
+
+	      \begin{ocg}{Code Block}{codeblock}{0}
+		      \vspace{0.5cm}
+		      \begin{lstlisting}
+vtp domain network
+vtp mode client
+vtp version 2
+vtp password CCNP
+\end{lstlisting}
+
+	      \end{ocg}
+	      %---''''''''''''''''''''''''''''''''---  
+	\item \textbf{Create VLANs 10, 20, and 30 on SW1 (VTP Server)} \\
+	      Since \textbf{SW1} is the VTP Server, create the VLANs here, and they will propagate to \textbf{SW2} and \textbf{SW3}.
+
+
+	      %---,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,---
+	      \switchocg{codeblock}{%
+		      \color{black}\underline{Click here to display the answer:}%
+	      }
+
+
+	      \begin{ocg}{Code Block}{codeblock}{0}
+		      \vspace{0.5cm}
+		      \begin{lstlisting}
+vlan 10
+name VLAN10
+vlan 20
+name VLAN20
+vlan 30
+name VLAN30
+\end{lstlisting}
+
+	      \end{ocg}
+	      %---''''''''''''''''''''''''''''''''---
+
+
+	\item \textbf{Verify STP Status After VLAN Creation} \\
+	      After setting up VTP and VLANs, check how \textbf{PVST} has adjusted the spanning tree roles.
+
+
+	      %---,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,---
+	      \switchocg{codeblock}{%
+		      \color{black}\underline{Click here to display the answer:}%
+	      }
+
+
+	      \begin{ocg}{Code Block}{codeblock}{0}
+		      \vspace{0.5cm}
+		      \begin{lstlisting}
+show spanning-tree vlan 10
+show spanning-tree vlan 20
+show spanning-tree vlan 30
+\end{lstlisting}
+
+	      \end{ocg}
+	      %---''''''''''''''''''''''''''''''''---
+
 
 \end{enumerate}
 
@@ -646,125 +747,343 @@ In this scenario, you will configure \textbf{PVST+ (Per-VLAN Spanning Tree Plus)
 
 \begin{enumerate}
 
-    \item \textbf{Set Root Bridges for Each VLAN Using PVST+} \\
-    Configure different \textbf{Root Bridges} for each VLAN to optimize traffic flow:
+	\item \textbf{Set Root Bridges for Each VLAN Using PVST+} \\
+	      Configure different \textbf{Root Bridges} for each VLAN to optimize traffic flow:
 
-    \begin{itemize}
-        \item \textbf{VLAN 10 Root Bridge:} Set \textbf{SW1} as the Root Bridge.
-        \item \textbf{VLAN 20 Root Bridge:} Set \textbf{SW2} as the Root Bridge.
-        \item \textbf{VLAN 30 Root Bridge:} Set \textbf{SW3} as the Root Bridge.
-    \end{itemize}
-
- 
-
-    - SW1 (Root for VLAN 10):
+	      \begin{itemize}
+		      \item \textbf{VLAN 10 Root Bridge:} Set \textbf{SW1} as the Root Bridge.
+		      \item \textbf{VLAN 20 Root Bridge:} Set \textbf{SW2} as the Root Bridge.
+		      \item \textbf{VLAN 30 Root Bridge:} Set \textbf{SW3} as the Root Bridge.
+	      \end{itemize}
 
 
-    - SW2 (Root for VLAN 20):
+
+	      - SW1 (Root for VLAN 10):
+
+	      %---,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,---
+	      \switchocg{codeblock}{%
+		      \color{black}\underline{Click here to display the answer:}%
+	      }
 
 
-    - SW3 (Root for VLAN 30):
+	      \begin{ocg}{Code Block}{codeblock}{0}
+		      \vspace{0.5cm}
+		      \begin{lstlisting}
+spanning-tree vlan 10 priority 4096
+\end{lstlisting}
+
+	      \end{ocg}
+	      %---''''''''''''''''''''''''''''''''---
+	      - SW2 (Root for VLAN 20):
+
+	      %---,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,---
+	      \switchocg{codeblock}{%
+		      \color{black}\underline{Click here to display the answer:}%
+	      }
 
 
-    \textit{Note:} A lower priority value increases the likelihood of a switch becoming the Root Bridge. The default is 32768.
+	      \begin{ocg}{Code Block}{codeblock}{0}
+		      \vspace{0.5cm}
+		      \begin{lstlisting}
+spanning-tree vlan 20 priority 4096
+\end{lstlisting}
 
-    \item \textbf{Verify STP Status After Root Bridge Configuration} \\
-    After configuring the Root Bridges for each VLAN, verify that the changes were applied correctly.
+	      \end{ocg}
+	      %---''''''''''''''''''''''''''''''''---
+	      - SW3 (Root for VLAN 30):
 
-
-    \textbf{Question:}
-    \begin{enumerate}
-        \item Which switch is now the Root Bridge for each VLAN?
-        \item How did the Root Ports and Designated Ports change across the network?
-    \end{enumerate}
-\newpage
-    \item \textbf{Draw the active topology of each violin.} \\
-    - SW1 (Root for VLAN 10):
-
-
-    - SW2 (Root for VLAN 20):
+	      %---,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,---
+	      \switchocg{codeblock}{%
+		      \color{black}\underline{Click here to display the answer:}%
+	      }
 
 
-    - SW3 (Root for VLAN 30):
-    \begin{figure}[h]
-        \centering
-        \includegraphics[width=0.8\textwidth]{img/pvst01.png}
-        \caption{\textit{}}
-    \end{figure}
+	      \begin{ocg}{Code Block}{codeblock}{0}
+		      \vspace{0.5cm}
+		      \begin{lstlisting}
+spanning-tree vlan 30 priority 4096
+\end{lstlisting}
+
+	      \end{ocg}
+	      %---''''''''''''''''''''''''''''''''---
+
+	      \textit{Note:} A lower priority value increases the likelihood of a switch becoming the Root Bridge. The default is 32768.
+
+	\item \textbf{Verify STP Status After Root Bridge Configuration} \\
+	      After configuring the Root Bridges for each VLAN, verify that the changes were applied correctly.
+
+	      %---,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,---
+	      \switchocg{codeblock}{%
+		      \color{black}\underline{Click here to display the answer:}%
+	      }
+
+
+	      \begin{ocg}{Code Block}{codeblock}{0}
+		      \vspace{0.5cm}
+		      \begin{lstlisting}
+show spanning-tree vlan 10
+show spanning-tree vlan 20
+show spanning-tree vlan 30
+\end{lstlisting}
+
+	      \end{ocg}
+	      %---''''''''''''''''''''''''''''''''---
+
+	      \newpage
+	\item \textbf{Draw the active topology of each violin.} \\
+	      - SW1 (Root for VLAN 10):
+
+
+	      - SW2 (Root for VLAN 20):
+
+
+	      - SW3 (Root for VLAN 30):
+	      \begin{figure}[h]
+		      \centering
+		      \includegraphics[width=0.8\textwidth]{img/pvst01.png}
+		      \caption{\textit{}}
+	      \end{figure}
 \end{enumerate}
+\newpage
+%---,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,---
 
 
+\switchocg{codeblock}{
+	\color{black}\underline{Click here to display the answer:}%
+}
+
+\begin{ocg}{Code Block}{codeblock}{0}
+
+	\tcbset{colback=gray!10, colframe=gray!50, boxrule=0.5pt, arc=4pt, left=4pt, right=4pt, top=4pt, bottom=4pt, width=0.7\textwidth}
+	\begin{tcolorbox}
+
+		\includegraphics[width=\textwidth]{img/pvst01active.png}
+
+	\end{tcolorbox}
+\end{ocg}
+
+%---''''''''''''''''''''''''''''''''---   
 \newpage
 
 \section*{Configure PortFast for End Devices}
 
 \begin{enumerate}
-    \item \textbf{Enable PortFast on All PC Ports} \\
-    PortFast allows end devices (like PCs) to bypass STP's listening and learning states, enabling faster connections.
+	\item \textbf{Enable PortFast on All PC Ports} \\
+	      PortFast allows end devices (like PCs) to bypass STP's listening and learning states, enabling faster connections.
 
-    \textit{Task:} Configure \textbf{PortFast} on interfaces connected to PCs (e.g., \textbf{F0/3}, \textbf{F0/4}, \textbf{F0/5} on SW1).
-
-    \item \textbf{Verify Connectivity Between PC2 and PC3} \\
-    \textit{Task:} Test the connection between \textbf{PC2 (192.168.20.2)} and \textbf{PC3 (192.168.30.3)} using the \textbf{ping} command.
+	      \textit{Task:} Configure \textbf{PortFast} on interfaces connected to PCs (e.g., \textbf{F0/3}, \textbf{F0/4}, \textbf{F0/5} on SW1).
 
 
-    \item \textbf{Enable Debugging on SW3} \\
-    Monitor STP behavior during topology changes.
-
-    \textit{Task:} Turn on STP debugging on \textbf{SW3}.
-
-    \item \textbf{Shut Down Interfaces to Trigger Topology Changes} \\
-    Simulate link failures by shutting down specific interfaces:
-
-    \textit{Task:} Shut down \textbf{F0/1} on \textbf{SW3} and \textbf{F0/2} on \textbf{SW1}:
+	      %---,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,---
+	      \switchocg{codeblock}{%
+		      \color{black}\underline{Click here to display the answer:}%
+	      }
 
 
-    \item \textbf{Observe and Estimate New Topology} \\
-    After shutting down the interfaces:
+	      \begin{ocg}{Code Block}{codeblock}{0}
+		      \vspace{0.5cm}
+		      \begin{lstlisting}
+interface range f0/3 - 5
+spanning-tree portfast
+\end{lstlisting}
 
-    \textit{Task:} Check the \textbf{new port roles} and \textbf{STP state} using:
+	      \end{ocg}
+	      %---''''''''''''''''''''''''''''''''---
 
-
-    \textbf{Question:} Which ports have become \textbf{Root Ports} or \textbf{Designated Ports}? Identify if any ports are now \textbf{Blocked}.
-
-    \item \textbf{Restore the Network to Its Original State} \\
-    Re-enable the interfaces to bring the network back to its initial state.
-
-    \textit{Task:}  Turn on \textbf{F0/1} on \textbf{SW3} and \textbf{F0/2} on \textbf{SW1}:
-
-
-    \item \textbf{Reduce Network Diameter for Faster Convergence} \\
-    The \textbf{network diameter} defines the maximum number of switches a BPDU can pass through. Reducing it speeds up convergence.
-
-    \textit{Task:} Reduce the \textbf{network diameter} from the default \textbf{7} to \textbf{2}.
-
-    \item \textbf{Check Forward Delay and Max Age Timers} \\
-    STP uses these timers to control how long switches stay in different states during convergence.
-
-    \textit{Task:} Verify \textbf{Forward Delay} and \textbf{Max Age} settings:
-
-    \item \textbf{Enable UplinkFast on SW2 for Faster Recovery} \\
-    \textbf{UplinkFast} speeds up STP convergence when a primary link fails by immediately switching to a backup link.
-
-    \textit{Task:} Enable \textbf{UplinkFast} on \textbf{SW2}:
-
-    \item \textbf{Set Max-Update-Rate to 100 Packets per Second} \\
-    Limit the number of update packets sent per second to prevent excessive flooding during topology changes.
-
-    \textit{Task:} Set \textbf{max-update-rate} to \textbf{100 packets/sec}:
+	\item \textbf{Verify Connectivity Between PC2 and PC3} \\
+	      \textit{Task:} Test the connection between \textbf{PC2 (192.168.20.2)} and \textbf{PC3 (192.168.30.3)} using the \textbf{ping} command.
 
 
-    \item \textbf{Verify Uplink Status on SW2} \\
-    \textit{Task:} Check if \textbf{UplinkFast} is working correctly:
+	\item \textbf{Enable Debugging on SW3} \\
+	      Monitor STP behavior during topology changes.
+
+	      \textit{Task:} Turn on STP debugging on \textbf{SW3}.
+
+	      %---,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,---
+	      \switchocg{codeblock}{%
+		      \color{black}\underline{Click here to display the answer:}%
+	      }
+
+
+	      \begin{ocg}{Code Block}{codeblock}{0}
+		      \vspace{0.5cm}
+		      \begin{lstlisting}
+debug spanning-tree events
+\end{lstlisting}
+
+	      \end{ocg}
+	      %---''''''''''''''''''''''''''''''''---
+
+	\item \textbf{Shut Down Interfaces to Trigger Topology Changes} \\
+	      Simulate link failures by shutting down specific interfaces:
+
+	      \textit{Task:} Shut down \textbf{F0/1} on \textbf{SW3} and \textbf{F0/2} on \textbf{SW1}:
+
+	      %---,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,---
+	      \switchocg{codeblock}{%
+		      \color{black}\underline{Click here to display the answer:}%
+	      }
+
+
+	      \begin{ocg}{Code Block}{codeblock}{0}
+		      \vspace{0.5cm}
+              \begin{itemize}
+                \item en switch SW1
+                \begin{lstlisting}
+interface f0/2
+shutdown
+                \end{lstlisting}
+                \item en switch SW3
+                \begin{lstlisting}
+interface f0/1
+shutdown
+                \end{lstlisting}
+              \end{itemize}
+	      \end{ocg}
+	      %---''''''''''''''''''''''''''''''''---
+	\item \textbf{Observe and Estimate New Topology} \\
+	      After shutting down the interfaces:
+
+	      \textit{Task:} Check the \textbf{new port roles} and \textbf{STP state} using:
+
+	      %---,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,---
+	      \switchocg{codeblock}{%
+		      \color{black}\underline{Click here to display the answer:}%
+	      }
+
+
+	      \begin{ocg}{Code Block}{codeblock}{0}
+		      \vspace{0.5cm}
+                \begin{lstlisting}
+show spanning-tree
+                \end{lstlisting}
+	      \end{ocg}
+	      %---''''''''''''''''''''''''''''''''---
+
+	      \textbf{Question:} Which ports have become \textbf{Root Ports} or \textbf{Designated Ports}? Identify if any ports are now \textbf{Blocked}.
+
+	\item \textbf{Restore the Network to Its Original State} \\
+	      Re-enable the interfaces to bring the network back to its initial state.
+
+	      \textit{Task:}  Turn on \textbf{F0/1} on \textbf{SW3} and \textbf{F0/2} on \textbf{SW1}:
+	      
+          %---,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,---
+	      \switchocg{codeblock}{%
+		      \color{black}\underline{Click here to display the answer:}%
+	      }
+
+
+	      \begin{ocg}{Code Block}{codeblock}{0}
+		      \vspace{0.5cm}
+              \begin{itemize}
+                \item en switch SW1
+                \begin{lstlisting}
+interface f0/2
+no shutdown
+                \end{lstlisting}
+                \item en switch SW3
+                \begin{lstlisting}
+interface f0/1
+no shutdown
+                \end{lstlisting}
+              \end{itemize}
+	      \end{ocg}
+	      %---''''''''''''''''''''''''''''''''---
+
+	\item \textbf{Reduce Network Diameter for Faster Convergence} \\
+	      The \textbf{network diameter} defines the maximum number of switches a BPDU can pass through. Reducing it speeds up convergence.
+
+	      \textit{Task:} Reduce the \textbf{network diameter} from the default \textbf{7} to \textbf{2}.
+
+          
+        %---,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,---
+	      \switchocg{codeblock}{%
+          \color{black}\underline{Click here to display the answer:}%
+      }
+
+
+      \begin{ocg}{Code Block}{codeblock}{0}
+          \vspace{0.5cm}
+            \begin{lstlisting}
+spanning-tree vlan [VLAN-ID] diameter 2
+            \end{lstlisting}
+      \end{ocg}
+      %---''''''''''''''''''''''''''''''''---
+	\item \textbf{Check Forward Delay and Max Age Timers} \\
+	      STP uses these timers to control how long switches stay in different states during convergence.
+
+	      \textit{Task:} Verify \textbf{Forward Delay} and \textbf{Max Age} settings:
+
+        %---,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,---
+	      \switchocg{codeblock}{%
+          \color{black}\underline{Click here to display the answer:}%
+      }
+
+
+      \begin{ocg}{Code Block}{codeblock}{0}
+          \vspace{0.5cm}
+            \begin{lstlisting}
+show spanning-tree vlan [VLAN-ID]
+            \end{lstlisting}
+      \end{ocg}
+      %---''''''''''''''''''''''''''''''''---
+
+	\item \textbf{Enable UplinkFast on SW2 for Faster Recovery} \\
+	      \textbf{UplinkFast} speeds up STP convergence when a primary link fails by immediately switching to a backup link.
+
+	      \textit{Task:} Enable \textbf{UplinkFast} on \textbf{SW2}:
+
+        %---,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,---
+	      \switchocg{codeblock}{%
+          \color{black}\underline{Click here to display the answer:}%
+      }
+
+
+      \begin{ocg}{Code Block}{codeblock}{0}
+          \vspace{0.5cm}
+            \begin{lstlisting}
+spanning-tree uplinkfast
+            \end{lstlisting}
+      \end{ocg}
+      %---''''''''''''''''''''''''''''''''---
+
+	\item \textbf{Set Max-Update-Rate to 100 Packets per Second} \\
+	      Limit the number of update packets sent per second to prevent excessive flooding during topology changes.
+
+	      \textit{Task:} Set \textbf{max-update-rate} to \textbf{100 packets/sec}:
+
+        %---,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,---
+        \switchocg{codeblock}{%
+        \color{black}\underline{Click here to display the answer:}%
+    }
+
+
+    \begin{ocg}{Code Block}{codeblock}{0}
+        \vspace{0.5cm}
+          \begin{lstlisting}
+spanning-tree uplinkfast max-update-rate 100
+          \end{lstlisting}
+    \end{ocg}
+    %---''''''''''''''''''''''''''''''''---
+	\item \textbf{Verify Uplink Status on SW2} \\
+	      \textit{Task:} Check if \textbf{UplinkFast} is working correctly:
+
+    %---,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,---
+        \switchocg{codeblock}{%
+        \color{black}\underline{Click here to display the answer:}%
+    }
+
+
+    \begin{ocg}{Code Block}{codeblock}{0}
+        \vspace{0.5cm}
+          \begin{lstlisting}
+show spanning-tree uplinkfast
+          \end{lstlisting}
+    \end{ocg}
+    %---''''''''''''''''''''''''''''''''---
 
 \end{enumerate}
 
-\section*{Discussion Questions}
-
-\begin{enumerate}
-    \item How did reducing the network diameter impact convergence speed?
-    \item After enabling UplinkFast, how quickly did SW2 recover from link failures?
-\end{enumerate}
 \chapter{Protecting the Spanning Tree Protocol (STP) Topology}
 
 
@@ -787,8 +1106,8 @@ The \textbf{Root Bridge} plays a central role in STP, determining the best loop-
 While \textbf{BPDU Guard} reacts to unexpected BPDUs, \textbf{BPDU Filter} prevents BPDUs from being sent or received on specific ports altogether. This feature can be applied globally or on a per-port basis:
 
 \begin{itemize}
-    \item \textbf{Globally:} BPDU Filter allows initial BPDUs to be sent when a port comes up but suppresses further BPDU exchange, making the port behave as if STP is disabled.
-    \item \textbf{Per-Port:} When applied directly to a port, BPDU Filter prevents all BPDUs from being sent or received, effectively removing the port from STP participation.
+	\item \textbf{Globally:} BPDU Filter allows initial BPDUs to be sent when a port comes up but suppresses further BPDU exchange, making the port behave as if STP is disabled.
+	\item \textbf{Per-Port:} When applied directly to a port, BPDU Filter prevents all BPDUs from being sent or received, effectively removing the port from STP participation.
 \end{itemize}
 
 \textbf{Caution:} Improper use of BPDU Filter can lead to \textbf{network loops}, as the port is unaware of STP topology changes. It should be used in controlled environments where the risk of loops is minimal.
@@ -805,8 +1124,8 @@ When \textbf{Loop Guard} is enabled, if a port stops receiving BPDUs on a \textb
 
 UDLD operates by exchanging \textbf{hello packets} between devices on both ends of a link. If one device stops receiving these packets while still sending its own, UDLD detects the inconsistency. Depending on the mode:
 \begin{itemize}
-    \item In \textbf{normal mode}, UDLD alerts administrators but does not take immediate action.
-    \item In \textbf{aggressive mode}, UDLD automatically \textbf{disables} the affected port to prevent potential loops.
+	\item In \textbf{normal mode}, UDLD alerts administrators but does not take immediate action.
+	\item In \textbf{aggressive mode}, UDLD automatically \textbf{disables} the affected port to prevent potential loops.
 \end{itemize}
 
 UDLD is particularly important in fiber optic networks, where physical link issues might not be immediately evident.
@@ -820,40 +1139,40 @@ Securing the \textbf{Spanning Tree Protocol} topology is essential for maintaini
 \section*{Lab Exercises: Protecting the Spanning Tree Protocol Topology}
 
 \begin{figure}[h]
-    \centering
-    \includegraphics[width=0.8\textwidth]{img/STPConvergence01.png}
-    \caption{\textit{}}
+	\centering
+	\includegraphics[width=0.8\textwidth]{img/STPConvergence01.png}
+	\caption{\textit{}}
 \end{figure}
 
 \subsection*{Network Topology Overview:}
 
 \begin{itemize}
-    \item \textbf{SW1} is connected to \textbf{SW2} and \textbf{SW3}.
-    \item \textbf{SW2} is connected to \textbf{PC2} and has a direct link to \textbf{SW3}.
-    \item \textbf{SW3} is connected to \textbf{PC3}.
-    \item \textbf{MAC Address Order:} \\
-    \textbf{MAC SW1 $<$ MAC SW2 $<$ MAC SW3} \\
-    (SW1 has the lowest MAC address and will likely become the Root Bridge unless configured otherwise.)
+	\item \textbf{SW1} is connected to \textbf{SW2} and \textbf{SW3}.
+	\item \textbf{SW2} is connected to \textbf{PC2} and has a direct link to \textbf{SW3}.
+	\item \textbf{SW3} is connected to \textbf{PC3}.
+	\item \textbf{MAC Address Order:} \\
+	      \textbf{MAC SW1 $<$ MAC SW2 $<$ MAC SW3} \\
+	      (SW1 has the lowest MAC address and will likely become the Root Bridge unless configured otherwise.)
 \end{itemize}
 
 \subsection*{Configuring BPDU Guard}
 
 \textbf{Objective:} Protect access ports from unauthorized devices sending BPDUs, which could cause topology changes.
 
-\begin{enumerate} 
-    \item \textbf{Enable BPDU Guard on Access Ports (Connected to PCs):} \\
-    Since \textbf{PC2} and \textbf{PC3} are end devices, their interfaces should not receive BPDUs. If a BPDU is received, BPDU Guard will shut down the port to prevent loops.
+\begin{enumerate}
+	\item \textbf{Enable BPDU Guard on Access Ports (Connected to PCs):} \\
+	      Since \textbf{PC2} and \textbf{PC3} are end devices, their interfaces should not receive BPDUs. If a BPDU is received, BPDU Guard will shut down the port to prevent loops.
 
-    On SW2 (Port connected to PC2) and SW3 (Port connected to PC3):
-
-
-    \item \textbf{Test the Configuration:} \\
-    Connect a switch (instead of a PC) to \textbf{G0/2} on \textbf{SW2} and send BPDUs.
-
-    \textbf{Expected Result:} The port should move to an \textbf{err-disabled} state. Verify using:
+	      On SW2 (Port connected to PC2) and SW3 (Port connected to PC3):
 
 
-    \item \textbf{Recover the Port:}
+	\item \textbf{Test the Configuration:} \\
+	      Connect a switch (instead of a PC) to \textbf{G0/2} on \textbf{SW2} and send BPDUs.
+
+	      \textbf{Expected Result:} The port should move to an \textbf{err-disabled} state. Verify using:
+
+
+	\item \textbf{Recover the Port:}
 
 \end{enumerate}
 
@@ -861,32 +1180,32 @@ Securing the \textbf{Spanning Tree Protocol} topology is essential for maintaini
 
 \textbf{Objective:} Prevent unauthorized switches from becoming the Root Bridge.
 
-\begin{enumerate} 
-    \item \textbf{Enable Root Guard on Specific Ports:} \\
-    To ensure \textbf{SW1} remains the Root Bridge, apply Root Guard on \textbf{SW2} and \textbf{SW3} ports facing other switches.
+\begin{enumerate}
+	\item \textbf{Enable Root Guard on Specific Ports:} \\
+	      To ensure \textbf{SW1} remains the Root Bridge, apply Root Guard on \textbf{SW2} and \textbf{SW3} ports facing other switches.
 
-    On SW2 (Facing SW3) and SW3 (Facing SW2):
-
-
-    \item \textbf{Test the Configuration:} \\
-    Lower the bridge priority on \textbf{SW3} to try to make it the Root Bridge:
+	      On SW2 (Facing SW3) and SW3 (Facing SW2):
 
 
-    \textit{Expected Result:} The port on \textbf{SW2} connected to \textbf{SW3} should go into a \textbf{root-inconsistent} state, preventing \textbf{SW3} from becoming the Root Bridge.
+	\item \textbf{Test the Configuration:} \\
+	      Lower the bridge priority on \textbf{SW3} to try to make it the Root Bridge:
 
-    \item \textbf{Verify the Root Guard Status:}
+
+	      \textit{Expected Result:} The port on \textbf{SW2} connected to \textbf{SW3} should go into a \textbf{root-inconsistent} state, preventing \textbf{SW3} from becoming the Root Bridge.
+
+	\item \textbf{Verify the Root Guard Status:}
 
 \end{enumerate}
 
 
 \switchocg{codeblock}{%
-    \color{black}\underline{Click here to display the answer:}%
+	\color{black}\underline{Click here to display the answer:}%
 }
 
 
 \begin{ocg}{Code Block}{codeblock}{0}
-\vspace{0.5cm}
-\begin{lstlisting}
+	\vspace{0.5cm}
+	\begin{lstlisting}
 Switch1(config)# 
 \end{lstlisting}
 \end{ocg}
@@ -896,52 +1215,52 @@ Switch1(config)#
 
 \textbf{Objective:} Suppress BPDU transmission on specific ports to prevent unnecessary STP participation.
 
-\begin{enumerate} 
-    \item \textbf{Enable BPDU Filter on Access Ports (Connected to PCs):}
+\begin{enumerate}
+	\item \textbf{Enable BPDU Filter on Access Ports (Connected to PCs):}
 
-    \textbf{On SW2 (Port connected to PC2):}
-    \begin{verbatim}
+	      \textbf{On SW2 (Port connected to PC2):}
+	      \begin{verbatim}
 interface g0/2
 spanning-tree bpdufilter enable
     \end{verbatim}
 
-    \textbf{On SW3 (Port connected to PC3):}
-    \begin{verbatim}
+	      \textbf{On SW3 (Port connected to PC3):}
+	      \begin{verbatim}
 interface g0/1
 spanning-tree bpdufilter enable
     \end{verbatim}
 
-    \item \textbf{Test the Configuration:} \\
-    Verify that BPDUs are not being sent on these interfaces:
-    \begin{verbatim}
+	\item \textbf{Test the Configuration:} \\
+	      Verify that BPDUs are not being sent on these interfaces:
+	      \begin{verbatim}
 debug spanning-tree bpdu send
     \end{verbatim}
 
-    \item \textbf{Warning:} \\
-    \textbf{BPDU Filter} disables STP on the interface, which can lead to network loops if a switch is accidentally connected.
+	\item \textbf{Warning:} \\
+	      \textbf{BPDU Filter} disables STP on the interface, which can lead to network loops if a switch is accidentally connected.
 \end{enumerate}
 
 \section*{Exercise 4: Configuring Loop Guard}
 
 \textbf{Objective:} Prevent loops caused by unidirectional link failures in the STP topology.
 
-\begin{enumerate} 
-    \item \textbf{Enable Loop Guard on Non-Designated Ports:} \\
-    Loop Guard should be applied to \textbf{root ports} and \textbf{alternate ports} that might stop receiving BPDUs.
+\begin{enumerate}
+	\item \textbf{Enable Loop Guard on Non-Designated Ports:} \\
+	      Loop Guard should be applied to \textbf{root ports} and \textbf{alternate ports} that might stop receiving BPDUs.
 
-    \textbf{On SW2 and SW3 (Ports facing SW1):}
-    \begin{verbatim}
+	      \textbf{On SW2 and SW3 (Ports facing SW1):}
+	      \begin{verbatim}
 interface g0/0
 spanning-tree guard loop
     \end{verbatim}
 
-    \item \textbf{Simulate a Unidirectional Link Failure:} \\
-    Disconnect the \textbf{TX (Transmit)} fiber cable from \textbf{SW1’s G0/1} while keeping \textbf{RX (Receive)} connected.
+	\item \textbf{Simulate a Unidirectional Link Failure:} \\
+	      Disconnect the \textbf{TX (Transmit)} fiber cable from \textbf{SW1’s G0/1} while keeping \textbf{RX (Receive)} connected.
 
-    \textbf{Expected Result:} The port on \textbf{SW2} should enter a \textbf{loop-inconsistent} state instead of transitioning to forwarding.
+	      \textbf{Expected Result:} The port on \textbf{SW2} should enter a \textbf{loop-inconsistent} state instead of transitioning to forwarding.
 
-    \item \textbf{Verify Loop Guard Status:}
-    \begin{verbatim}
+	\item \textbf{Verify Loop Guard Status:}
+	      \begin{verbatim}
 show spanning-tree inconsistentports
     \end{verbatim}
 \end{enumerate}
@@ -950,34 +1269,34 @@ show spanning-tree inconsistentports
 
 \textbf{Objective:} Detect and disable unidirectional links to prevent loops.
 
-\begin{enumerate} 
-    \item \textbf{Enable UDLD on Fiber Links Between Switches:} \\
-    Apply UDLD on the \textbf{G0/1} and \textbf{G0/2} interfaces between switches.
+\begin{enumerate}
+	\item \textbf{Enable UDLD on Fiber Links Between Switches:} \\
+	      Apply UDLD on the \textbf{G0/1} and \textbf{G0/2} interfaces between switches.
 
-    \textbf{On SW1:}
-    \begin{verbatim}
+	      \textbf{On SW1:}
+	      \begin{verbatim}
 interface range g0/1 - 2
 udld aggressive
     \end{verbatim}
 
-    \textbf{On SW2 and SW3 (Interfaces facing SW1):}
-    \begin{verbatim}
+	      \textbf{On SW2 and SW3 (Interfaces facing SW1):}
+	      \begin{verbatim}
 interface g0/0
 udld aggressive
     \end{verbatim}
 
-    \item \textbf{Test UDLD Functionality:} \\
-    Disconnect one side of the fiber link (e.g., \textbf{TX} on \textbf{SW1 G0/1}).
+	\item \textbf{Test UDLD Functionality:} \\
+	      Disconnect one side of the fiber link (e.g., \textbf{TX} on \textbf{SW1 G0/1}).
 
-    \textbf{Expected Result:} UDLD will detect the unidirectional link and place the port in an \textbf{err-disabled} state.
+	      \textbf{Expected Result:} UDLD will detect the unidirectional link and place the port in an \textbf{err-disabled} state.
 
-    \item \textbf{Verify UDLD Status:}
-    \begin{verbatim}
+	\item \textbf{Verify UDLD Status:}
+	      \begin{verbatim}
 show udld interface
     \end{verbatim}
 
-    \item \textbf{Recover UDLD-disabled Ports:}
-    \begin{verbatim}
+	\item \textbf{Recover UDLD-disabled Ports:}
+	      \begin{verbatim}
 interface g0/1
 udld reset
     \end{verbatim}
@@ -985,11 +1304,11 @@ udld reset
 
 \section*{Discussion Questions:}
 
-\begin{enumerate} 
-    \item What happens when BPDU Guard is triggered? How is this different from BPDU Filter?
-    \item How does Root Guard prevent unauthorized topology changes, and in what scenarios would it be most useful?
-    \item What is the difference between Loop Guard and UDLD in handling unidirectional link failures?
-    \item After enabling UDLD, how quickly did the network detect and respond to a unidirectional failure compared to standard STP behavior?
+\begin{enumerate}
+	\item What happens when BPDU Guard is triggered? How is this different from BPDU Filter?
+	\item How does Root Guard prevent unauthorized topology changes, and in what scenarios would it be most useful?
+	\item What is the difference between Loop Guard and UDLD in handling unidirectional link failures?
+	\item After enabling UDLD, how quickly did the network detect and respond to a unidirectional failure compared to standard STP behavior?
 \end{enumerate}
 
 
