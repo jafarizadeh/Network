@@ -927,18 +927,18 @@ debug spanning-tree events
 
 	      \begin{ocg}{Code Block}{codeblock}{0}
 		      \vspace{0.5cm}
-              \begin{itemize}
-                \item en switch SW1
-                \begin{lstlisting}
+		      \begin{itemize}
+			      \item en switch SW1
+			            \begin{lstlisting}
 interface f0/2
 shutdown
                 \end{lstlisting}
-                \item en switch SW3
-                \begin{lstlisting}
+			      \item en switch SW3
+			            \begin{lstlisting}
 interface f0/1
 shutdown
                 \end{lstlisting}
-              \end{itemize}
+		      \end{itemize}
 	      \end{ocg}
 	      %---''''''''''''''''''''''''''''''''---
 	\item \textbf{Observe and Estimate New Topology} \\
@@ -954,7 +954,7 @@ shutdown
 
 	      \begin{ocg}{Code Block}{codeblock}{0}
 		      \vspace{0.5cm}
-                \begin{lstlisting}
+		      \begin{lstlisting}
 show spanning-tree
                 \end{lstlisting}
 	      \end{ocg}
@@ -966,8 +966,8 @@ show spanning-tree
 	      Re-enable the interfaces to bring the network back to its initial state.
 
 	      \textit{Task:}  Turn on \textbf{F0/1} on \textbf{SW3} and \textbf{F0/2} on \textbf{SW1}:
-	      
-          %---,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,---
+
+	      %---,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,---
 	      \switchocg{codeblock}{%
 		      \color{black}\underline{Click here to display the answer:}%
 	      }
@@ -975,18 +975,18 @@ show spanning-tree
 
 	      \begin{ocg}{Code Block}{codeblock}{0}
 		      \vspace{0.5cm}
-              \begin{itemize}
-                \item en switch SW1
-                \begin{lstlisting}
+		      \begin{itemize}
+			      \item en switch SW1
+			            \begin{lstlisting}
 interface f0/2
 no shutdown
                 \end{lstlisting}
-                \item en switch SW3
-                \begin{lstlisting}
+			      \item en switch SW3
+			            \begin{lstlisting}
 interface f0/1
 no shutdown
                 \end{lstlisting}
-              \end{itemize}
+		      \end{itemize}
 	      \end{ocg}
 	      %---''''''''''''''''''''''''''''''''---
 
@@ -995,92 +995,92 @@ no shutdown
 
 	      \textit{Task:} Reduce the \textbf{network diameter} from the default \textbf{7} to \textbf{2}.
 
-          
-        %---,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,---
+
+	      %---,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,---
 	      \switchocg{codeblock}{%
-          \color{black}\underline{Click here to display the answer:}%
-      }
+		      \color{black}\underline{Click here to display the answer:}%
+	      }
 
 
-      \begin{ocg}{Code Block}{codeblock}{0}
-          \vspace{0.5cm}
-            \begin{lstlisting}
+	      \begin{ocg}{Code Block}{codeblock}{0}
+		      \vspace{0.5cm}
+		      \begin{lstlisting}
 spanning-tree vlan [VLAN-ID] diameter 2
             \end{lstlisting}
-      \end{ocg}
-      %---''''''''''''''''''''''''''''''''---
+	      \end{ocg}
+	      %---''''''''''''''''''''''''''''''''---
 	\item \textbf{Check Forward Delay and Max Age Timers} \\
 	      STP uses these timers to control how long switches stay in different states during convergence.
 
 	      \textit{Task:} Verify \textbf{Forward Delay} and \textbf{Max Age} settings:
 
-        %---,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,---
+	      %---,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,---
 	      \switchocg{codeblock}{%
-          \color{black}\underline{Click here to display the answer:}%
-      }
+		      \color{black}\underline{Click here to display the answer:}%
+	      }
 
 
-      \begin{ocg}{Code Block}{codeblock}{0}
-          \vspace{0.5cm}
-            \begin{lstlisting}
+	      \begin{ocg}{Code Block}{codeblock}{0}
+		      \vspace{0.5cm}
+		      \begin{lstlisting}
 show spanning-tree vlan [VLAN-ID]
             \end{lstlisting}
-      \end{ocg}
-      %---''''''''''''''''''''''''''''''''---
+	      \end{ocg}
+	      %---''''''''''''''''''''''''''''''''---
 
 	\item \textbf{Enable UplinkFast on SW2 for Faster Recovery} \\
 	      \textbf{UplinkFast} speeds up STP convergence when a primary link fails by immediately switching to a backup link.
 
 	      \textit{Task:} Enable \textbf{UplinkFast} on \textbf{SW2}:
 
-        %---,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,---
+	      %---,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,---
 	      \switchocg{codeblock}{%
-          \color{black}\underline{Click here to display the answer:}%
-      }
+		      \color{black}\underline{Click here to display the answer:}%
+	      }
 
 
-      \begin{ocg}{Code Block}{codeblock}{0}
-          \vspace{0.5cm}
-            \begin{lstlisting}
+	      \begin{ocg}{Code Block}{codeblock}{0}
+		      \vspace{0.5cm}
+		      \begin{lstlisting}
 spanning-tree uplinkfast
             \end{lstlisting}
-      \end{ocg}
-      %---''''''''''''''''''''''''''''''''---
+	      \end{ocg}
+	      %---''''''''''''''''''''''''''''''''---
 
 	\item \textbf{Set Max-Update-Rate to 100 Packets per Second} \\
 	      Limit the number of update packets sent per second to prevent excessive flooding during topology changes.
 
 	      \textit{Task:} Set \textbf{max-update-rate} to \textbf{100 packets/sec}:
 
-        %---,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,---
-        \switchocg{codeblock}{%
-        \color{black}\underline{Click here to display the answer:}%
-    }
+	      %---,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,---
+	      \switchocg{codeblock}{%
+		      \color{black}\underline{Click here to display the answer:}%
+	      }
 
 
-    \begin{ocg}{Code Block}{codeblock}{0}
-        \vspace{0.5cm}
-          \begin{lstlisting}
+	      \begin{ocg}{Code Block}{codeblock}{0}
+		      \vspace{0.5cm}
+		      \begin{lstlisting}
 spanning-tree uplinkfast max-update-rate 100
           \end{lstlisting}
-    \end{ocg}
-    %---''''''''''''''''''''''''''''''''---
+	      \end{ocg}
+	      %---''''''''''''''''''''''''''''''''---
 	\item \textbf{Verify Uplink Status on SW2} \\
 	      \textit{Task:} Check if \textbf{UplinkFast} is working correctly:
 
-    %---,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,---
-        \switchocg{codeblock}{%
-        \color{black}\underline{Click here to display the answer:}%
-    }
+	      %---,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,---
+	      \switchocg{codeblock}{%
+		      \color{black}\underline{Click here to display the answer:}%
+	      }
 
 
-    \begin{ocg}{Code Block}{codeblock}{0}
-        \vspace{0.5cm}
-          \begin{lstlisting}
+	      \begin{ocg}{Code Block}{codeblock}{0}
+		      \vspace{0.5cm}
+		      \begin{lstlisting}
 show spanning-tree uplinkfast
           \end{lstlisting}
-    \end{ocg}
-    %---''''''''''''''''''''''''''''''''---
+	      \end{ocg}
+	      %---''''''''''''''''''''''''''''''''---
 
 \end{enumerate}
 
@@ -1166,14 +1166,76 @@ Securing the \textbf{Spanning Tree Protocol} topology is essential for maintaini
 	      On SW2 (Port connected to PC2) and SW3 (Port connected to PC3):
 
 
+	      %---,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,---
+	      \switchocg{codeblock}{%
+		      \color{black}\underline{Click here to display the answer:}%
+	      }
+
+
+	      \begin{ocg}{Code Block}{codeblock}{0}
+		      \vspace{0.5cm}
+		      \begin{itemize}
+			      \item en switch SW2
+			            \begin{lstlisting}
+interface f0/1
+spanning-tree portfast
+spanning-tree bpduguard enable
+                \end{lstlisting}
+			      \item en switch SW3
+			            \begin{lstlisting}
+interface f0/1
+spanning-tree portfast
+spanning-tree bpduguard enable
+                \end{lstlisting}
+		      \end{itemize}
+	      \end{ocg}
+	      %---''''''''''''''''''''''''''''''''---
+
+
 	\item \textbf{Test the Configuration:} \\
 	      Connect a switch (instead of a PC) to \textbf{G0/2} on \textbf{SW2} and send BPDUs.
 
 	      \textbf{Expected Result:} The port should move to an \textbf{err-disabled} state. Verify using:
+	      %---,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,---
+	      \switchocg{codeblock}{%
+		      \color{black}\underline{Click here to display the answer:}%
+	      }
 
+
+	      \begin{ocg}{Code Block}{codeblock}{0}
+		      \vspace{0.5cm}
+		      \begin{lstlisting}
+show interface status
+                \end{lstlisting}
+	      \end{ocg}
+	      %---''''''''''''''''''''''''''''''''---
 
 	\item \textbf{Recover the Port:}
 
+	      %---,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,---
+	      \switchocg{codeblock}{%
+		      \color{black}\underline{Click here to display the answer:}%
+	      }
+
+
+	      \begin{ocg}{Code Block}{codeblock}{0}
+		      \vspace{0.5cm}
+		      \begin{itemize}
+			      \item en switch SW2
+			            \begin{lstlisting}
+interface f0/1
+shutdown
+no shutdown
+                \end{lstlisting}
+			      \item en switch SW3
+			            \begin{lstlisting}
+interface f0/1
+shutdown
+no shutdown
+                \end{lstlisting}
+		      \end{itemize}
+	      \end{ocg}
+	      %---''''''''''''''''''''''''''''''''---
 \end{enumerate}
 
 \subsection*{Configuring Root Guard}
@@ -1186,29 +1248,66 @@ Securing the \textbf{Spanning Tree Protocol} topology is essential for maintaini
 
 	      On SW2 (Facing SW3) and SW3 (Facing SW2):
 
+	      %---,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,---
+	      \switchocg{codeblock}{%
+		      \color{black}\underline{Click here to display the answer:}%
+	      }
+
+
+	      \begin{ocg}{Code Block}{codeblock}{0}
+		      \vspace{0.5cm}
+		      \begin{itemize}
+			      \item en switch SW2
+			            \begin{lstlisting}
+interface f0/1
+spanning-tree guard root
+                \end{lstlisting}
+			      \item en switch SW3
+			            \begin{lstlisting}
+interface f0/1
+spanning-tree guard root
+                \end{lstlisting}
+		      \end{itemize}
+	      \end{ocg}
+	      %---''''''''''''''''''''''''''''''''---
 
 	\item \textbf{Test the Configuration:} \\
 	      Lower the bridge priority on \textbf{SW3} to try to make it the Root Bridge:
 
+	      %---,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,---
+	      \switchocg{codeblock}{%
+		      \color{black}\underline{Click here to display the answer:}%
+	      }
 
+
+	      \begin{ocg}{Code Block}{codeblock}{0}
+		      \vspace{0.5cm}
+		      \begin{lstlisting}
+spanning-tree vlan 1 priority 4096
+                \end{lstlisting}
+	      \end{ocg}
+	      %---''''''''''''''''''''''''''''''''---
 	      \textit{Expected Result:} The port on \textbf{SW2} connected to \textbf{SW3} should go into a \textbf{root-inconsistent} state, preventing \textbf{SW3} from becoming the Root Bridge.
 
 	\item \textbf{Verify the Root Guard Status:}
 
+	      %---,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,---
+	      \switchocg{codeblock}{%
+		      \color{black}\underline{Click here to display the answer:}%
+	      }
+
+
+	      \begin{ocg}{Code Block}{codeblock}{0}
+		      \vspace{0.5cm}
+		      \begin{lstlisting}
+show spanning-tree inconsistentports
+                \end{lstlisting}
+	      \end{ocg}
+	      %---''''''''''''''''''''''''''''''''---
 \end{enumerate}
 
 
-\switchocg{codeblock}{%
-	\color{black}\underline{Click here to display the answer:}%
-}
 
-
-\begin{ocg}{Code Block}{codeblock}{0}
-	\vspace{0.5cm}
-	\begin{lstlisting}
-Switch1(config)# 
-\end{lstlisting}
-\end{ocg}
 
 
 \section*{Exercise 3: Configuring BPDU Filter}
@@ -1219,22 +1318,56 @@ Switch1(config)#
 	\item \textbf{Enable BPDU Filter on Access Ports (Connected to PCs):}
 
 	      \textbf{On SW2 (Port connected to PC2):}
-	      \begin{verbatim}
-interface g0/2
+
+	      %---,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,---
+	      \switchocg{codeblock}{%
+		      \color{black}\underline{Click here to display the answer:}%
+	      }
+
+
+	      \begin{ocg}{Code Block}{codeblock}{0}
+		      \vspace{0.5cm}
+		      \begin{lstlisting}
+interface f0/2
 spanning-tree bpdufilter enable
-    \end{verbatim}
+            \end{lstlisting}
+	      \end{ocg}
+	      %---''''''''''''''''''''''''''''''''---
+
 
 	      \textbf{On SW3 (Port connected to PC3):}
-	      \begin{verbatim}
-interface g0/1
+
+	      %---,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,---
+	      \switchocg{codeblock}{%
+		      \color{black}\underline{Click here to display the answer:}%
+	      }
+
+
+	      \begin{ocg}{Code Block}{codeblock}{0}
+		      \vspace{0.5cm}
+		      \begin{lstlisting}
+interface f0/1
 spanning-tree bpdufilter enable
-    \end{verbatim}
+\end{lstlisting}
+	      \end{ocg}
+	      %---''''''''''''''''''''''''''''''''---
 
 	\item \textbf{Test the Configuration:} \\
 	      Verify that BPDUs are not being sent on these interfaces:
-	      \begin{verbatim}
+
+	      %---,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,---
+	      \switchocg{codeblock}{%
+		      \color{black}\underline{Click here to display the answer:}%
+	      }
+
+
+	      \begin{ocg}{Code Block}{codeblock}{0}
+		      \vspace{0.5cm}
+		      \begin{lstlisting}
 debug spanning-tree bpdu send
-    \end{verbatim}
+    \end{lstlisting}
+	      \end{ocg}
+	      %---''''''''''''''''''''''''''''''''---
 
 	\item \textbf{Warning:} \\
 	      \textbf{BPDU Filter} disables STP on the interface, which can lead to network loops if a switch is accidentally connected.
@@ -1249,10 +1382,29 @@ debug spanning-tree bpdu send
 	      Loop Guard should be applied to \textbf{root ports} and \textbf{alternate ports} that might stop receiving BPDUs.
 
 	      \textbf{On SW2 and SW3 (Ports facing SW1):}
-	      \begin{verbatim}
-interface g0/0
+
+	      %---,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,---
+	      \switchocg{codeblock}{%
+		      \color{black}\underline{Click here to display the answer:}%
+	      }
+
+
+	      \begin{ocg}{Code Block}{codeblock}{0}
+		      \vspace{0.5cm}
+		      \begin{itemize}
+			      \item en switch SW2
+			            \begin{lstlisting}
+interface g0/1
 spanning-tree guard loop
-    \end{verbatim}
+                \end{lstlisting}
+			      \item en switch SW3
+			            \begin{lstlisting}
+interface g0/2
+spanning-tree guard loop
+                \end{lstlisting}
+		      \end{itemize}
+	      \end{ocg}
+	      %---''''''''''''''''''''''''''''''''---
 
 	\item \textbf{Simulate a Unidirectional Link Failure:} \\
 	      Disconnect the \textbf{TX (Transmit)} fiber cable from \textbf{SW1’s G0/1} while keeping \textbf{RX (Receive)} connected.
@@ -1260,9 +1412,20 @@ spanning-tree guard loop
 	      \textbf{Expected Result:} The port on \textbf{SW2} should enter a \textbf{loop-inconsistent} state instead of transitioning to forwarding.
 
 	\item \textbf{Verify Loop Guard Status:}
-	      \begin{verbatim}
+
+	      %---,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,---
+	      \switchocg{codeblock}{%
+		      \color{black}\underline{Click here to display the answer:}%
+	      }
+
+
+	      \begin{ocg}{Code Block}{codeblock}{0}
+		      \vspace{0.5cm}
+		      \begin{lstlisting}
 show spanning-tree inconsistentports
-    \end{verbatim}
+    \end{lstlisting}
+	      \end{ocg}
+	      %---''''''''''''''''''''''''''''''''---
 \end{enumerate}
 
 \section*{Exercise 5: Configuring UDLD (Unidirectional Link Detection)}
@@ -1274,16 +1437,46 @@ show spanning-tree inconsistentports
 	      Apply UDLD on the \textbf{G0/1} and \textbf{G0/2} interfaces between switches.
 
 	      \textbf{On SW1:}
-	      \begin{verbatim}
+
+	      %---,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,---
+	      \switchocg{codeblock}{%
+		      \color{black}\underline{Click here to display the answer:}%
+	      }
+
+
+	      \begin{ocg}{Code Block}{codeblock}{0}
+		      \vspace{0.5cm}
+		      \begin{lstlisting}
 interface range g0/1 - 2
 udld aggressive
-    \end{verbatim}
+    \end{lstlisting}
+	      \end{ocg}
+	      %---''''''''''''''''''''''''''''''''---
 
 	      \textbf{On SW2 and SW3 (Interfaces facing SW1):}
-	      \begin{verbatim}
-interface g0/0
+
+	      %---,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,---
+	      \switchocg{codeblock}{%
+		      \color{black}\underline{Click here to display the answer:}%
+	      }
+
+
+	      \begin{ocg}{Code Block}{codeblock}{0}
+		      \vspace{0.5cm}
+		      \begin{itemize}
+			      \item en switch SW2
+			            \begin{lstlisting}
+interface g0/1
 udld aggressive
-    \end{verbatim}
+                \end{lstlisting}
+			      \item en switch SW3
+			            \begin{lstlisting}
+interface g0/2
+udld aggressive
+                \end{lstlisting}
+		      \end{itemize}
+	      \end{ocg}
+	      %---''''''''''''''''''''''''''''''''---
 
 	\item \textbf{Test UDLD Functionality:} \\
 	      Disconnect one side of the fiber link (e.g., \textbf{TX} on \textbf{SW1 G0/1}).
@@ -1291,15 +1484,45 @@ udld aggressive
 	      \textbf{Expected Result:} UDLD will detect the unidirectional link and place the port in an \textbf{err-disabled} state.
 
 	\item \textbf{Verify UDLD Status:}
-	      \begin{verbatim}
+
+	      %---,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,---
+	      \switchocg{codeblock}{%
+		      \color{black}\underline{Click here to display the answer:}%
+	      }
+
+
+	      \begin{ocg}{Code Block}{codeblock}{0}
+		      \vspace{0.5cm}
+		      \begin{lstlisting}
 show udld interface
-    \end{verbatim}
+    \end{lstlisting}
+	      \end{ocg}
+	      %---''''''''''''''''''''''''''''''''---
 
 	\item \textbf{Recover UDLD-disabled Ports:}
-	      \begin{verbatim}
+
+	      %---,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,---
+	      \switchocg{codeblock}{%
+		      \color{black}\underline{Click here to display the answer:}%
+	      }
+
+
+	      \begin{ocg}{Code Block}{codeblock}{0}
+		      \vspace{0.5cm}
+		      \begin{itemize}
+			      \item en switch SW2
+			            \begin{lstlisting}
 interface g0/1
 udld reset
-    \end{verbatim}
+                \end{lstlisting}
+			      \item en switch SW3
+			            \begin{lstlisting}
+interface g0/2
+udld reset
+                \end{lstlisting}
+		      \end{itemize}
+	      \end{ocg}
+	      %---''''''''''''''''''''''''''''''''---
 \end{enumerate}
 
 \section*{Discussion Questions:}
