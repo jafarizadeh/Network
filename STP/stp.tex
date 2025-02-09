@@ -528,7 +528,7 @@ Switch(config-if)# spanning-tree cost 15
 % Chapter 2: STP Root Bridge
 %------------------------------------------------------
 \chapter{PVST (Per-VLAN Spanning Tree)}
-
+\raggedright
 \section*{What is PVST?}
 Per-VLAN Spanning Tree (PVST) is a version of the Spanning Tree Protocol (STP) that creates a separate spanning tree instance for each VLAN in the network. This allows for better load balancing and more efficient use of network resources, as different VLANs can have different root bridges and forwarding paths.
 
@@ -1533,6 +1533,57 @@ udld reset
 	\item What is the difference between Loop Guard and UDLD in handling unidirectional link failures?
 	\item After enabling UDLD, how quickly did the network detect and respond to a unidirectional failure compared to standard STP behavior?
 \end{enumerate}
+
+
+\chapter{Rapid Per-VLAN Spanning Tree (Rapid PVST)}
+
+
+
+
+\section*{Introduction to Rapid PVST}
+Rapid Per-VLAN Spanning Tree (\textbf{Rapid PVST}) is a Cisco proprietary enhancement of the Spanning Tree Protocol (STP) that operates per VLAN while incorporating the rapid convergence benefits of Rapid Spanning Tree Protocol (RSTP). Rapid PVST allows each VLAN to have its own independent spanning tree instance, providing greater flexibility and network optimization in Layer 2 networks.
+
+\section*{Key Features of Rapid PVST}
+\begin{itemize}
+    \item \textbf{Per-VLAN Instance:} Unlike standard RSTP, which runs a single instance for the entire network, Rapid PVST maintains a separate spanning tree for each VLAN, allowing better load balancing and path optimization.
+    \item \textbf{Rapid Convergence:} By leveraging RSTP (802.1w) mechanisms, Rapid PVST provides faster recovery from topology changes compared to traditional STP (802.1D).
+    \item \textbf{Port Roles \& States:} Rapid PVST uses the same port roles as RSTP—Root, Designated, Alternate, and Backup—ensuring efficient network operation with minimal downtime.
+    \item \textbf{BPDU Exchange:} Bridge Protocol Data Units (BPDUs) are sent out every hello interval (default: 2 seconds) on all ports, enabling rapid detection of topology changes.
+    \item \textbf{Backwards Compatibility:} Rapid PVST can interoperate with traditional STP but may fall back to legacy STP behavior if necessary.
+\end{itemize}
+
+\section*{Advantages of Rapid PVST}
+\begin{enumerate}
+    \item \textbf{Faster Convergence} – Utilizes rapid transition mechanisms like Proposal/Agreement handshaking for faster network recovery.
+    \item \textbf{Enhanced Load Balancing} – By running a separate instance for each VLAN, traffic can be distributed efficiently across different spanning trees.
+    \item \textbf{Loop Prevention} – Maintains a loop-free topology by dynamically adjusting port states in response to network topology changes.
+    \item \textbf{Optimized Network Performance} – By isolating VLANs, network resources are used efficiently, reducing unnecessary traffic forwarding.
+\end{enumerate}
+
+\section*{Configuring Rapid PVST on Cisco Switches}
+To enable Rapid PVST on a Cisco switch, use the following command in global configuration mode:
+
+\begin{lstlisting}
+Switch(config)# spanning-tree mode rapid-pvst
+\end{lstlisting}
+
+To configure a switch as the root bridge for a specific VLAN:
+
+\begin{lstlisting}
+Switch(config)# spanning-tree vlan <VLAN_ID> root primary
+\end{lstlisting}
+
+To adjust the bridge priority for better root bridge election control:
+
+\begin{lstlisting}
+Switch(config)# spanning-tree vlan <VLAN_ID> priority <value>
+\end{lstlisting}
+
+(Default priority is 32768, lower values increase priority.)
+
+\section*{Conclusion}
+Rapid PVST enhances the traditional Spanning Tree Protocol by providing per-VLAN instances with rapid convergence benefits. It is an essential protocol for networks requiring fast recovery, load balancing, and improved performance across multiple VLANs. Understanding and implementing Rapid PVST effectively ensures a stable and efficient Layer 2 topology in enterprise networks.
+
 
 
 \end{document}
