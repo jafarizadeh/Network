@@ -1,5 +1,5 @@
 # Fdb version 4
-["pdflatex"] 1739143752.25734 "c:/Users/Lord/Desktop/Network/STP/stp.tex" "stp.pdf" "stp" 1739143753.39054 0
+["pdflatex"] 1739146131.67555 "c:/Users/Lord/Desktop/Network/STP/stp.tex" "stp.pdf" "stp" 1739146132.86223 0
   "C:/Users/Lord/AppData/Local/MiKTeX/fonts/map/pdftex/pdftex.map" 1738709599 173485 f1241580a49f8a22ea90f661f283298a ""
   "C:/Users/Lord/AppData/Local/MiKTeX/fonts/pk/ljfour/jknappen/ec/dpi600/ecbx0900.pk" 1738751109 22504 f2b5f9780c84127377b98c5cecb5c9fa ""
   "C:/Users/Lord/AppData/Local/MiKTeX/fonts/pk/ljfour/jknappen/ec/dpi600/ecbx1000.pk" 1733177669 25420 ff6ae1e956391ddbb006a9af6a7fecd0 ""
@@ -199,10 +199,11 @@
   "C:/Users/Lord/AppData/Local/Programs/MiKTeX/tex/latex/varwidth/varwidth.sty" 1238469540 10894 d359a13923460b2a73d4312d613554c8 ""
   "C:/Users/Lord/AppData/Local/Programs/MiKTeX/tex/latex/xcolor/xcolor.sty" 1700127522 55487 80a65caedd3722f4c20a14a69e785d8f ""
   "C:/Users/Lord/AppData/Local/Programs/MiKTeX/tex/latex/xkeyval/xkeyval.sty" 1656236919 4937 4ce600ce9bd4ec84d0250eb6892fcf4f ""
-  "c:/Users/Lord/Desktop/Network/STP/stp.tex" 1739143751 57253 2682c856a3b3b1eaa513366783bb1b3a ""
+  "c:/Users/Lord/Desktop/Network/STP/stp.tex" 1739146131 67800 abd4a4cc5abf8962c3901c5bcf2acd20 ""
   "img/STPConvergence01.png" 1738686618 17969 7196f7a894b0d73ca14c4e2884c42482 ""
   "img/pvst01.png" 1738682212 49952 96897ab9ab7f0a8c2b61bc3882a209e6 ""
   "img/pvst01active.png" 1738968807 39799 522f3d14b0e2715b33f0e184aa97fd34 ""
+  "img/rstp.png" 1739099776 29020 1de71f0c4f1f067b78c02de4d094ee99 ""
   "img/stp01.png" 1738676459 27760 9c0271721da58e84d8a2b915c899811f ""
   "img/stp02.png" 1738679266 25744 560aa291ca336389a61d83ab569131d1 ""
   "img/stp03.png" 1738679599 24328 56d83b367474b80c7ac893afa81f6b52 ""
@@ -211,10 +212,10 @@
   "img/stp04active.png" 1738857152 9833 3410ce39f079783ea1279f2c59d6bcef ""
   "img/stp05.png" 1738857292 16603 1d321ce949db00dc535c8aadce0b136a ""
   "img/stp05active.png" 1738857376 14043 9cd3167b83ae8664485055bdc86193ce ""
-  "stp.aux" 1739143753 11306 8fdca5ba7f2761b6396e324218bcb996 "pdflatex"
-  "stp.out" 1739143753 997 67df01ca88a7e6584a685dce06c6685f "pdflatex"
-  "stp.tex" 1739143751 57253 2682c856a3b3b1eaa513366783bb1b3a ""
-  "stp.toc" 1739143753 377 9acf0ca0f32a04e00a78cb7f4e2c948e "pdflatex"
+  "stp.aux" 1739146132 13683 fbbe1657fbd7577fce9b90d2cef91fb5 "pdflatex"
+  "stp.out" 1739146132 1187 b7e26a94ffc1af63e74f652b417677e0 "pdflatex"
+  "stp.tex" 1739146131 67800 abd4a4cc5abf8962c3901c5bcf2acd20 ""
+  "stp.toc" 1739146132 473 d7a8b05fbe51830028e6ace7245f648a "pdflatex"
   (generated)
   "stp.aux"
   "stp.log"

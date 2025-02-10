@@ -1512,7 +1512,7 @@ show udld interface
 		      \begin{itemize}
 			      \item en switch SW2
 			            \begin{lstlisting}
-interface g0/1
+interface g0/1  
 udld reset
                 \end{lstlisting}
 			      \item en switch SW3
@@ -1545,19 +1545,19 @@ Rapid Per-VLAN Spanning Tree (\textbf{Rapid PVST}) is a Cisco proprietary enhanc
 
 \section*{Key Features of Rapid PVST}
 \begin{itemize}
-    \item \textbf{Per-VLAN Instance:} Unlike standard RSTP, which runs a single instance for the entire network, Rapid PVST maintains a separate spanning tree for each VLAN, allowing better load balancing and path optimization.
-    \item \textbf{Rapid Convergence:} By leveraging RSTP (802.1w) mechanisms, Rapid PVST provides faster recovery from topology changes compared to traditional STP (802.1D).
-    \item \textbf{Port Roles \& States:} Rapid PVST uses the same port roles as RSTP—Root, Designated, Alternate, and Backup—ensuring efficient network operation with minimal downtime.
-    \item \textbf{BPDU Exchange:} Bridge Protocol Data Units (BPDUs) are sent out every hello interval (default: 2 seconds) on all ports, enabling rapid detection of topology changes.
-    \item \textbf{Backwards Compatibility:} Rapid PVST can interoperate with traditional STP but may fall back to legacy STP behavior if necessary.
+	\item \textbf{Per-VLAN Instance:} Unlike standard RSTP, which runs a single instance for the entire network, Rapid PVST maintains a separate spanning tree for each VLAN, allowing better load balancing and path optimization.
+	\item \textbf{Rapid Convergence:} By leveraging RSTP (802.1w) mechanisms, Rapid PVST provides faster recovery from topology changes compared to traditional STP (802.1D).
+	\item \textbf{Port Roles \& States:} Rapid PVST uses the same port roles as RSTP—Root, Designated, Alternate, and Backup—ensuring efficient network operation with minimal downtime.
+	\item \textbf{BPDU Exchange:} Bridge Protocol Data Units (BPDUs) are sent out every hello interval (default: 2 seconds) on all ports, enabling rapid detection of topology changes.
+	\item \textbf{Backwards Compatibility:} Rapid PVST can interoperate with traditional STP but may fall back to legacy STP behavior if necessary.
 \end{itemize}
 
 \section*{Advantages of Rapid PVST}
 \begin{enumerate}
-    \item \textbf{Faster Convergence} – Utilizes rapid transition mechanisms like Proposal/Agreement handshaking for faster network recovery.
-    \item \textbf{Enhanced Load Balancing} – By running a separate instance for each VLAN, traffic can be distributed efficiently across different spanning trees.
-    \item \textbf{Loop Prevention} – Maintains a loop-free topology by dynamically adjusting port states in response to network topology changes.
-    \item \textbf{Optimized Network Performance} – By isolating VLANs, network resources are used efficiently, reducing unnecessary traffic forwarding.
+	\item \textbf{Faster Convergence} – Utilizes rapid transition mechanisms like Proposal/Agreement handshaking for faster network recovery.
+	\item \textbf{Enhanced Load Balancing} – By running a separate instance for each VLAN, traffic can be distributed efficiently across different spanning trees.
+	\item \textbf{Loop Prevention} – Maintains a loop-free topology by dynamically adjusting port states in response to network topology changes.
+	\item \textbf{Optimized Network Performance} – By isolating VLANs, network resources are used efficiently, reducing unnecessary traffic forwarding.
 \end{enumerate}
 
 \section*{Configuring Rapid PVST on Cisco Switches}
@@ -1583,6 +1583,332 @@ Switch(config)# spanning-tree vlan <VLAN_ID> priority <value>
 
 \section*{Conclusion}
 Rapid PVST enhances the traditional Spanning Tree Protocol by providing per-VLAN instances with rapid convergence benefits. It is an essential protocol for networks requiring fast recovery, load balancing, and improved performance across multiple VLANs. Understanding and implementing Rapid PVST effectively ensures a stable and efficient Layer 2 topology in enterprise networks.
+
+
+
+\newpage
+
+
+\section*{Lab Exercises: Rapid Per-VLAN Spanning Tree}
+
+
+\subsection{Network Topology Overview}
+
+The network topology consists of four switches (SW1, SW2, SW3, and SW4) and four personal computers (PC1, PC2, PC3, and PC4). The switches are interconnected in a redundant manner, forming a robust network infrastructure to ensure reliability and fault tolerance.
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.8\textwidth]{img/rstp.png}
+	\caption{\textit{}}
+\end{figure}
+
+\begin{enumerate}
+	\item \textbf{Enable RSTP on All Switches}
+	      \begin{itemize}
+		      \item Configure \textbf{RSTP (Rapid PVST+)} on all switches in this topology.
+		      \item Verify that RSTP is running correctly.
+	      \end{itemize}
+	      %---,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,---
+	      \switchocg{codeblock}{%
+		      \color{black}\underline{Click here to display the answer:}%
+	      }
+
+
+	      \begin{ocg}{Code Block}{codeblock}{0}
+		      \vspace{0.5cm}
+		      \begin{lstlisting}
+conf t
+spanning-tree mode rapid-pvst
+end
+show spanning-tree
+                    \end{lstlisting}
+	      \end{ocg}
+	      %---''''''''''''''''''''''''''''''''---
+
+
+	      \textbf{Question:} What is the current \textbf{Root Bridge}, and how was it selected?
+
+
+	      %---,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,---
+	      \switchocg{codeblock}{%
+		      \color{black}\underline{Click here to display the answer:}%
+	      }
+
+
+	      \begin{ocg}{Code Block}{codeblock}{0}
+		      \vspace{0.5cm}
+		      \begin{itemize}
+			      \item The \textbf{Root Bridge} is selected based on the \textbf{lowest Bridge ID} (combination of priority and MAC address).
+			      \item By default, the switch with the \textbf{lowest MAC address} becomes the Root Bridge if all switches have the same priority (default: \textbf{32768}).
+			      \item We can verify this with:
+		      \end{itemize}
+		      \begin{lstlisting}
+show spanning-tree vlan 1
+              \end{lstlisting}
+	      \end{ocg}
+	      %---''''''''''''''''''''''''''''''''---
+
+	\item \textbf{Manually Set SW1 as the Root Bridge}
+	      \begin{itemize}
+		      \item Configure \textbf{SW1} as the \textbf{Root Bridge} for VLAN 1.
+		      \item Verify that SW1 is now the Root Bridge.
+	      \end{itemize}
+
+	      %---,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,---
+	      \switchocg{codeblock}{%
+		      \color{black}\underline{Click here to display the answer:}%
+	      }
+
+
+	      \begin{ocg}{Code Block}{codeblock}{0}
+		      \vspace{0.5cm}
+		      \begin{lstlisting}
+conf t
+spanning-tree vlan 1 priority 4096
+end
+show spanning-tree vlan 1
+          \end{lstlisting}
+	      \end{ocg}
+	      %---''''''''''''''''''''''''''''''''---
+
+
+	\item \textbf{Configure Edge Ports for Faster PC Connectivity}
+	      \begin{itemize}
+		      \item Enable \textbf{PortFast} on all PC-connected ports (\textbf{SW3 \& SW4}).
+		      \item Test if these ports enter \textbf{forwarding state} immediately after connecting a device.
+	      \end{itemize}
+
+	      %---,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,---
+	      \switchocg{codeblock}{%
+		      \color{black}\underline{Click here to display the answer:}%
+	      }
+
+
+	      \begin{ocg}{Code Block}{codeblock}{0}
+		      \vspace{0.5cm}
+		      \begin{lstlisting}
+interface range f0/1 - 2
+spanning-tree portfast
+end
+show spanning-tree interface f0/1 detail
+ \end{lstlisting}
+	      \end{ocg}
+	      %---''''''''''''''''''''''''''''''''---
+
+	      \textbf{Question:} Why is PortFast useful, and why shouldn’t it be used on switch-to-switch links?
+
+	      %---,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,---
+	      \switchocg{codeblock}{%
+		      \color{black}\underline{Click here to display the answer:}%
+	      }
+
+
+	      \begin{ocg}{Code Block}{codeblock}{0}
+		      \vspace{0.5cm}
+		      \begin{itemize}
+			      \item \textbf{PortFast allows ports connected to PCs to skip the Listening/Learning STP states and immediately enter Forwarding.}
+			      \item This is useful because PCs do not participate in STP, so waiting for STP transitions is unnecessary.
+			      \item \textbf{PortFast should not be used on switch-to-switch links} because it disables STP protection, potentially causing loops.
+		      \end{itemize}
+	      \end{ocg}
+	      %---''''''''''''''''''''''''''''''''---
+
+	\item \textbf{Simulate a Link Failure and Observe RSTP Recovery}
+	      \begin{itemize}
+		      \item \textbf{Shutdown the link} between \textbf{SW1 and SW2}, then observe how RSTP reacts.
+		      \item Which ports change their role to compensate for the failure?
+	      \end{itemize}
+	      %---,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,---
+	      \switchocg{codeblock}{%
+		      \color{black}\underline{Click here to display the answer:}%
+	      }
+
+
+	      \begin{ocg}{Code Block}{codeblock}{0}
+		      \vspace{0.5cm}
+		      \begin{lstlisting}
+interface f0/1
+shutdown
+end
+show spanning-tree
+ \end{lstlisting}
+	      \end{ocg}
+	      %---''''''''''''''''''''''''''''''''---
+
+	      \textbf{Question:} How fast did RSTP reconverge compared to classic STP (50s convergence)?
+
+	      %---,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,---
+	      \switchocg{codeblock}{%
+		      \color{black}\underline{Click here to display the answer:}%
+	      }
+
+
+	      \begin{ocg}{Code Block}{codeblock}{0}
+		      \vspace{0.5cm}
+		      \begin{itemize}
+			      \item Classic \textbf{STP takes 50 seconds} to reconverge (Listening: 15s, Learning: 15s, Max Age: 20s).
+			      \item \textbf{RSTP converges in 1-2 seconds} using the \textbf{Proposal-Agreement mechanism}.
+		      \end{itemize}
+	      \end{ocg}
+	      %---''''''''''''''''''''''''''''''''---
+
+
+
+	\item \textbf{Observe the Proposal-Agreement Process in RSTP}
+	      \begin{itemize}
+		      \item Enable \textbf{debugging} to watch the RSTP \textbf{Proposal-Agreement} process.
+	      \end{itemize}
+
+	      %---,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,---
+	      \switchocg{codeblock}{%
+		      \color{black}\underline{Click here to display the answer:}%
+	      }
+
+
+	      \begin{ocg}{Code Block}{codeblock}{0}
+		      \vspace{0.5cm}
+		      \begin{lstlisting}
+debug spanning-tree events
+              \end{lstlisting}
+	      \end{ocg}
+	      %---''''''''''''''''''''''''''''''''---
+
+	      \textbf{Question:} What happens when a switch detects a new Root Bridge or topology change?
+
+
+	      %---,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,---
+	      \switchocg{codeblock}{%
+		      \color{black}\underline{Click here to display the answer:}%
+	      }
+
+
+	      \begin{ocg}{Code Block}{codeblock}{0}
+		      \vspace{0.5cm}
+		      \begin{itemize}
+			      \item \textbf{RSTP Proposal-Agreement Process:}
+			            \begin{enumerate}
+				            \item A switch detects a better Root Bridge or a topology change.
+				            \item It \textbf{sends a Proposal BPDU} to its neighbor.
+				            \item The neighbor \textbf{temporarily blocks non-root ports}, processes the change, then sends an \textbf{Agreement BPDU} back.
+				            \item The original switch transitions the link to Forwarding.
+			            \end{enumerate}
+			      \item This is much faster than classic STP.
+		      \end{itemize}
+	      \end{ocg}
+	      %---''''''''''''''''''''''''''''''''---
+
+
+	      \textbf{Disable Debugging (After Observation):}
+
+	      %---,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,---
+	      \switchocg{codeblock}{%
+		      \color{black}\underline{Click here to display the answer:}%
+	      }
+
+
+	      \begin{ocg}{Code Block}{codeblock}{0}
+		      \vspace{0.5cm}
+		      \begin{lstlisting}
+undebug all
+              \end{lstlisting}
+	      \end{ocg}
+	      %---''''''''''''''''''''''''''''''''---
+
+
+	\item \textbf{Reduce the Network Diameter to Speed Up Convergence}
+	      \begin{itemize}
+		      \item Lower the STP \textbf{diameter} value to \textbf{2} to speed up BPDU propagation.
+	      \end{itemize}
+
+	      %---,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,---
+	      \switchocg{codeblock}{%
+		      \color{black}\underline{Click here to display the answer:}%
+	      }
+
+
+	      \begin{ocg}{Code Block}{codeblock}{0}
+		      \vspace{0.5cm}
+		      \begin{lstlisting}
+spanning-tree vlan 1 root primary diameter 2
+end
+show spanning-tree detail
+              \end{lstlisting}
+	      \end{ocg}
+	      %---''''''''''''''''''''''''''''''''---
+
+	      \textbf{Question:} How does reducing the network diameter affect STP timers?
+	      %---,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,---
+	      \switchocg{codeblock}{%
+		      \color{black}\underline{Click here to display the answer:}%
+	      }
+
+
+	      \begin{ocg}{Code Block}{codeblock}{0}
+		      \vspace{0.5cm}
+		      \begin{itemize}
+			      \item The \textbf{default STP diameter is 7}, which affects BPDU propagation delays.
+			      \item Reducing the \textbf{diameter to 2 speeds up convergence} because fewer hops exist.
+		      \end{itemize}
+
+		      \textbf{Verification Command:}
+		      \begin{lstlisting}
+show spanning-tree detail
+                \end{lstlisting}
+	      \end{ocg}
+	      %---''''''''''''''''''''''''''''''''---
+
+
+
+
+	\item \textbf{Adjust STP Timers for Faster Convergence}
+	      \begin{itemize}
+		      \item Reduce the \textbf{Forward Delay} and \textbf{Max Age} timers to optimize RSTP performance.
+	      \end{itemize}
+
+	      %---,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,---
+	      \switchocg{codeblock}{%
+		      \color{black}\underline{Click here to display the answer:}%
+	      }
+
+
+	      \begin{ocg}{Code Block}{codeblock}{0}
+		      \vspace{0.5cm}
+		      \begin{lstlisting}
+spanning-tree vlan 1 forward-time 10
+spanning-tree vlan 1 max-age 15
+end
+show spanning-tree detail
+              \end{lstlisting}
+	      \end{ocg}
+	      %---''''''''''''''''''''''''''''''''---
+
+
+
+	\item \textbf{Configure UplinkFast on SW3 and SW4}
+	\begin{itemize}
+        \item Allow \textbf{faster failover} when a Root Port fails.
+    \end{itemize}
+    
+    %---,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,---
+    \switchocg{codeblock}{%
+    \color{black}\underline{Click here to display the answer:}%
+}
+
+
+\begin{ocg}{Code Block}{codeblock}{0}
+    \vspace{0.5cm}
+    \begin{lstlisting}
+spanning-tree uplinkfast
+end
+show spanning-tree uplinkfast
+    \end{lstlisting}
+\end{ocg}
+%---''''''''''''''''''''''''''''''''---
+
+    
+    \textbf{Test:} Disable the primary Root Port and see how quickly the \textbf{backup link} takes over.
+
+\end{enumerate}
+
 
 
 
