@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (MiKTeX 24.1) (preloaded format=pdflatex 2024.8.31)  10 FEB 2025 16:19
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (MiKTeX 24.1) (preloaded format=pdflatex 2024.8.31)  10 FEB 2025 17:09
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -692,7 +692,7 @@ File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 
 ]
 Chapter 1.
-<img/stp01.png, id=61, 511.9125pt x 461.725pt>
+<img/stp01.png, id=66, 511.9125pt x 461.725pt>
 File: img/stp01.png Graphic file (type png)
 <use img/stp01.png>
 Package pdftex.def Info: img/stp01.png  used on input line 90.
@@ -705,7 +705,7 @@ LaTeX Font Info:    Trying to load font information for T1+cmtt on input line 11
  (C:\Users\Lord\AppData\Local\Programs\MiKTeX\tex/latex/base\t1cmtt.fd
 File: t1cmtt.fd 2023/04/13 v2.5m Standard LaTeX font definitions
 ) [6 <./img/stp01.png>] [7]
-<img/stp02.png, id=126, 511.9125pt x 461.725pt>
+<img/stp02.png, id=131, 511.9125pt x 461.725pt>
 File: img/stp02.png Graphic file (type png)
 <use img/stp02.png>
 Package pdftex.def Info: img/stp02.png  used on input line 400.
@@ -715,7 +715,7 @@ Package pdftex.def Info: img/stp02.png  used on input line 400.
 LaTeX Warning: `h' float specifier changed to `ht'.
 
 [8] [9 <./img/stp02.png>]
-<img/stp03.png, id=152, 481.8pt x 532.99126pt>
+<img/stp03.png, id=157, 481.8pt x 532.99126pt>
 File: img/stp03.png Graphic file (type png)
 <use img/stp03.png>
 Package pdftex.def Info: img/stp03.png  used on input line 448.
@@ -726,12 +726,12 @@ Package caption Warning: The option `hypcap=true' will be ignored for this
 (caption)                particular \caption on input line 449.
 See the caption package documentation for explanation.
 
-<img/stp03active.png, id=154, 481.8pt x 532.99126pt>
+<img/stp03active.png, id=159, 481.8pt x 532.99126pt>
 File: img/stp03active.png Graphic file (type png)
 <use img/stp03active.png>
 Package pdftex.def Info: img/stp03active.png  used on input line 464.
 (pdftex.def)             Requested size: 234.44319pt x 259.34625pt.
-<img/stp04.png, id=155, 412.54124pt x 271.0125pt>
+<img/stp04.png, id=160, 412.54124pt x 271.0125pt>
 File: img/stp04.png Graphic file (type png)
 <use img/stp04.png>
 Package pdftex.def Info: img/stp04.png  used on input line 476.
@@ -741,13 +741,13 @@ Package caption Warning: The option `hypcap=true' will be ignored for this
 (caption)                particular \caption on input line 477.
 See the caption package documentation for explanation.
 
-<img/stp04active.png, id=157, 382.42876pt x 271.0125pt>
+<img/stp04active.png, id=162, 382.42876pt x 271.0125pt>
 File: img/stp04active.png Graphic file (type png)
 <use img/stp04active.png>
 Package pdftex.def Info: img/stp04active.png  used on input line 493.
 (pdftex.def)             Requested size: 234.44319pt x 166.1403pt.
 [10 <./img/stp03.png> <./img/stp03active.png> <./img/stp04.png> <./img/stp04active.png>]
-<img/stp05.png, id=171, 552.0625pt x 260.975pt>
+<img/stp05.png, id=176, 552.0625pt x 260.975pt>
 File: img/stp05.png Graphic file (type png)
 <use img/stp05.png>
 Package pdftex.def Info: img/stp05.png  used on input line 503.
@@ -763,7 +763,7 @@ Package caption Warning: The option `hypcap=true' will be ignored for this
 (caption)                particular \caption on input line 504.
 See the caption package documentation for explanation.
 
-<img/stp05active.png, id=173, 552.0625pt x 251.94125pt>
+<img/stp05active.png, id=178, 552.0625pt x 251.94125pt>
 File: img/stp05active.png Graphic file (type png)
 <use img/stp05active.png>
 Package pdftex.def Info: img/stp05active.png  used on input line 519.
@@ -773,7 +773,7 @@ Package pdftex.def Info: img/stp05active.png  used on input line 519.
 ]
 Chapter 2.
 [13] [14]
-<img/pvst01.png, id=206, 722.7pt x 703.62875pt>
+<img/pvst01.png, id=211, 722.7pt x 703.62875pt>
 File: img/pvst01.png Graphic file (type png)
 <use img/pvst01.png>
 Package pdftex.def Info: img/pvst01.png  used on input line 589.
@@ -784,7 +784,7 @@ File: img/pvst01.png Graphic file (type png)
 Package pdftex.def Info: img/pvst01.png  used on input line 843.
 (pdftex.def)             Requested size: 362.37569pt x 352.812pt.
  [19]
-<img/pvst01active.png, id=296, 481.8pt x 900.36375pt>
+<img/pvst01active.png, id=301, 481.8pt x 900.36375pt>
 File: img/pvst01active.png Graphic file (type png)
 <use img/pvst01active.png>
 Package pdftex.def Info: img/pvst01active.png  used on input line 860.
@@ -794,7 +794,7 @@ Package pdftex.def Info: img/pvst01active.png  used on input line 860.
 ]
 Chapter 3.
 [25] [26]
-<img/STPConvergence01.png, id=391, 461.725pt x 407.5225pt>
+<img/STPConvergence01.png, id=396, 461.725pt x 407.5225pt>
 File: img/STPConvergence01.png Graphic file (type png)
 <use img/STPConvergence01.png>
 Package pdftex.def Info: img/STPConvergence01.png  used on input line 1143.
@@ -808,31 +808,40 @@ Chapter 4.
 Package hyperref Warning: Difference (2) between bookmark levels is greater 
 (hyperref)                than one, level fixed on input line 1595.
 
-<img/rstp.png, id=554, 560.0925pt x 461.725pt>
+<img/rstp.png, id=559, 560.0925pt x 461.725pt>
 File: img/rstp.png Graphic file (type png)
 <use img/rstp.png>
 Package pdftex.def Info: img/rstp.png  used on input line 1600.
 (pdftex.def)             Requested size: 362.37569pt x 298.74385pt.
-[35 <./img/rstp.png>] [36] [37] [38] (stp.aux)
+[35 <./img/rstp.png>] [36] [37] [38]
+Chapter 5.
+[39
+
+] [40] [41]
+File: img/rstp.png Graphic file (type png)
+<use img/rstp.png>
+Package pdftex.def Info: img/rstp.png  used on input line 1998.
+(pdftex.def)             Requested size: 362.37569pt x 298.74385pt.
+ [42] [43] [44] [45] (stp.aux)
  ***********
 LaTeX2e <2023-11-01> patch level 1
 L3 programming layer <2024-01-04>
  ***********
 Package rerunfilecheck Info: File `stp.out' has not changed.
-(rerunfilecheck)             Checksum: B7E26A94FFC1AF63E74F652B417677E0;1187.
+(rerunfilecheck)             Checksum: 5077A40313B405188EC16F52C8D71EA5;1385.
  ) 
 Here is how much of TeX's memory you used:
- 26399 strings out of 474486
- 487314 string characters out of 5744227
+ 26557 strings out of 474486
+ 489548 string characters out of 5744227
  2002542 words of memory out of 5000000
- 47903 multiletter control sequences out of 15000+600000
+ 47936 multiletter control sequences out of 15000+600000
  575618 words of font info for 75 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  86i,8n,117p,797b,2212s stack positions out of 10000i,1000n,20000p,200000b,200000s
  <C:\Users\Lord\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ectt1000.pk> <C:\Users\Lord\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecti0900.pk> <C:\Users\Lord\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecbx0900.pk> <C:\Users\Lord\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\tcrm0900.pk> <C:\Users\Lord\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecrm0900.pk> <C:\Users\Lord\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecti1000.pk> <C:\Users\Lord\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\tcrm1000.pk> <C:\Users\Lord\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ectt0900.pk> <C:\Users\Lord\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecbx1440.pk> <C:\Users\Lord\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecbx2074.pk> <C:\Users\Lord\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecsl1000.pk> <C:\Users\Lord\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecrm1000.pk> <C:\Users\Lord\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecbx1000.pk> <C:\Users\Lord\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecbx1200.pk> <C:\Users\Lord\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecrm1440.pk> <C:\Users\Lord\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecbx2488.pk><C:/Users/Lord/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi10.pfb><C:/Users/Lord/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy9.pfb>
-Output written on stp.pdf (38 pages, 477061 bytes).
+Output written on stp.pdf (45 pages, 517202 bytes).
 PDF statistics:
- 1292 PDF objects out of 1440 (max. 8388607)
- 350 named destinations out of 1000 (max. 500000)
- 135 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 1500 PDF objects out of 1728 (max. 8388607)
+ 475 named destinations out of 1000 (max. 500000)
+ 143 words of extra memory for PDF output out of 10000 (max. 10000000)
 

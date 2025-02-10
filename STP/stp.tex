@@ -1884,9 +1884,422 @@ show spanning-tree detail
 
 
 	\item \textbf{Configure UplinkFast on SW3 and SW4}
-	\begin{itemize}
-        \item Allow \textbf{faster failover} when a Root Port fails.
-    \end{itemize}
+	      \begin{itemize}
+		      \item Allow \textbf{faster failover} when a Root Port fails.
+	      \end{itemize}
+
+	      %---,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,---
+	      \switchocg{codeblock}{%
+		      \color{black}\underline{Click here to display the answer:}%
+	      }
+
+
+	      \begin{ocg}{Code Block}{codeblock}{0}
+		      \vspace{0.5cm}
+		      \begin{lstlisting}
+spanning-tree uplinkfast
+end
+show spanning-tree uplinkfast
+    \end{lstlisting}
+	      \end{ocg}
+	      %---''''''''''''''''''''''''''''''''---
+
+
+	      \textbf{Test:} Disable the primary Root Port and see how quickly the \textbf{backup link} takes over.
+
+\end{enumerate}
+
+
+\chapter{Multiple Spanning Tree (MST)}
+
+
+\section*{Introduction to MST}
+Multiple Spanning Tree (\textbf{MST}) is an advanced version of the Spanning Tree Protocol (\textbf{STP}) that allows multiple VLANs to be mapped to a single spanning tree instance. MST is standardized under \textbf{IEEE 802.1s} and provides a scalable, efficient way to manage Layer 2 network redundancy while optimizing network performance.
+
+\section*{Key Features of MST}
+\begin{itemize}
+	\item \textbf{Instance-Based Spanning Trees:} Unlike Per-VLAN Spanning Tree (\textbf{PVST+} and \textbf{Rapid PVST}), which creates a separate spanning tree instance for each VLAN, MST groups multiple VLANs into a single spanning tree instance (\textbf{MSTI}), reducing CPU and memory overhead on network devices.
+	\item \textbf{Improved Scalability:} Since fewer spanning tree instances run in the network, MST significantly reduces processing overhead compared to PVST+ or Rapid PVST.
+	\item \textbf{Faster Convergence:} MST incorporates the rapid convergence mechanisms of \textbf{Rapid Spanning Tree Protocol (RSTP – IEEE 802.1w)}, allowing for quicker network recovery.
+	\item \textbf{Loop Prevention:} Ensures a loop-free topology by dynamically managing redundant links within each MST instance.
+	\item \textbf{Interoperability with Other STP Versions:} MST can interoperate with traditional STP, RSTP, and PVST+ networks through boundary ports that function as STP/PVST interaction points.
+\end{itemize}
+
+\section*{MST Region and Instances}
+MST introduces the concept of \textbf{MST Regions}, which are groups of switches configured with the same MST parameters, including:
+\begin{enumerate}
+	\item \textbf{Region Name} – A user-defined name that must match across all switches in the region.
+	\item \textbf{Configuration Revision Number} – A manually set number used to track MST configuration changes.
+	\item \textbf{VLAN-to-Instance Mapping} – A table that defines which VLANs belong to which MST instance.
+\end{enumerate}
+
+Each MST region supports the following instances:
+\begin{itemize}
+	\item \textbf{MST Instance 0 (IST - Internal Spanning Tree):} A default instance that interacts with other spanning tree protocols (STP/PVST).
+	\item \textbf{MST Instance 1 and Higher:} Additional spanning tree instances that allow VLAN load balancing across different paths.
+\end{itemize}
+
+\section*{Advantages of MST}
+\begin{enumerate}
+	\item \textbf{Reduces CPU and Memory Load} – By aggregating VLANs into fewer spanning tree instances, MST lowers resource consumption compared to PVST+.
+	\item \textbf{Efficient VLAN Load Balancing} – By assigning VLANs to different MST instances, network traffic can be better distributed, preventing bottlenecks.
+	\item \textbf{Faster Network Convergence} – Uses RSTP mechanisms for rapid network recovery during topology changes.
+	\item \textbf{Interoperability} – Can coexist with legacy STP/PVST environments through MST boundary ports.
+	\item \textbf{Scalability} – Supports large enterprise networks with thousands of VLANs by reducing the number of spanning tree instances.
+\end{enumerate}
+
+\section*{Configuring MST on Cisco Switches}
+To enable MST on a Cisco switch, follow these steps:
+
+\begin{enumerate}
+	\item \textbf{Enable MST Mode:}
+	      \begin{lstlisting}
+    Switch(config)# spanning-tree mode mst
+    \end{lstlisting}
+
+	\item \textbf{Enter MST Configuration Mode:}
+	      \begin{lstlisting}
+    Switch(config)# spanning-tree mst configuration
+    \end{lstlisting}
+
+	\item \textbf{Define the Region Name and Revision Number:}
+	      \begin{lstlisting}
+    Switch(config-mst)# name <region_name>
+    Switch(config-mst)# revision <number>
+    \end{lstlisting}
+
+	\item \textbf{Map VLANs to MST Instances:}
+	      \begin{lstlisting}
+    Switch(config-mst)# instance <instance_number> vlan <vlan_range>
+    \end{lstlisting}
+
+	\item \textbf{Exit and Apply Configuration:}
+	      \begin{lstlisting}
+    Switch(config-mst)# exit
+    \end{lstlisting}
+
+	\item \textbf{Verify MST Configuration:}
+	      \begin{lstlisting}
+    Switch# show spanning-tree mst
+    \end{lstlisting}
+\end{enumerate}
+
+\section*{Conclusion}
+MST provides a highly scalable and efficient way to manage spanning tree in large Layer 2 networks. By grouping VLANs into fewer spanning tree instances, MST minimizes CPU and memory usage while allowing for efficient traffic load balancing. Its compatibility with RSTP ensures rapid convergence, making it an optimal choice for modern enterprise networks.
+
+\newpage
+
+\section*{Lab Exercises: Multiple Spanning Tree (MST)}
+This set of questions is designed to reinforce understanding and hands-on skills in \textbf{MST (Multiple Spanning Tree Protocol)} and \textbf{VTP (VLAN Trunking Protocol) v2}. These questions focus on deeper aspects of configuration, troubleshooting, optimization, and security.
+
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.8\textwidth]{img/rstp.png}
+	\caption{\textit{}}
+\end{figure}
+
+
+\begin{enumerate}
+	\item \textbf{Enable VTP and Set Server Mode on SW1 and VTP Client Mode on SW2, SW3, and SW4}
+	      \begin{itemize}
+		      \item Set the \textbf{VTP domain name} to \texttt{network} and the \textbf{password} to \texttt{network}.
+		      \item Verify that all switches are using the same VTP domain and password.
+	      \end{itemize}
+
+	      %---,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,---
+	      \switchocg{codeblock}{%
+		      \color{black}\underline{Click here to display the answer:}%
+	      }
+
+
+	      \begin{ocg}{Code Block}{codeblock}{0}
+		      \vspace{0.5cm}
+		      Server Mode on SW1:
+		      \begin{lstlisting}
+conf t
+vtp mode server
+vtp version 2
+vtp domain network
+vtp password network
+end
+    \end{lstlisting}
+
+
+
+		      Client Mode on SW2, SW3, SW4:
+		      \begin{lstlisting}
+conf t
+vtp mode client
+vtp version 2
+vtp domain network
+vtp password network
+end
+\end{lstlisting}
+	      \end{ocg}
+
+
+	\item \textbf{Verify VTP Configuration}
+
+	      %---,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,---
+	      \switchocg{codeblock}{%
+		      \color{black}\underline{Click here to display the answer:}%
+	      }
+
+
+	      \begin{ocg}{Code Block}{codeblock}{0}
+		      \vspace{0.5cm}
+		      On all switches:
+		      \begin{lstlisting}
+show vtp status
+        \end{lstlisting}
+	      \end{ocg}
+	      %---''''''''''''''''''''''''''''''''---
+
+	      \vspace{1cm}
+
+	      Since SW1 is the VTP Server, VLANs must be created here, and they will propagate to SW2, SW3, and SW4.
+	\item \textbf{Create VLANs 1-30 on SW1}
+
+	      %---,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,---
+	      \switchocg{codeblock}{%
+		      \color{black}\underline{Click here to display the answer:}%
+	      }
+
+
+	      \begin{ocg}{Code Block}{codeblock}{0}
+		      \vspace{0.5cm}
+
+		      \begin{lstlisting}
+conf t
+vlan 1-30
+exit
+end
+\end{lstlisting}
+	      \end{ocg}
+	      %---''''''''''''''''''''''''''''''''---
+	\item \textbf{Verify VLAN Propagation}
+
+	      %---,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,---
+	      \switchocg{codeblock}{%
+		      \color{black}\underline{Click here to display the answer:}%
+	      }
+
+
+	      \begin{ocg}{Code Block}{codeblock}{0}
+		      \vspace{0.5cm}
+		      On SW2, SW3, and SW4:
+		      \begin{lstlisting}
+show vlan brief
+\end{lstlisting}
+	      \end{ocg}
+	      %---''''''''''''''''''''''''''''''''---
+
+	      \begin{itemize}
+		      \item Ensure VLANs 1-30 are listed on all switches.
+	      \end{itemize}
+	      \vspace{1cm}
+
+	      We now configure Multiple Spanning Tree (MST) on all switches.
+	\item \textbf{Change the Spanning Tree Mode to MST}
+
+	      %---,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,---
+	      \switchocg{codeblock}{%
+		      \color{black}\underline{Click here to display the answer:}%
+	      }
+
+
+	      \begin{ocg}{Code Block}{codeblock}{0}
+		      \vspace{0.5cm}
+		      \begin{lstlisting}
+ conf t
+ spanning-tree mode mst
+ end
+ 
+ \end{lstlisting}
+	      \end{ocg}
+	      %---''''''''''''''''''''''''''''''''---
+
+
+	\item \textbf{Verify MST Mode is Enabled}
+	\item
+	      %---,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,---
+	      \switchocg{codeblock}{%
+		      \color{black}\underline{Click here to display the answer:}%
+	      }
+
+
+	      \begin{ocg}{Code Block}{codeblock}{0}
+		      \vspace{0.5cm}
+		      \begin{lstlisting}
+show spanning-tree summary
+\end{lstlisting}
+	      \end{ocg}
+	      %---''''''''''''''''''''''''''''''''---
+	      \vspace{1cm}
+
+	      The MST region name must match across all switches for them to share the same MST configuration.
+
+
+
+	\item \textbf{Set MST Name and Revision Number on All Switches}
+
+
+	      %---,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,---
+	      \switchocg{codeblock}{%
+		      \color{black}\underline{Click here to display the answer:}%
+	      }
+
+
+	      \begin{ocg}{Code Block}{codeblock}{0}
+		      \vspace{0.5cm}
+		      \begin{lstlisting}
+conf t
+spanning-tree mst configuration
+name network
+revision 1
+exit
+end
+
+\end{lstlisting}
+	      \end{ocg}
+	      %---''''''''''''''''''''''''''''''''---
+
+	\item \textbf{Verify MST Configuration}
+
+	      %---,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,---
+	      \switchocg{codeblock}{%
+		      \color{black}\underline{Click here to display the answer:}%
+	      }
+
+
+	      \begin{ocg}{Code Block}{codeblock}{0}
+		      \vspace{0.5cm}
+		      \begin{lstlisting}
+ show spanning-tree mst configuration
+ \end{lstlisting}
+	      \end{ocg}
+	      %---''''''''''''''''''''''''''''''''---
+
+
+	      \begin{itemize}
+		      \item Ensure MST Name = network and Revision Number = 1 on all switches.
+	      \end{itemize}
+	      \vspace{1cm}
+	      We now assign VLANs to different MST Instances.
+
+	\item \textbf{Configure VLAN-to-Instance Mapping on All Switches}
+
+	      %---,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,---
+	      \switchocg{codeblock}{%
+		      \color{black}\underline{Click here to display the answer:}%
+	      }
+
+
+	      \begin{ocg}{Code Block}{codeblock}{0}
+		      \vspace{0.5cm}
+		      \begin{lstlisting}
+conf t
+spanning-tree mst configuration
+instance 1 vlan 1-10
+instance 2 vlan 11-20
+instance 3 vlan 21-30
+exit
+end
+\end{lstlisting}
+	      \end{ocg}
+	      %---''''''''''''''''''''''''''''''''---
+
+
+
+
+
+	\item \textbf{Verify MST Instance Mapping}
+
+
+	      %---,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,---
+	      \switchocg{codeblock}{%
+		      \color{black}\underline{Click here to display the answer:}%
+	      }
+
+
+	      \begin{ocg}{Code Block}{codeblock}{0}
+		      \vspace{0.5cm}
+		      \begin{lstlisting}
+show spanning-tree mst
+\end{lstlisting}
+	      \end{ocg}
+	      %---''''''''''''''''''''''''''''''''---
+
+
+	      \begin{itemize}
+		      \item VLANs should be correctly mapped to their respective MST instances.
+	      \end{itemize}
+
+          \vspace{1cm}
+
+          Now, we configure the Root Bridge per MST Instance.
+
+	\item \textbf{Set SW1 as Root Bridge for MST Instance 1}
+	
+
+    %---,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,---
+    \switchocg{codeblock}{%
+    \color{black}\underline{Click here to display the answer:}%
+}
+
+
+\begin{ocg}{Code Block}{codeblock}{0}
+    \vspace{0.5cm}
+    \begin{lstlisting}
+conf t
+spanning-tree mst 1 priority 4096
+end
+\end{lstlisting}
+\end{ocg}
+%---''''''''''''''''''''''''''''''''---
+
+
+	\item \textbf{Set SW2 as Root Bridge for MST Instance 2}
+	
+    %---,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,---
+    \switchocg{codeblock}{%
+    \color{black}\underline{Click here to display the answer:}%
+}
+
+
+\begin{ocg}{Code Block}{codeblock}{0}
+    \vspace{0.5cm}
+    \begin{lstlisting}
+conf t
+spanning-tree mst 2 priority 4096
+end
+\end{lstlisting}
+\end{ocg}
+%---''''''''''''''''''''''''''''''''---
+
+
+	
+	\item \textbf{Set SW3 as Root Bridge for MST Instance 3}
+	
+	%---,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,---
+    \switchocg{codeblock}{%
+    \color{black}\underline{Click here to display the answer:}%
+}
+
+
+\begin{ocg}{Code Block}{codeblock}{0}
+    \vspace{0.5cm}
+    \begin{lstlisting}
+conf t
+spanning-tree mst 3 priority 4096
+end
+\end{lstlisting}
+\end{ocg}
+%---''''''''''''''''''''''''''''''''---
+
+
+	\item \textbf{Verify Root Bridge Assignment}
     
     %---,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,---
     \switchocg{codeblock}{%
@@ -1897,19 +2310,48 @@ show spanning-tree detail
 \begin{ocg}{Code Block}{codeblock}{0}
     \vspace{0.5cm}
     \begin{lstlisting}
-spanning-tree uplinkfast
-end
-show spanning-tree uplinkfast
-    \end{lstlisting}
+show spanning-tree mst
+\end{lstlisting}
 \end{ocg}
 %---''''''''''''''''''''''''''''''''---
 
-    
-    \textbf{Test:} Disable the primary Root Port and see how quickly the \textbf{backup link} takes over.
+
+\begin{itemize}
+    \item SW1 should be the Root for MST Instance 1.
+    \item SW2 should be the Root for MST Instance 2.
+    \item SW3 should be the Root for MST Instance 3.
+\end{itemize}
+
+
+
+
+	\item \textbf{Verify MST Configuration}
+	
+	%---,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,---
+    \switchocg{codeblock}{%
+    \color{black}\underline{Click here to display the answer:}%
+}
+
+
+\begin{ocg}{Code Block}{codeblock}{0}
+    \vspace{0.5cm}
+    On each switch, run:
+    \begin{lstlisting}
+show spanning-tree mst configuration
+show spanning-tree mst
+show spanning-tree summary
+\end{lstlisting}
+\end{ocg}
+%---''''''''''''''''''''''''''''''''---
+
+\begin{itemize}
+    \item Ensure VLAN mappings are correct.
+    \item Verify Root Bridges for each MST Instance.
+    \item Confirm all switches belong to the same MST Region.
+\end{itemize}
+
 
 \end{enumerate}
-
-
 
 
 \end{document}
