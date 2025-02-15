@@ -1,10 +1,10 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (MiKTeX 24.1) (preloaded format=pdflatex 2024.8.31)  15 FEB 2025 16:11
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (MiKTeX 24.1) (preloaded format=pdflatex 2024.8.31)  15 FEB 2025 16:10
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
  %&-line parsing enabled.
-**c:/Users/Lord/Desktop/Network/STP/stp.tex
-(c:/Users/Lord/Desktop/Network/STP/stp.tex
+**c:/Users/Lord/Desktop/Network/EtherChannel/EtherChannel.tex
+(c:/Users/Lord/Desktop/Network/EtherChannel/EtherChannel.tex
 LaTeX2e <2023-11-01> patch level 1
 L3 programming layer <2024-01-04>
 (C:\Users\Lord\AppData\Local\Programs\MiKTeX\tex/latex/base\book.cls
@@ -588,8 +588,8 @@ Package caption Info: Standard document class detected.
 \c@continuedfloat=\count331
 Package caption Info: hyperref package is loaded.
 Package caption Info: listings package is loaded.
-) (stp.aux)
-\openout1 = `stp.aux'.
+) (EtherChannel.aux)
+\openout1 = `EtherChannel.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 46.
 LaTeX Font Info:    ... okay on input line 46.
@@ -645,9 +645,9 @@ LaTeX Font Info:    ... okay on input line 46.
 * (1in=72.27pt=25.4mm, 1cm=28.453pt)
 
 Package hyperref Info: Link coloring OFF on input line 46.
-(stp.out) (stp.out)
+(EtherChannel.out) (EtherChannel.out)
 \@outlinefile=\write4
-\openout4 = `stp.out'.
+\openout4 = `EtherChannel.out'.
 
 \c@lstlisting=\count332
  (C:\Users\Lord\AppData\Local\Programs\MiKTeX\tex/context/base/mkii\supp-pdf.mkii
@@ -676,172 +676,30 @@ Package caption Info: End \AtBeginDocument code.
 
 {C:/Users/Lord/AppData/Local/MiKTeX/fonts/map/pdftex/pdftex.map}] [2
 
-] (stp.toc
-LaTeX Font Info:    Trying to load font information for U+msa on input line 5.
- (C:\Users\Lord\AppData\Local\Programs\MiKTeX\tex/latex/amsfonts\umsa.fd
-File: umsa.fd 2013/01/14 v3.01 AMS symbols A
-)
-LaTeX Font Info:    Trying to load font information for U+msb on input line 5.
- (C:\Users\Lord\AppData\Local\Programs\MiKTeX\tex/latex/amsfonts\umsb.fd
-File: umsb.fd 2013/01/14 v3.01 AMS symbols B
-))
+] (EtherChannel.toc)
 \tf@toc=\write5
-\openout5 = `stp.toc'.
+\openout5 = `EtherChannel.toc'.
 
- [3] [4
-
-]
-Chapter 1.
-<img/stp01.png, id=66, 511.9125pt x 461.725pt>
-File: img/stp01.png Graphic file (type png)
-<use img/stp01.png>
-Package pdftex.def Info: img/stp01.png  used on input line 92.
-(pdftex.def)             Requested size: 407.66833pt x 367.7037pt.
-
-LaTeX Warning: `h' float specifier changed to `ht'.
-
-[5]
-LaTeX Font Info:    Trying to load font information for T1+cmtt on input line 121.
- (C:\Users\Lord\AppData\Local\Programs\MiKTeX\tex/latex/base\t1cmtt.fd
-File: t1cmtt.fd 2023/04/13 v2.5m Standard LaTeX font definitions
-) [6 <./img/stp01.png>] [7]
-<img/stp02.png, id=131, 511.9125pt x 461.725pt>
-File: img/stp02.png Graphic file (type png)
-<use img/stp02.png>
-Package pdftex.def Info: img/stp02.png  used on input line 402.
-(pdftex.def)             Requested size: 407.66833pt x 367.7037pt.
-
-
-LaTeX Warning: `h' float specifier changed to `ht'.
-
-[8] [9 <./img/stp02.png>]
-<img/stp03.png, id=157, 481.8pt x 532.99126pt>
-File: img/stp03.png Graphic file (type png)
-<use img/stp03.png>
-Package pdftex.def Info: img/stp03.png  used on input line 450.
-(pdftex.def)             Requested size: 181.18439pt x 200.43239pt.
-
-
-Package caption Warning: The option `hypcap=true' will be ignored for this
-(caption)                particular \caption on input line 451.
-See the caption package documentation for explanation.
-
-<img/stp03active.png, id=159, 481.8pt x 532.99126pt>
-File: img/stp03active.png Graphic file (type png)
-<use img/stp03active.png>
-Package pdftex.def Info: img/stp03active.png  used on input line 466.
-(pdftex.def)             Requested size: 234.44319pt x 259.34625pt.
-<img/stp04.png, id=160, 412.54124pt x 271.0125pt>
-File: img/stp04.png Graphic file (type png)
-<use img/stp04.png>
-Package pdftex.def Info: img/stp04.png  used on input line 478.
-(pdftex.def)             Requested size: 181.18439pt x 119.02669pt.
-
-Package caption Warning: The option `hypcap=true' will be ignored for this
-(caption)                particular \caption on input line 479.
-See the caption package documentation for explanation.
-
-<img/stp04active.png, id=162, 382.42876pt x 271.0125pt>
-File: img/stp04active.png Graphic file (type png)
-<use img/stp04active.png>
-Package pdftex.def Info: img/stp04active.png  used on input line 495.
-(pdftex.def)             Requested size: 234.44319pt x 166.1403pt.
-[10 <./img/stp03.png> <./img/stp03active.png> <./img/stp04.png> <./img/stp04active.png>]
-<img/stp05.png, id=176, 552.0625pt x 260.975pt>
-File: img/stp05.png Graphic file (type png)
-<use img/stp05.png>
-Package pdftex.def Info: img/stp05.png  used on input line 505.
-(pdftex.def)             Requested size: 317.07614pt x 149.8962pt.
-
-
-Package caption Warning: \setcaptiontype
-(caption)                outside box or environment on input line 506.
-See the caption package documentation for explanation.
-
-
-Package caption Warning: The option `hypcap=true' will be ignored for this
-(caption)                particular \caption on input line 506.
-See the caption package documentation for explanation.
-
-<img/stp05active.png, id=178, 552.0625pt x 251.94125pt>
-File: img/stp05active.png Graphic file (type png)
-<use img/stp05active.png>
-Package pdftex.def Info: img/stp05active.png  used on input line 521.
-(pdftex.def)             Requested size: 234.44319pt x 106.99095pt.
-[11 <./img/stp05.png> <./img/stp05active.png>] [12
-
-]
-Chapter 2.
-[13] [14]
-<img/pvst01.png, id=211, 722.7pt x 703.62875pt>
-File: img/pvst01.png Graphic file (type png)
-<use img/pvst01.png>
-Package pdftex.def Info: img/pvst01.png  used on input line 591.
-(pdftex.def)             Requested size: 362.37569pt x 352.812pt.
- [15 <./img/pvst01.png>] [16] [17] [18]
-File: img/pvst01.png Graphic file (type png)
-<use img/pvst01.png>
-Package pdftex.def Info: img/pvst01.png  used on input line 845.
-(pdftex.def)             Requested size: 362.37569pt x 352.812pt.
- [19]
-<img/pvst01active.png, id=301, 481.8pt x 900.36375pt>
-File: img/pvst01active.png Graphic file (type png)
-<use img/pvst01active.png>
-Package pdftex.def Info: img/pvst01active.png  used on input line 862.
-(pdftex.def)             Requested size: 302.38562pt x 565.1027pt.
- [20 <./img/pvst01active.png>] [21] [22] [23] [24
-
-]
-Chapter 3.
-[25] [26]
-<img/STPConvergence01.png, id=396, 461.725pt x 407.5225pt>
-File: img/STPConvergence01.png Graphic file (type png)
-<use img/STPConvergence01.png>
-Package pdftex.def Info: img/STPConvergence01.png  used on input line 1145.
-(pdftex.def)             Requested size: 362.37569pt x 319.83746pt.
- [27 <./img/STPConvergence01.png>] [28] [29] [30] [31] [32
-
-]
-Chapter 4.
-[33] [34]
-
-Package hyperref Warning: Difference (2) between bookmark levels is greater 
-(hyperref)                than one, level fixed on input line 1597.
-
-<img/rstp.png, id=559, 560.0925pt x 461.725pt>
-File: img/rstp.png Graphic file (type png)
-<use img/rstp.png>
-Package pdftex.def Info: img/rstp.png  used on input line 1602.
-(pdftex.def)             Requested size: 362.37569pt x 298.74385pt.
-[35 <./img/rstp.png>] [36] [37] [38]
-Chapter 5.
-[39
-
-] [40] [41]
-File: img/rstp.png Graphic file (type png)
-<use img/rstp.png>
-Package pdftex.def Info: img/rstp.png  used on input line 2000.
-(pdftex.def)             Requested size: 362.37569pt x 298.74385pt.
- [42] [43] [44] [45] (stp.aux)
+ [3] (EtherChannel.aux)
  ***********
 LaTeX2e <2023-11-01> patch level 1
 L3 programming layer <2024-01-04>
  ***********
-Package rerunfilecheck Info: File `stp.out' has not changed.
-(rerunfilecheck)             Checksum: 5077A40313B405188EC16F52C8D71EA5;1385.
+Package rerunfilecheck Info: File `EtherChannel.out' has not changed.
+(rerunfilecheck)             Checksum: D41D8CD98F00B204E9800998ECF8427E;0.
  ) 
 Here is how much of TeX's memory you used:
- 26557 strings out of 474486
- 489548 string characters out of 5744227
- 2002542 words of memory out of 5000000
- 47936 multiletter control sequences out of 15000+600000
- 575618 words of font info for 75 fonts, out of 8000000 for 9000
+ 25354 strings out of 474486
+ 472383 string characters out of 5744227
+ 1927542 words of memory out of 5000000
+ 47237 multiletter control sequences out of 15000+600000
+ 564281 words of font info for 44 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 86i,8n,117p,797b,2212s stack positions out of 10000i,1000n,20000p,200000b,200000s
- <C:\Users\Lord\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ectt1000.pk> <C:\Users\Lord\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecti0900.pk> <C:\Users\Lord\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecbx0900.pk> <C:\Users\Lord\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\tcrm0900.pk> <C:\Users\Lord\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecrm0900.pk> <C:\Users\Lord\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecti1000.pk> <C:\Users\Lord\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\tcrm1000.pk> <C:\Users\Lord\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ectt0900.pk> <C:\Users\Lord\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecbx1440.pk> <C:\Users\Lord\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecbx2074.pk> <C:\Users\Lord\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecsl1000.pk> <C:\Users\Lord\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecrm1000.pk> <C:\Users\Lord\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecbx1000.pk> <C:\Users\Lord\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecbx1200.pk> <C:\Users\Lord\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecrm1440.pk> <C:\Users\Lord\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecbx2488.pk><C:/Users/Lord/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi10.pfb><C:/Users/Lord/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy9.pfb>
-Output written on stp.pdf (45 pages, 517202 bytes).
+ 86i,8n,117p,592b,489s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ <C:\Users\Lord\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecrm1000.pk> <C:\Users\Lord\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecbx1000.pk> <C:\Users\Lord\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecbx1200.pk> <C:\Users\Lord\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecrm1440.pk> <C:\Users\Lord\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecbx2488.pk>
+Output written on EtherChannel.pdf (3 pages, 29800 bytes).
 PDF statistics:
- 1500 PDF objects out of 1728 (max. 8388607)
- 475 named destinations out of 1000 (max. 500000)
- 143 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 113 PDF objects out of 1000 (max. 8388607)
+ 5 named destinations out of 1000 (max. 500000)
+ 19 words of extra memory for PDF output out of 10000 (max. 10000000)
 
