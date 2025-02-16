@@ -1,0 +1,28 @@
+\contentsline {section}{\numberline {1}Introduction to EtherChannel}{2}{section.1}%
+\contentsline {subsection}{\numberline {1.1}What is EtherChannel?}{2}{subsection.1.1}%
+\contentsline {subsection}{\numberline {1.2}Key Benefits of EtherChannel}{2}{subsection.1.2}%
+\contentsline {subsection}{\numberline {1.3}EtherChannel Protocols}{2}{subsection.1.3}%
+\contentsline {subsection}{\numberline {1.4}EtherChannel in Network Design}{2}{subsection.1.4}%
+\contentsline {section}{\numberline {2}EtherChannel Protocols}{4}{section.2}%
+\contentsline {subsection}{\numberline {2.1}Configuring PAgP-based EtherChannel}{4}{subsection.2.1}%
+\contentsline {subsection}{\numberline {2.2}Configuring LACP-based EtherChannel}{4}{subsection.2.2}%
+\contentsline {subsection}{\numberline {2.3}Configuring Static Mode EtherChannel}{5}{subsection.2.3}%
+\contentsline {subsection}{\numberline {2.4}Comparing PAgP, LACP, and Static Mode}{5}{subsection.2.4}%
+\contentsline {section}{\numberline {3}Configuring EtherChannel}{6}{section.3}%
+\contentsline {subsection}{\numberline {3.1}Full EtherChannel Configuration}{6}{subsection.3.1}%
+\contentsline {section}{\numberline {4}Load Balancing in EtherChannel}{6}{section.4}%
+\contentsline {subsection}{\numberline {4.1}EtherChannel Load Balancing Methods}{6}{subsection.4.1}%
+\contentsline {section}{\numberline {5}EtherChannel and VLANs}{7}{section.5}%
+\contentsline {subsection}{\numberline {5.1}Configuring VLANs with EtherChannel}{7}{subsection.5.1}%
+\contentsline {subsection}{\numberline {5.2}EtherChannel with Trunking}{7}{subsection.5.2}%
+\contentsline {subsection}{\numberline {5.3}VLAN Load Distribution}{8}{subsection.5.3}%
+\contentsline {subsection}{\numberline {5.4}Troubleshooting VLAN and EtherChannel Issues}{8}{subsection.5.4}%
+\contentsline {section}{\numberline {6}Advanced EtherChannel Troubleshooting}{9}{section.6}%
+\contentsline {subsection}{\numberline {6.1}Identifying Common Problems}{9}{subsection.6.1}%
+\contentsline {subsection}{\numberline {6.2}Using Show Commands}{9}{subsection.6.2}%
+\contentsline {subsection}{\numberline {6.3}Best Practices in Troubleshooting}{10}{subsection.6.3}%
+\contentsline {subsection}{\numberline {6.4}Real-World Case Study}{11}{subsection.6.4}%
+\contentsline {section}{\numberline {7}Best Practices and Security Considerations}{12}{section.7}%
+\contentsline {subsection}{\numberline {7.1}EtherChannel Best Practices}{12}{subsection.7.1}%
+\contentsline {subsection}{\numberline {7.2}Security Risks}{12}{subsection.7.2}%
+\contentsline {subsection}{\numberline {7.3}Securing EtherChannel Configurations}{14}{subsection.7.3}%
