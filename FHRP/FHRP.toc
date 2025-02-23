@@ -1,0 +1,30 @@
+\contentsline {section}{\numberline {1}Part I: HSRP Hands-On Configuration}{3}{section.1}%
+\contentsline {subsection}{\numberline {1.1}Basic HSRP Configuration}{3}{subsection.1.1}%
+\contentsline {subsection}{\numberline {1.2}Priority and Preemption Configuration}{4}{subsection.1.2}%
+\contentsline {subsection}{\numberline {1.3}HSRP Load Balancing}{4}{subsection.1.3}%
+\contentsline {subsection}{\numberline {1.4}HSRP Authentication and Security}{4}{subsection.1.4}%
+\contentsline {subsection}{\numberline {1.5}Tracking Mechanisms}{5}{subsection.1.5}%
+\contentsline {subsection}{\numberline {1.6}Advanced HSRP Timers and Optimization}{5}{subsection.1.6}%
+\contentsline {subsection}{\numberline {1.7}IPv6 HSRP Configuration}{5}{subsection.1.7}%
+\contentsline {subsection}{\numberline {1.8}HSRP Troubleshooting and Verification}{5}{subsection.1.8}%
+\contentsline {subsection}{\numberline {1.9}Full Topology Implementation}{6}{subsection.1.9}%
+\contentsline {section}{\numberline {2}Part II: VRRP Hands-On Configuration}{8}{section.2}%
+\contentsline {subsection}{\numberline {2.1}Basic VRRP Configuration}{8}{subsection.2.1}%
+\contentsline {subsection}{\numberline {2.2}Priority and Preemption Configuration}{9}{subsection.2.2}%
+\contentsline {subsection}{\numberline {2.3}VRRP Load Balancing}{9}{subsection.2.3}%
+\contentsline {subsection}{\numberline {2.4}VRRP Authentication and Security}{9}{subsection.2.4}%
+\contentsline {subsection}{\numberline {2.5}Tracking Mechanisms}{10}{subsection.2.5}%
+\contentsline {subsection}{\numberline {2.6}Advanced VRRP Timers and Optimization}{10}{subsection.2.6}%
+\contentsline {subsection}{\numberline {2.7}IPv6 VRRP Configuration}{10}{subsection.2.7}%
+\contentsline {subsection}{\numberline {2.8}VRRP Troubleshooting and Verification}{10}{subsection.2.8}%
+\contentsline {subsection}{\numberline {2.9}Full Topology Implementation}{11}{subsection.2.9}%
+\contentsline {section}{\numberline {3}Part III: GLBP Hands-On Configuration}{13}{section.3}%
+\contentsline {subsection}{\numberline {3.1}Basic GLBP Configuration}{13}{subsection.3.1}%
+\contentsline {subsection}{\numberline {3.2}Priority and Preemption Configuration}{14}{subsection.3.2}%
+\contentsline {subsection}{\numberline {3.3}GLBP Load Balancing}{14}{subsection.3.3}%
+\contentsline {subsection}{\numberline {3.4}GLBP Authentication and Security}{14}{subsection.3.4}%
+\contentsline {subsection}{\numberline {3.5}Weighting and Tracking Mechanisms}{15}{subsection.3.5}%
+\contentsline {subsection}{\numberline {3.6}Advanced GLBP Timers and Optimization}{15}{subsection.3.6}%
+\contentsline {subsection}{\numberline {3.7}IPv6 GLBP Configuration}{15}{subsection.3.7}%
+\contentsline {subsection}{\numberline {3.8}GLBP Troubleshooting and Verification}{16}{subsection.3.8}%
+\contentsline {subsection}{\numberline {3.9}Full Topology Implementation}{16}{subsection.3.9}%

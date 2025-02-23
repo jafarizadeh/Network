@@ -1,0 +1,747 @@
+\documentclass[12pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{hyperref}
+\usepackage{xcolor}
+\usepackage{listings}
+
+\lstdefinestyle{CiscoCLI}{
+  language=sh,
+  basicstyle=\ttfamily\small,
+  keywordstyle=\color{blue},
+  commentstyle=\color{gray},
+  showstringspaces=false
+}
+
+\begin{document}
+
+\title{\textbf{High Availability Routing Protocols Workbook}}
+\date{}
+\maketitle
+
+\noindent
+Below is a consolidated workbook covering \textbf{HSRP}, \textbf{VRRP}, and \textbf{GLBP} configuration exercises. 
+A single table of contents is provided for easy navigation. Each protocol has its own section with numbered exercises.
+
+\tableofcontents
+\newpage
+
+%----------------------------------------------------------------------------------------
+%	Part I: HSRP
+%----------------------------------------------------------------------------------------
+
+\section{Part I: HSRP Hands-On Configuration}
+
+\subsection{Basic HSRP Configuration}
+
+\subsubsection*{Exercise 1: Configure HSRP on SW1}
+\textbf{Objective:} Set up HSRP on SW1 to serve as the default gateway for VLAN 10.
+
+\textbf{Instructions:}
+\begin{enumerate}
+\item Access the switch CLI.
+\item Enter global configuration mode.
+\item Configure VLAN 10 and assign an IP address.
+\item Enable HSRP on VLAN 10 with a virtual IP address.
+\end{enumerate}
+
+\textbf{Commands:}
+\begin{lstlisting}[style=CiscoCLI]
+switch(config)# interface vlan 10
+switch(config-if)# ip address 192.168.1.1 255.255.255.0
+switch(config-if)# standby 1 ip 192.168.1.254
+\end{lstlisting}
+
+\bigskip
+
+\subsubsection*{Exercise 2: Configure HSRP on MLS1, MLS2, MLS3, MLS4}
+\textbf{Objective:} Configure multiple multilayer switches (MLS) to participate in HSRP.
+
+\textbf{Instructions:}
+\begin{enumerate}
+\item Access the CLI of each MLS (MLS1, MLS2, MLS3, MLS4).
+\item Enter configuration mode.
+\item Configure VLAN 10 with a unique IP address.
+\item Enable HSRP and assign the same virtual IP.
+\end{enumerate}
+
+\textbf{Commands:}
+\begin{lstlisting}[style=CiscoCLI]
+switch(config)# interface vlan 10
+switch(config-if)# ip address 192.168.1.X 255.255.255.0
+switch(config-if)# standby 1 ip 192.168.1.254
+\end{lstlisting}
+
+\bigskip
+
+\subsection{Priority and Preemption Configuration}
+
+\subsubsection*{Exercise 3: Set HSRP Priority and Enable Preemption}
+\textbf{Objective:} Configure a specific HSRP router to be the preferred active forwarder.
+
+\textbf{Instructions:}
+\begin{enumerate}
+\item Set the HSRP priority higher than the default (100).
+\item Enable preemption with a delay to avoid frequent role changes.
+\end{enumerate}
+
+\textbf{Commands:}
+\begin{lstlisting}[style=CiscoCLI]
+switch(config-if)# standby 1 priority 150
+switch(config-if)# standby 1 preempt delay minimum 60
+\end{lstlisting}
+
+\bigskip
+
+\subsection{HSRP Load Balancing}
+
+\subsubsection*{Exercise 4: Configure Load Balancing using Multiple HSRP Groups}
+\textbf{Objective:} Enable load balancing using multiple HSRP groups.
+
+\textbf{Instructions:}
+\begin{enumerate}
+\item Configure two HSRP groups with different priorities and virtual IPs.
+\end{enumerate}
+
+\textbf{Commands:}
+\begin{lstlisting}[style=CiscoCLI]
+switch(config-if)# standby 1 ip 192.168.1.254
+switch(config-if)# standby 1 priority 110
+switch(config-if)# standby 2 ip 192.168.1.253
+switch(config-if)# standby 2 priority 120
+\end{lstlisting}
+
+\bigskip
+
+\subsection{HSRP Authentication and Security}
+
+\subsubsection*{Exercise 5: Enable Authentication}
+\textbf{Objective:} Secure HSRP communications with MD5 authentication.
+
+\textbf{Instructions:}
+\begin{enumerate}
+\item Configure MD5 authentication with a secure key.
+\end{enumerate}
+
+\textbf{Commands:}
+\begin{lstlisting}[style=CiscoCLI]
+switch(config-if)# standby 1 authentication md5 key-string SECRET_KEY
+\end{lstlisting}
+
+\bigskip
+
+\subsection{Tracking Mechanisms}
+
+\subsubsection*{Exercise 6: Set Track Interface Status}
+\textbf{Objective:} Implement tracking to adjust HSRP priority dynamically.
+
+\textbf{Instructions:}
+\begin{enumerate}
+\item Enable tracking for an interface and set a decrement value.
+\end{enumerate}
+
+\textbf{Commands:}
+\begin{lstlisting}[style=CiscoCLI]
+switch(config-if)# track 1 interface FastEthernet0/1 line-protocol
+switch(config-if)# standby 1 track 1 decrement 20
+\end{lstlisting}
+
+\bigskip
+
+\subsection{Advanced HSRP Timers and Optimization}
+
+\subsubsection*{Exercise 7: Configure HSRP Timers}
+\textbf{Objective:} Optimize HSRP timers for faster failover.
+
+\textbf{Instructions:}
+\begin{enumerate}
+\item Adjust the hello and hold timers.
+\end{enumerate}
+
+\textbf{Commands:}
+\begin{lstlisting}[style=CiscoCLI]
+switch(config-if)# standby 1 timers 3 10
+\end{lstlisting}
+
+\bigskip
+
+\subsection{IPv6 HSRP Configuration}
+
+\subsubsection*{Exercise 8: Enable HSRP for IPv6}
+\textbf{Objective:} Implement HSRP for IPv6 networks.
+
+\textbf{Instructions:}
+\begin{enumerate}
+\item Enable HSRP for IPv6 auto-configuration.
+\end{enumerate}
+
+\textbf{Commands:}
+\begin{lstlisting}[style=CiscoCLI]
+switch(config-if)# standby 1 ipv6 autoconfigure
+\end{lstlisting}
+
+\bigskip
+
+\subsection{HSRP Troubleshooting and Verification}
+
+\subsubsection*{Exercise 9: Verify HSRP Configuration}
+\textbf{Objective:} Use CLI commands to verify the HSRP setup.
+
+\textbf{Instructions:}
+\begin{enumerate}
+\item Display a summary of HSRP groups.
+\item Inspect details of a specific HSRP group.
+\item Check HSRP settings on VLAN 10.
+\end{enumerate}
+
+\textbf{Commands:}
+\begin{lstlisting}[style=CiscoCLI]
+switch# show standby brief
+switch# show standby 1
+switch# show standby interface vlan 10
+\end{lstlisting}
+
+\bigskip
+
+\subsubsection*{Exercise 10: Debug HSRP}
+\textbf{Objective:} Use debugging tools to analyze HSRP behavior.
+
+\textbf{Instructions:}
+\begin{enumerate}
+\item Enable HSRP packet debugging.
+\end{enumerate}
+
+\textbf{Commands:}
+\begin{lstlisting}[style=CiscoCLI]
+switch# debug standby packets
+\end{lstlisting}
+
+\bigskip
+
+\subsection{Full Topology Implementation}
+
+\subsubsection*{Exercise 11: Configure HSRP Across the Entire Topology}
+\textbf{Objective:} Implement HSRP on all switches and the router.
+
+\textbf{On SW1:}
+\begin{lstlisting}[style=CiscoCLI]
+interface vlan 10
+ ip address 192.168.1.1 255.255.255.0
+ standby 1 ip 192.168.1.254
+ standby 1 priority 150
+ standby 1 preempt
+\end{lstlisting}
+
+\textbf{On MLS1, MLS2, MLS3, MLS4:}
+\begin{lstlisting}[style=CiscoCLI]
+interface vlan 10
+ ip address 192.168.1.X 255.255.255.0
+ standby 1 ip 192.168.1.254
+\end{lstlisting}
+
+\textbf{On R1:}
+\begin{lstlisting}[style=CiscoCLI]
+interface FastEthernet0/1
+ ip address 192.168.1.254 255.255.255.0
+\end{lstlisting}
+
+\bigskip
+
+\subsubsection*{Exercise 12: Test and Verify HSRP in the Network}
+\textbf{Objective:} Perform tests to ensure HSRP is working correctly.
+
+\textbf{Instructions:}
+\begin{enumerate}
+\item Verify HSRP roles using CLI commands.
+\item Monitor packet forwarding.
+\item Simulate a router failure and observe failover behavior.
+\end{enumerate}
+
+\textbf{Verification Commands:}
+\begin{lstlisting}[style=CiscoCLI]
+switch# show standby brief
+switch# debug standby packets
+\end{lstlisting}
+
+\newpage
+
+%----------------------------------------------------------------------------------------
+%	Part II: VRRP
+%----------------------------------------------------------------------------------------
+
+\section{Part II: VRRP Hands-On Configuration}
+
+\subsection{Basic VRRP Configuration}
+
+\subsubsection*{Exercise 1: Configure VRRP on SW1}
+\textbf{Objective:} Set up VRRP on SW1 to serve as the default gateway for VLAN 10.
+
+\textbf{Instructions:}
+\begin{enumerate}
+\item Access the switch CLI.
+\item Enter global configuration mode.
+\item Configure VLAN 10 and assign an IP address.
+\item Enable VRRP on VLAN 10 with a virtual IP address.
+\end{enumerate}
+
+\textbf{Commands:}
+\begin{lstlisting}[style=CiscoCLI]
+switch(config)# interface vlan 10
+switch(config-if)# ip address 192.168.1.1 255.255.255.0
+switch(config-if)# vrrp 1 ip 192.168.1.254
+\end{lstlisting}
+
+\bigskip
+
+\subsubsection*{Exercise 2: Configure VRRP on MLS1, MLS2, MLS3, MLS4}
+\textbf{Objective:} Configure multiple multilayer switches (MLS) to participate in VRRP.
+
+\textbf{Instructions:}
+\begin{enumerate}
+\item Access the CLI of each MLS (MLS1, MLS2, MLS3, MLS4).
+\item Enter configuration mode.
+\item Configure VLAN 10 with a unique IP address.
+\item Enable VRRP and assign the same virtual IP.
+\end{enumerate}
+
+\textbf{Commands:}
+\begin{lstlisting}[style=CiscoCLI]
+switch(config)# interface vlan 10
+switch(config-if)# ip address 192.168.1.X 255.255.255.0
+switch(config-if)# vrrp 1 ip 192.168.1.254
+\end{lstlisting}
+
+\bigskip
+
+\subsection{Priority and Preemption Configuration}
+
+\subsubsection*{Exercise 3: Set VRRP Priority and Enable Preemption}
+\textbf{Objective:} Configure a specific VRRP router to be the preferred active forwarder.
+
+\textbf{Instructions:}
+\begin{enumerate}
+\item Set the VRRP priority higher than the default (100).
+\item Enable preemption to allow the highest priority router to take over.
+\end{enumerate}
+
+\textbf{Commands:}
+\begin{lstlisting}[style=CiscoCLI]
+switch(config-if)# vrrp 1 priority 150
+switch(config-if)# vrrp 1 preempt
+\end{lstlisting}
+
+\bigskip
+
+\subsection{VRRP Load Balancing}
+
+\subsubsection*{Exercise 4: Configure Load Balancing using Multiple VRRP Groups}
+\textbf{Objective:} Enable load balancing using multiple VRRP groups.
+
+\textbf{Instructions:}
+\begin{enumerate}
+\item Configure two VRRP groups with different priorities and virtual IPs.
+\end{enumerate}
+
+\textbf{Commands:}
+\begin{lstlisting}[style=CiscoCLI]
+switch(config-if)# vrrp 1 ip 192.168.1.254
+switch(config-if)# vrrp 1 priority 110
+switch(config-if)# vrrp 2 ip 192.168.1.253
+switch(config-if)# vrrp 2 priority 120
+\end{lstlisting}
+
+\bigskip
+
+\subsection{VRRP Authentication and Security}
+
+\subsubsection*{Exercise 5: Enable Authentication}
+\textbf{Objective:} Secure VRRP communications with authentication.
+
+\textbf{Instructions:}
+\begin{enumerate}
+\item Configure authentication with a secure key.
+\end{enumerate}
+
+\textbf{Commands:}
+\begin{lstlisting}[style=CiscoCLI]
+switch(config-if)# vrrp 1 authentication text SECRET_KEY
+\end{lstlisting}
+
+\bigskip
+
+\subsection{Tracking Mechanisms}
+
+\subsubsection*{Exercise 6: Set Track Interface Status}
+\textbf{Objective:} Implement tracking to adjust VRRP priority dynamically.
+
+\textbf{Instructions:}
+\begin{enumerate}
+\item Enable tracking for an interface and set a decrement value.
+\end{enumerate}
+
+\textbf{Commands:}
+\begin{lstlisting}[style=CiscoCLI]
+switch(config-if)# track 1 interface FastEthernet0/1 line-protocol
+switch(config-if)# vrrp 1 track 1 decrement 20
+\end{lstlisting}
+
+\bigskip
+
+\subsection{Advanced VRRP Timers and Optimization}
+
+\subsubsection*{Exercise 7: Configure VRRP Timers}
+\textbf{Objective:} Optimize VRRP timers for faster failover.
+
+\textbf{Instructions:}
+\begin{enumerate}
+\item Adjust the advertisement interval.
+\end{enumerate}
+
+\textbf{Commands:}
+\begin{lstlisting}[style=CiscoCLI]
+switch(config-if)# vrrp 1 timers advertise 3
+\end{lstlisting}
+
+\bigskip
+
+\subsection{IPv6 VRRP Configuration}
+
+\subsubsection*{Exercise 8: Enable VRRP for IPv6}
+\textbf{Objective:} Implement VRRP for IPv6 networks.
+
+\textbf{Instructions:}
+\begin{enumerate}
+\item Enable VRRP for IPv6 with a link-local address.
+\end{enumerate}
+
+\textbf{Commands:}
+\begin{lstlisting}[style=CiscoCLI]
+switch(config-if)# vrrp 1 ipv6 address FE80::1
+\end{lstlisting}
+
+\bigskip
+
+\subsection{VRRP Troubleshooting and Verification}
+
+\subsubsection*{Exercise 9: Verify VRRP Configuration}
+\textbf{Objective:} Use CLI commands to verify the VRRP setup.
+
+\textbf{Instructions:}
+\begin{enumerate}
+\item Display a summary of VRRP groups.
+\item Inspect details of a specific VRRP group.
+\item Check VRRP settings on VLAN 10.
+\end{enumerate}
+
+\textbf{Commands:}
+\begin{lstlisting}[style=CiscoCLI]
+switch# show vrrp brief
+switch# show vrrp 1
+switch# show vrrp interface vlan 10
+\end{lstlisting}
+
+\bigskip
+
+\subsubsection*{Exercise 10: Debug VRRP}
+\textbf{Objective:} Use debugging tools to analyze VRRP behavior.
+
+\textbf{Instructions:}
+\begin{enumerate}
+\item Enable VRRP packet debugging.
+\end{enumerate}
+
+\textbf{Commands:}
+\begin{lstlisting}[style=CiscoCLI]
+switch# debug vrrp packets
+\end{lstlisting}
+
+\bigskip
+
+\subsection{Full Topology Implementation}
+
+\subsubsection*{Exercise 11: Configure VRRP Across the Entire Topology}
+\textbf{Objective:} Implement VRRP on all switches and the router.
+
+\textbf{On SW1:}
+\begin{lstlisting}[style=CiscoCLI]
+interface vlan 10
+ ip address 192.168.1.1 255.255.255.0
+ vrrp 1 ip 192.168.1.254
+ vrrp 1 priority 150
+ vrrp 1 preempt
+\end{lstlisting}
+
+\textbf{On MLS1, MLS2, MLS3, MLS4:}
+\begin{lstlisting}[style=CiscoCLI]
+interface vlan 10
+ ip address 192.168.1.X 255.255.255.0
+ vrrp 1 ip 192.168.1.254
+\end{lstlisting}
+
+\textbf{On R1:}
+\begin{lstlisting}[style=CiscoCLI]
+interface FastEthernet0/1
+ ip address 192.168.1.254 255.255.255.0
+\end{lstlisting}
+
+\bigskip
+
+\subsubsection*{Exercise 12: Test and Verify VRRP in the Network}
+\textbf{Objective:} Perform tests to ensure VRRP is working correctly.
+
+\textbf{Instructions:}
+\begin{enumerate}
+\item Verify VRRP roles using CLI commands.
+\item Monitor packet forwarding.
+\item Simulate a router failure and observe failover behavior.
+\end{enumerate}
+
+\textbf{Verification Commands:}
+\begin{lstlisting}[style=CiscoCLI]
+switch# show vrrp brief
+switch# debug vrrp packets
+\end{lstlisting}
+
+\newpage
+
+%----------------------------------------------------------------------------------------
+%	Part III: GLBP
+%----------------------------------------------------------------------------------------
+
+\section{Part III: GLBP Hands-On Configuration}
+
+\subsection{Basic GLBP Configuration}
+
+\subsubsection*{Exercise 1: Configure GLBP on SW1}
+\textbf{Objective:} Set up GLBP on SW1 to serve as the default gateway for VLAN 10.
+
+\textbf{Instructions:}
+\begin{enumerate}
+\item Access the switch CLI.
+\item Enter global configuration mode.
+\item Configure VLAN 10 and assign an IP address.
+\item Enable GLBP on VLAN 10 with a virtual IP address.
+\end{enumerate}
+
+\textbf{Commands:}
+\begin{lstlisting}[style=CiscoCLI]
+switch(config)# interface vlan 10
+switch(config-if)# ip address 192.168.1.1 255.255.255.0
+switch(config-if)# glbp 1 ip 192.168.1.254
+\end{lstlisting}
+
+\bigskip
+
+\subsubsection*{Exercise 2: Configure GLBP on MLS1, MLS2, MLS3, MLS4}
+\textbf{Objective:} Configure multiple multilayer switches (MLS) to participate in GLBP.
+
+\textbf{Instructions:}
+\begin{enumerate}
+\item Access the CLI of each MLS (MLS1, MLS2, MLS3, MLS4).
+\item Enter configuration mode.
+\item Configure VLAN 10 with a unique IP address.
+\item Enable GLBP and assign the same virtual IP.
+\end{enumerate}
+
+\textbf{Commands:}
+\begin{lstlisting}[style=CiscoCLI]
+switch(config)# interface vlan 10
+switch(config-if)# ip address 192.168.1.X 255.255.255.0
+switch(config-if)# glbp 1 ip 192.168.1.254
+\end{lstlisting}
+
+\bigskip
+
+\subsection{Priority and Preemption Configuration}
+
+\subsubsection*{Exercise 3: Set GLBP Priority and Enable Preemption}
+\textbf{Objective:} Configure a specific GLBP router to be the preferred active forwarder.
+
+\textbf{Instructions:}
+\begin{enumerate}
+\item Set the GLBP priority higher than the default (100).
+\item Enable preemption with a delay to avoid frequent role changes.
+\end{enumerate}
+
+\textbf{Commands:}
+\begin{lstlisting}[style=CiscoCLI]
+switch(config-if)# glbp 1 priority 150
+switch(config-if)# glbp 1 preempt delay minimum 60
+\end{lstlisting}
+
+\bigskip
+
+\subsection{GLBP Load Balancing}
+
+\subsubsection*{Exercise 4: Configure Load Balancing}
+\textbf{Objective:} Enable round-robin load balancing among GLBP routers.
+
+\textbf{Instructions:}
+\begin{enumerate}
+\item Configure the GLBP group to use round-robin load balancing.
+\end{enumerate}
+
+\textbf{Commands:}
+\begin{lstlisting}[style=CiscoCLI]
+switch(config-if)# glbp 1 load-balancing round-robin
+\end{lstlisting}
+
+\bigskip
+
+\subsection{GLBP Authentication and Security}
+
+\subsubsection*{Exercise 5: Enable Authentication}
+\textbf{Objective:} Secure GLBP communications with MD5 authentication.
+
+\textbf{Instructions:}
+\begin{enumerate}
+\item Configure MD5 authentication with a secure key.
+\end{enumerate}
+
+\textbf{Commands:}
+\begin{lstlisting}[style=CiscoCLI]
+switch(config-if)# glbp 1 authentication md5 key-string SECRET_KEY
+\end{lstlisting}
+
+\bigskip
+
+\subsection{Weighting and Tracking Mechanisms}
+
+\subsubsection*{Exercise 6: Set Weighting and Track Interface Status}
+\textbf{Objective:} Implement tracking to adjust GLBP weighting dynamically.
+
+\textbf{Instructions:}
+\begin{enumerate}
+\item Configure GLBP weighting and define upper and lower limits.
+\item Enable tracking for an interface and set a decrement value.
+\end{enumerate}
+
+\textbf{Commands:}
+\begin{lstlisting}[style=CiscoCLI]
+switch(config-if)# glbp 1 weighting 100 upper 90 lower 80
+switch(config-if)# track 1 interface FastEthernet0/1 line-protocol
+switch(config-if)# glbp 1 weighting track 1 decrement 20
+\end{lstlisting}
+
+\bigskip
+
+\subsection{Advanced GLBP Timers and Optimization}
+
+\subsubsection*{Exercise 7: Configure GLBP Timers}
+\textbf{Objective:} Optimize GLBP timers for faster failover.
+
+\textbf{Instructions:}
+\begin{enumerate}
+\item Adjust the hello and hold timers.
+\item Configure redirect timers.
+\end{enumerate}
+
+\textbf{Commands:}
+\begin{lstlisting}[style=CiscoCLI]
+switch(config-if)# glbp 1 timers 3 10
+switch(config-if)# glbp 1 timers redirect 600 timeout 14400
+\end{lstlisting}
+
+\bigskip
+
+\subsection{IPv6 GLBP Configuration}
+
+\subsubsection*{Exercise 8: Enable GLBP for IPv6}
+\textbf{Objective:} Implement GLBP for IPv6 networks.
+
+\textbf{Instructions:}
+\begin{enumerate}
+\item Enable GLBP for IPv6 auto-configuration.
+\end{enumerate}
+
+\textbf{Commands:}
+\begin{lstlisting}[style=CiscoCLI]
+switch(config-if)# glbp 1 ipv6 autoconfigure
+\end{lstlisting}
+
+\bigskip
+
+\subsection{GLBP Troubleshooting and Verification}
+
+\subsubsection*{Exercise 9: Verify GLBP Configuration}
+\textbf{Objective:} Use CLI commands to verify the GLBP setup.
+
+\textbf{Instructions:}
+\begin{enumerate}
+\item Display a summary of GLBP groups.
+\item Inspect details of a specific GLBP group.
+\item Check GLBP settings on VLAN 10.
+\end{enumerate}
+
+\textbf{Commands:}
+\begin{lstlisting}[style=CiscoCLI]
+switch# show glbp brief
+switch# show glbp 1
+switch# show glbp interface vlan 10
+\end{lstlisting}
+
+\bigskip
+
+\subsubsection*{Exercise 10: Debug GLBP}
+\textbf{Objective:} Use debugging tools to analyze GLBP behavior.
+
+\textbf{Instructions:}
+\begin{enumerate}
+\item Enable GLBP packet debugging.
+\end{enumerate}
+
+\textbf{Commands:}
+\begin{lstlisting}[style=CiscoCLI]
+switch# debug glbp packets
+\end{lstlisting}
+
+\bigskip
+
+\subsection{Full Topology Implementation}
+
+\subsubsection*{Exercise 11: Configure GLBP Across the Entire Topology}
+\textbf{Objective:} Implement GLBP on all switches and the router.
+
+\textbf{On SW1:}
+\begin{lstlisting}[style=CiscoCLI]
+interface vlan 10
+ ip address 192.168.1.1 255.255.255.0
+ glbp 1 ip 192.168.1.254
+ glbp 1 priority 150
+ glbp 1 preempt
+ glbp 1 load-balancing round-robin
+\end{lstlisting}
+
+\textbf{On MLS1, MLS2, MLS3, MLS4:}
+\begin{lstlisting}[style=CiscoCLI]
+interface vlan 10
+ ip address 192.168.1.X 255.255.255.0
+ glbp 1 ip 192.168.1.254
+\end{lstlisting}
+
+\textbf{On R1:}
+\begin{lstlisting}[style=CiscoCLI]
+interface FastEthernet0/1
+ ip address 192.168.1.254 255.255.255.0
+\end{lstlisting}
+
+\bigskip
+
+\subsubsection*{Exercise 12: Test and Verify GLBP in the Network}
+\textbf{Objective:} Perform tests to ensure GLBP is working correctly.
+
+\textbf{Instructions:}
+\begin{enumerate}
+\item Verify GLBP roles using CLI commands.
+\item Monitor packet forwarding.
+\item Simulate a router failure and observe failover behavior.
+\end{enumerate}
+
+\textbf{Verification Commands:}
+\begin{lstlisting}[style=CiscoCLI]
+switch# show glbp brief
+switch# debug glbp packets
+\end{lstlisting}
+
+\end{document}
