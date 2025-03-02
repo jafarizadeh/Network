@@ -1,30 +1,44 @@
-\contentsline {section}{\numberline {1}Part I: HSRP Hands-On Configuration}{3}{section.1}%
-\contentsline {subsection}{\numberline {1.1}Basic HSRP Configuration}{3}{subsection.1.1}%
-\contentsline {subsection}{\numberline {1.2}Priority and Preemption Configuration}{4}{subsection.1.2}%
-\contentsline {subsection}{\numberline {1.3}HSRP Load Balancing}{4}{subsection.1.3}%
-\contentsline {subsection}{\numberline {1.4}HSRP Authentication and Security}{4}{subsection.1.4}%
-\contentsline {subsection}{\numberline {1.5}Tracking Mechanisms}{5}{subsection.1.5}%
-\contentsline {subsection}{\numberline {1.6}Advanced HSRP Timers and Optimization}{5}{subsection.1.6}%
-\contentsline {subsection}{\numberline {1.7}IPv6 HSRP Configuration}{5}{subsection.1.7}%
-\contentsline {subsection}{\numberline {1.8}HSRP Troubleshooting and Verification}{5}{subsection.1.8}%
-\contentsline {subsection}{\numberline {1.9}Full Topology Implementation}{6}{subsection.1.9}%
-\contentsline {section}{\numberline {2}Part II: VRRP Hands-On Configuration}{8}{section.2}%
-\contentsline {subsection}{\numberline {2.1}Basic VRRP Configuration}{8}{subsection.2.1}%
-\contentsline {subsection}{\numberline {2.2}Priority and Preemption Configuration}{9}{subsection.2.2}%
-\contentsline {subsection}{\numberline {2.3}VRRP Load Balancing}{9}{subsection.2.3}%
-\contentsline {subsection}{\numberline {2.4}VRRP Authentication and Security}{9}{subsection.2.4}%
-\contentsline {subsection}{\numberline {2.5}Tracking Mechanisms}{10}{subsection.2.5}%
-\contentsline {subsection}{\numberline {2.6}Advanced VRRP Timers and Optimization}{10}{subsection.2.6}%
-\contentsline {subsection}{\numberline {2.7}IPv6 VRRP Configuration}{10}{subsection.2.7}%
-\contentsline {subsection}{\numberline {2.8}VRRP Troubleshooting and Verification}{10}{subsection.2.8}%
-\contentsline {subsection}{\numberline {2.9}Full Topology Implementation}{11}{subsection.2.9}%
-\contentsline {section}{\numberline {3}Part III: GLBP Hands-On Configuration}{13}{section.3}%
-\contentsline {subsection}{\numberline {3.1}Basic GLBP Configuration}{13}{subsection.3.1}%
-\contentsline {subsection}{\numberline {3.2}Priority and Preemption Configuration}{14}{subsection.3.2}%
-\contentsline {subsection}{\numberline {3.3}GLBP Load Balancing}{14}{subsection.3.3}%
-\contentsline {subsection}{\numberline {3.4}GLBP Authentication and Security}{14}{subsection.3.4}%
-\contentsline {subsection}{\numberline {3.5}Weighting and Tracking Mechanisms}{15}{subsection.3.5}%
-\contentsline {subsection}{\numberline {3.6}Advanced GLBP Timers and Optimization}{15}{subsection.3.6}%
-\contentsline {subsection}{\numberline {3.7}IPv6 GLBP Configuration}{15}{subsection.3.7}%
-\contentsline {subsection}{\numberline {3.8}GLBP Troubleshooting and Verification}{16}{subsection.3.8}%
-\contentsline {subsection}{\numberline {3.9}Full Topology Implementation}{16}{subsection.3.9}%
+\contentsline {section}{\numberline {0.1}Introduction to Network Topology for FHRP Implementation}{4}{section.0.1}%
+\contentsline {chapter}{\numberline {1}HSRP Hands-On Configuration}{5}{chapter.1}%
+\contentsline {section}{\numberline {1.1}Introduction to HSRP Configuration}{5}{section.1.1}%
+\contentsline {subsection}{\numberline {1.1.1}Overview of HSRP and Its Importance}{5}{subsection.1.1.1}%
+\contentsline {section}{\numberline {1.2}Basic HSRP Setup}{5}{section.1.2}%
+\contentsline {subsection}{\numberline {1.2.1}Configuring an Interface for HSRP}{5}{subsection.1.2.1}%
+\contentsline {subsubsection}{Lab Exercise 1: Configuring HSRP on VLAN 10}{5}{section*.5}%
+\contentsline {subsection}{\numberline {1.2.2}Assigning Virtual IP Addresses in HSRP}{6}{subsection.1.2.2}%
+\contentsline {subsection}{\numberline {1.2.3}Verifying HSRP Configuration}{6}{subsection.1.2.3}%
+\contentsline {section}{\numberline {1.3}HSRP Priority and Preemption}{6}{section.1.3}%
+\contentsline {subsection}{\numberline {1.3.1}Setting HSRP Priority Levels}{6}{subsection.1.3.1}%
+\contentsline {subsubsection}{Lab Exercise 2: Configuring HSRP Priority on MLS1 and MLS2}{7}{section*.6}%
+\contentsline {subsection}{\numberline {1.3.2}Configuring Preemption for Faster Failover}{7}{subsection.1.3.2}%
+\contentsline {subsubsection}{Lab Exercise 3: Configuring Preemption}{7}{section*.7}%
+\contentsline {subsection}{\numberline {1.3.3}Adjusting Preemption Delay Timers}{8}{subsection.1.3.3}%
+\contentsline {subsubsection}{Lab Exercise 4: Configuring Preemption Delay}{8}{section*.8}%
+\contentsline {section}{\numberline {1.4}HSRP Timer Adjustments}{8}{section.1.4}%
+\contentsline {subsection}{\numberline {1.4.1}Modifying HSRP Hello and Hold Timers}{8}{subsection.1.4.1}%
+\contentsline {subsubsection}{Lab Exercise 5: Adjusting HSRP Timers}{8}{section*.9}%
+\contentsline {section}{\numberline {1.5}HSRP Authentication}{9}{section.1.5}%
+\contentsline {subsection}{\numberline {1.5.1}Configuring Text-Based Authentication}{9}{subsection.1.5.1}%
+\contentsline {subsubsection}{Lab Exercise 6: Configuring Text Authentication}{9}{section*.10}%
+\contentsline {subsection}{\numberline {1.5.2}Configuring MD5 Authentication}{9}{subsection.1.5.2}%
+\contentsline {subsubsection}{Lab Exercise 7: Configuring MD5 Authentication}{10}{section*.11}%
+\contentsline {subsection}{\numberline {1.5.3}Configuring MD5 Key-Chain Authentication}{10}{subsection.1.5.3}%
+\contentsline {subsubsection}{Lab Exercise 8: Configuring Key-Chain Authentication}{10}{section*.12}%
+\contentsline {section}{\numberline {1.6}HSRP Tracking Mechanisms}{11}{section.1.6}%
+\contentsline {subsection}{\numberline {1.6.1}Tracking Interface Status with HSRP}{11}{subsection.1.6.1}%
+\contentsline {subsubsection}{Lab Exercise 9: Configuring HSRP Interface Tracking}{11}{section*.13}%
+\contentsline {subsection}{\numberline {1.6.2}Using Object Tracking for Failover}{11}{subsection.1.6.2}%
+\contentsline {subsubsection}{Lab Exercise 10: Configuring Object Tracking for HSRP}{11}{section*.14}%
+\contentsline {subsection}{\numberline {1.6.3}Adjusting HSRP Tracking Decrement Values}{12}{subsection.1.6.3}%
+\contentsline {section}{\numberline {1.7}HSRP Versioning and IPv6}{12}{section.1.7}%
+\contentsline {subsection}{\numberline {1.7.1}Upgrading to HSRP Version 2}{12}{subsection.1.7.1}%
+\contentsline {subsubsection}{Lab Exercise 11: Enabling HSRP Version 2}{12}{section*.15}%
+\contentsline {subsection}{\numberline {1.7.2}Configuring HSRP for IPv6}{13}{subsection.1.7.2}%
+\contentsline {subsubsection}{Lab Exercise 12: Configuring HSRP for IPv6}{13}{section*.16}%
+\contentsline {section}{\numberline {1.8}Verifying and Troubleshooting HSRP}{13}{section.1.8}%
+\contentsline {subsection}{\numberline {1.8.1}Using \texttt {show standby} Commands for Verification}{13}{subsection.1.8.1}%
+\contentsline {subsubsection}{Lab Exercise 13: Verifying HSRP Configuration}{14}{section*.17}%
+\contentsline {subsection}{\numberline {1.8.2}Common HSRP Misconfigurations and Fixes}{14}{subsection.1.8.2}%
+\contentsline {subsubsection}{Issue \#1: Both Routers in Active State}{14}{section*.18}%
+\contentsline {subsubsection}{Issue \#2: Standby Router Never Becomes Active}{14}{section*.19}%
+\contentsline {subsubsection}{Issue \#3: Hosts Can’t Reach the Virtual Gateway}{15}{section*.20}%
