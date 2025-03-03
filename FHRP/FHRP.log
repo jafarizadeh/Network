@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (MiKTeX 24.1) (preloaded format=pdflatex 2024.8.31)  3 MAR 2025 17:10
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (MiKTeX 24.1) (preloaded format=pdflatex 2024.8.31)  3 MAR 2025 23:56
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -620,7 +620,7 @@ File: t1cmtt.fd 2023/04/13 v2.5m Standard LaTeX font definitions
 \openout5 = `FHRP.toc'.
 
  [4]
-<img/FHRP.png, id=322, 1148.29pt x 781.92125pt>
+<img/FHRP.png, id=482, 1148.29pt x 781.92125pt>
 File: img/FHRP.png Graphic file (type png)
 <use img/FHRP.png>
 Package pdftex.def Info: img/FHRP.png  used on input line 68.
@@ -632,30 +632,49 @@ Chapter 1.
 [7] [8] [9] [10] [11] [12] [13] [14]
 LaTeX Font Info:    Font shape `T1/cmtt/bx/n' in size <12> not available
 (Font)              Font shape `T1/cmtt/m/n' tried instead on input line 869.
- [15] [16] [17] [18
-
-]
+ [15] [16]
 Chapter 2.
-[19] [20] [21] [22] [23] [24] [25] [26] [27] [28] (FHRP.aux)
+[17
+
+] [18] [19] [20] [21] [22] [23] [24] [25] [26]
+Chapter 3.
+
+Overfull \hbox (39.96085pt too wide) in paragraph at lines 1812--1827
+ [] 
+ []
+
+[27
+
+] [28] [29] [30] [31] [32] [33] [34] [35]
+Underfull \hbox (badness 10000) in paragraph at lines 2637--2637
+[]\T1/cmr/m/n/10 Authentication mis-
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 2641--2641
+[]\T1/cmr/m/n/10 Default round-robin
+ []
+
+[36] [37] (FHRP.aux)
  ***********
 LaTeX2e <2023-11-01> patch level 1
 L3 programming layer <2024-01-04>
  ***********
 Package rerunfilecheck Info: File `FHRP.out' has not changed.
-(rerunfilecheck)             Checksum: 42E3DD1AAE2DFFA1FBDB2BBBB46CD900;13443.
+(rerunfilecheck)             Checksum: C391621440E0AA88D1DEC6FC17FACDA6;21866.
  ) 
 Here is how much of TeX's memory you used:
- 24616 strings out of 474486
- 451188 string characters out of 5744227
- 2120542 words of memory out of 5000000
- 46014 multiletter control sequences out of 15000+600000
+ 24843 strings out of 474486
+ 454676 string characters out of 5744227
+ 2083542 words of memory out of 5000000
+ 46095 multiletter control sequences out of 15000+600000
  571730 words of font info for 62 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 83i,8n,96p,576b,1299s stack positions out of 10000i,1000n,20000p,200000b,200000s
- <C:\Users\Lord\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ectt1200.pk> <C:\Users\Lord\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ectt0800.pk> <C:\Users\Lord\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecbi1000.pk> <C:\Users\Lord\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecbx2074.pk> <C:\Users\Lord\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\tcrm1000.pk> <C:\Users\Lord\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecbx1440.pk> <C:\Users\Lord\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecsl1000.pk> <C:\Users\Lord\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ectt1000.pk> <C:\Users\Lord\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecrm1000.pk> <C:\Users\Lord\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecbx1000.pk> <C:\Users\Lord\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecbx1200.pk> <C:\Users\Lord\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecrm1440.pk> <C:\Users\Lord\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecbx2488.pk>
-Output written on FHRP.pdf (28 pages, 502185 bytes).
+ 83i,8n,96p,576b,2105s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ <C:\Users\Lord\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ectt1200.pk> <C:\Users\Lord\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ectt0800.pk> <C:\Users\Lord\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecbi1000.pk> <C:\Users\Lord\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecbx2074.pk> <C:\Users\Lord\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\tcrm1000.pk> <C:\Users\Lord\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecbx1440.pk> <C:\Users\Lord\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecsl1000.pk> <C:\Users\Lord\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ectt1000.pk> <C:\Users\Lord\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecrm1000.pk> <C:\Users\Lord\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecbx1000.pk> <C:\Users\Lord\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecbx1200.pk> <C:\Users\Lord\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecrm1440.pk> <C:\Users\Lord\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ecbx2488.pk><C:/Users/Lord/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/symbols/msam10.pfb>
+Output written on FHRP.pdf (37 pages, 593537 bytes).
 PDF statistics:
- 1519 PDF objects out of 1728 (max. 8388607)
- 526 named destinations out of 1000 (max. 500000)
- 496 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 1908 PDF objects out of 2073 (max. 8388607)
+ 672 named destinations out of 1000 (max. 500000)
+ 752 words of extra memory for PDF output out of 10000 (max. 10000000)
 

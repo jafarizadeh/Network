@@ -17,43 +17,43 @@
 \definecolor{codebg}{RGB}{245,245,245}
 
 \lstset{
-    backgroundcolor=\color{codebg},
-    basicstyle=\ttfamily\footnotesize,
-    frame=single,
-    breaklines=true,
-    columns=fullflexible,
-    keywordstyle=\color{blue},
-    commentstyle=\color{gray},
-    stringstyle=\color{orange},
-    showstringspaces=false,
-    keepspaces=true,
-    tabsize=4
+backgroundcolor=\color{codebg},
+basicstyle=\ttfamily\footnotesize,
+frame=single,
+breaklines=true,
+columns=fullflexible,
+keywordstyle=\color{blue},
+commentstyle=\color{gray},
+stringstyle=\color{orange},
+showstringspaces=false,
+keepspaces=true,
+tabsize=4
 }
 
 
 %----- TITLE PAGE -----%
 \title{\Huge \textbf{High Availability Routing Protocols Workbook}\\
-       \Large HSRP, VRRP, and GLBP Configuration Guide}
+\Large HSRP, VRRP, and GLBP Configuration Guide}
 \author{\Large Written for Network Engineers and Students}
 \date{\today}
 
 \begin{document}
 
 \begin{titlepage}
-    \centering
-    \vspace*{4cm}
-    {\Huge \textbf{FHRP: First Hop Redundancy Protocols}\par}
-    \vspace{0.8cm}
-    {\Large A Hands-On Guide to Redundant Routing\par}
-    \vspace{0.3cm}
-    \rule{0.9\textwidth}{1pt}
-    \vspace{0.6cm}
-    {\large \textbf{Author: Mehdi JAFARI ZADEH}\par}
-    \vspace{0.3cm}
-    \centering
-    \vfill
-    \textbf{Date:} \today
-    \vspace{2cm}
+\centering
+\vspace*{4cm}
+{\Huge \textbf{FHRP: First Hop Redundancy Protocols}\par}
+\vspace{0.8cm}
+{\Large A Hands-On Guide to Redundant Routing\par}
+\vspace{0.3cm}
+\rule{0.9\textwidth}{1pt}
+\vspace{0.6cm}
+{\large \textbf{Author: Mehdi JAFARI ZADEH}\par}
+\vspace{0.3cm}
+\centering
+\vfill
+\textbf{Date:} \today
+\vspace{2cm}
 \end{titlepage}
 
 \tableofcontents
@@ -64,9 +64,9 @@
 \section{Introduction to Network Topology for FHRP Implementation}
 
 \begin{figure}[h]
-	\centering
-	\includegraphics[width=0.9\textwidth]{img/FHRP.png}
-	\caption{\textit{}}
+\centering
+\includegraphics[width=0.9\textwidth]{img/FHRP.png}
+\caption{\textit{}}
 \end{figure}
 
 
@@ -76,17 +76,17 @@ This network topology is designed to demonstrate the implementation and function
 The topology consists of the following key components:
 
 \begin{itemize}
-    \item \textbf{R1 (Router 1):} Serves as the upstream router that connects the network to external destinations.
-    \item \textbf{MLS (Multi-Layer Switches) 1, 2, 3, and 4:} Act as Layer 3 distribution switches that participate in FHRP to provide redundancy and load balancing for end devices.
-    \item \textbf{SW1 (Layer 2 Switch):} Functions as the access layer switch, connecting end devices (PC1 to PC6) to the network.
-    \item \textbf{End Devices (PC1 - PC6):} Represent client machines that rely on a stable and resilient default gateway for communication beyond their local subnet.
+\item \textbf{R1 (Router 1):} Serves as the upstream router that connects the network to external destinations.
+\item \textbf{MLS (Multi-Layer Switches) 1, 2, 3, and 4:} Act as Layer 3 distribution switches that participate in FHRP to provide redundancy and load balancing for end devices.
+\item \textbf{SW1 (Layer 2 Switch):} Functions as the access layer switch, connecting end devices (PC1 to PC6) to the network.
+\item \textbf{End Devices (PC1 - PC6):} Represent client machines that rely on a stable and resilient default gateway for communication beyond their local subnet.
 \end{itemize}
 
 \subsection*{Interconnections and Purpose}
 \begin{itemize}
-    \item The \textbf{end devices are connected to SW1} through FastEthernet ports (F0/1 to F0/6).
-    \item SW1 is connected to the \textbf{multi-layer switches (MLS1 - MLS4)} via uplink ports (F0/7 to F0/10).
-    \item Each \textbf{multi-layer switch is connected to the router (R1)} via FastEthernet links to provide redundancy at the Layer 3 distribution level.
+\item The \textbf{end devices are connected to SW1} through FastEthernet ports (F0/1 to F0/6).
+\item SW1 is connected to the \textbf{multi-layer switches (MLS1 - MLS4)} via uplink ports (F0/7 to F0/10).
+\item Each \textbf{multi-layer switch is connected to the router (R1)} via FastEthernet links to provide redundancy at the Layer 3 distribution level.
 \end{itemize}
 
 
@@ -121,7 +121,7 @@ which devices use as their default gateway. The \textbf{primary device} (Active 
 forwards packets, while the \textbf{secondary device} (Standby Router) takes over in case 
 of failure.
 
- 
+
 \vspace{1.5em}
 
 % -----------------------------
@@ -145,25 +145,25 @@ gateway for connected hosts.
 \item Access the VLAN interface on \textbf{MLS1} and assign an IP address.
 
 
-	      %---,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,---
-          \vspace{1.5em}
-         
-          \switchocg{codeblock}{%
-		      \color{black}\underline{Click here to display the answer:}%
-	      }
+%---,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,---
+\vspace{1.5em}
+
+\switchocg{codeblock}{%
+\color{black}\underline{Click here to display the answer:}%
+}
 
 
-	      \begin{ocg}{Code Block}{codeblock}{0}
-		      \vspace{0.5cm}
-		      \begin{lstlisting}
+\begin{ocg}{Code Block}{codeblock}{0}
+\vspace{0.5cm}
+\begin{lstlisting}
 MLS1(config)# interface vlan 10
 MLS1(config-if)# ip address 192.168.10.2 255.255.255.0
 MLS1(config-if)# standby 1 ip 192.168.10.1
 MLS1(config-if)# no shutdown
 \end{lstlisting}
 
-	      \end{ocg}
-	      %---''''''''''''''''''''''''''''''''---
+\end{ocg}
+%---''''''''''''''''''''''''''''''''---
 
 \begin{lstlisting}
 
@@ -171,47 +171,47 @@ MLS1(config-if)# no shutdown
 
 \item Repeat for \textbf{MLS2} (standby switch).
 \item 
-	      %---,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,---
-          \vspace{1.5em}
-         
-          \switchocg{codeblock}{%
-		      \color{black}\underline{Click here to display the answer:}%
-	      }
+%---,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,---
+\vspace{1.5em}
+
+\switchocg{codeblock}{%
+\color{black}\underline{Click here to display the answer:}%
+}
 
 
-	      \begin{ocg}{Code Block}{codeblock}{0}
-		      \vspace{0.5cm}
-		      \begin{lstlisting}
+\begin{ocg}{Code Block}{codeblock}{0}
+\vspace{0.5cm}
+\begin{lstlisting}
 MLS2(config)# interface vlan 10
 MLS2(config-if)# ip address 192.168.10.3 255.255.255.0
 MLS2(config-if)# standby 1 ip 192.168.10.1
 MLS2(config-if)# no shutdown
 \end{lstlisting}
 
-	      \end{ocg}
-	      %---''''''''''''''''''''''''''''''''---
+\end{ocg}
+%---''''''''''''''''''''''''''''''''---
 \begin{lstlisting}
 
 \end{lstlisting}
 
 \item Verify HSRP status.
-	      %---,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,---
-          \vspace{1.5em}
-         
-          \switchocg{codeblock}{%
-		      \color{black}\underline{Click here to display the answer:}%
-	      }
+%---,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,---
+\vspace{1.5em}
+
+\switchocg{codeblock}{%
+\color{black}\underline{Click here to display the answer:}%
+}
 
 
-	      \begin{ocg}{Code Block}{codeblock}{0}
-		      \vspace{0.5cm}
-		      \begin{lstlisting}
+\begin{ocg}{Code Block}{codeblock}{0}
+\vspace{0.5cm}
+\begin{lstlisting}
 MLS1# show standby brief
 MLS2# show standby brief
 \end{lstlisting}
 
-	      \end{ocg}
-	      %---''''''''''''''''''''''''''''''''---
+\end{ocg}
+%---''''''''''''''''''''''''''''''''---
 \end{enumerate}
 
 \textbf{Expected Outcome:}
@@ -239,7 +239,7 @@ This command displays:
 \item \textbf{Virtual IP and priority values}
 \end{itemize}
 
- 
+
 \vspace{1.5em}
 
 % -----------------------------
@@ -259,37 +259,37 @@ However, we can manually assign priority.
 \textbf{Configuration Steps:}
 
 
-	      %---,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,---
-          \vspace{1.5em}
+%---,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,---
+\vspace{1.5em}
 
-          \switchocg{codeblock}{%
-		      \color{black}\underline{Click here to display the answer:}%
-	      }
+\switchocg{codeblock}{%
+\color{black}\underline{Click here to display the answer:}%
+}
 
-	      \begin{ocg}{Code Block}{codeblock}{0}
+\begin{ocg}{Code Block}{codeblock}{0}
 
 
-		      \vspace{0.5cm}
-		      \begin{enumerate}
-                \item \textbf{Set MLS1 to have a higher priority.}
-                \begin{lstlisting}
+\vspace{0.5cm}
+\begin{enumerate}
+\item \textbf{Set MLS1 to have a higher priority.}
+\begin{lstlisting}
 MLS1(config)# interface vlan 10
 MLS1(config-if)# standby 1 priority 110
-                \end{lstlisting}
-                
-                \item \textbf{Leave MLS2 with the default priority (100).}
-                \begin{lstlisting}
+\end{lstlisting}
+
+\item \textbf{Leave MLS2 with the default priority (100).}
+\begin{lstlisting}
 MLS2(config)# interface vlan 10
 MLS2(config-if)# standby 1 priority 100
-                \end{lstlisting}
-                
-                \item \textbf{Verify the new Active Router.}
-                \begin{lstlisting}
+\end{lstlisting}
+
+\item \textbf{Verify the new Active Router.}
+\begin{lstlisting}
 MLS1# show standby brief
-                \end{lstlisting}
-                \end{enumerate}
-	      \end{ocg}
-	      %---''''''''''''''''''''''''''''''''---
+\end{lstlisting}
+\end{enumerate}
+\end{ocg}
+%---''''''''''''''''''''''''''''''''---
 
 
 
@@ -318,30 +318,30 @@ This is done using \textbf{preemption}.
 \vspace{1.5em}
 
 \switchocg{codeblock}{%
-    \color{black}\underline{Click here to display the answer:}%
+\color{black}\underline{Click here to display the answer:}%
 }
 
 \begin{ocg}{Code Block}{codeblock}{0}
 
 
-    \vspace{0.5cm}
-    \begin{enumerate}
-        \item \textbf{Enable preemption on MLS1 and MLS2.}
-        \begin{lstlisting}
+\vspace{0.5cm}
+\begin{enumerate}
+\item \textbf{Enable preemption on MLS1 and MLS2.}
+\begin{lstlisting}
 MLS1(config)# interface vlan 10
 MLS1(config-if)# standby 1 preempt
-        \end{lstlisting}
-        \begin{lstlisting}
+\end{lstlisting}
+\begin{lstlisting}
 MLS2(config)# interface vlan 10
 MLS2(config-if)# standby 1 preempt
-        \end{lstlisting}
-        
-        \item \textbf{Verify the configuration.}
-        \begin{lstlisting}
+\end{lstlisting}
+
+\item \textbf{Verify the configuration.}
+\begin{lstlisting}
 MLS1# show standby brief
 MLS2# show standby brief
-        \end{lstlisting}
-        \end{enumerate}
+\end{lstlisting}
+\end{enumerate}
 \end{ocg}
 %---''''''''''''''''''''''''''''''''---
 
@@ -369,21 +369,21 @@ to wait before re-electing the Active Router.
 \vspace{1.5em}
 
 \switchocg{codeblock}{%
-    \color{black}\underline{Click here to display the answer:}%
+\color{black}\underline{Click here to display the answer:}%
 }
 
 \begin{ocg}{Code Block}{codeblock}{0}
 
 
-    \vspace{0.5cm}
-    \begin{lstlisting}
+\vspace{0.5cm}
+\begin{lstlisting}
 MLS1(config)# interface vlan 10
 MLS1(config-if)# standby 1 preempt delay minimum 30
-        \end{lstlisting}
-        \begin{lstlisting}
+\end{lstlisting}
+\begin{lstlisting}
 MLS2(config)# interface vlan 10
 MLS2(config-if)# standby 1 preempt delay minimum 30
-        \end{lstlisting}
+\end{lstlisting}
 \end{ocg}
 %---''''''''''''''''''''''''''''''''---
 
@@ -393,7 +393,7 @@ MLS2(config-if)# standby 1 preempt delay minimum 30
 \item \textbf{MLS1 will wait 30 seconds} before reclaiming Active status after recovering from failure.
 \end{itemize}
 
- 
+
 \vspace{1.5em}
 
 % -----------------------------
@@ -422,29 +422,29 @@ and \textbf{hold timers} on VLAN 10.
 \vspace{1.5em}
 
 \switchocg{codeblock}{%
-    \color{black}\underline{Click here to display the answer:}%
+\color{black}\underline{Click here to display the answer:}%
 }
 
 \begin{ocg}{Code Block}{codeblock}{0}
 
 
-    \vspace{0.5cm}
-    \begin{enumerate}
-        \item \textbf{Modify timers on MLS1 and MLS2.}
-        \begin{lstlisting}
+\vspace{0.5cm}
+\begin{enumerate}
+\item \textbf{Modify timers on MLS1 and MLS2.}
+\begin{lstlisting}
 MLS1(config)# interface vlan 10
 MLS1(config-if)# standby 1 timers 1 3
-        \end{lstlisting}
-        \begin{lstlisting}
+\end{lstlisting}
+\begin{lstlisting}
 MLS2(config)# interface vlan 10
 MLS2(config-if)# standby 1 timers 1 3
-        \end{lstlisting}
-        
-        \item \textbf{Verify the new timer settings.}
-        \begin{lstlisting}
+\end{lstlisting}
+
+\item \textbf{Verify the new timer settings.}
+\begin{lstlisting}
 MLS1# show standby vlan 10
-        \end{lstlisting}
-        \end{enumerate}
+\end{lstlisting}
+\end{enumerate}
 \end{ocg}
 %---''''''''''''''''''''''''''''''''---
 
@@ -458,7 +458,7 @@ MLS1# show standby vlan 10
 \item \textbf{Failover will happen faster} if the Active Router fails.
 \end{itemize}
 
- 
+
 \vspace{1.5em}
 
 % -----------------------------
@@ -482,29 +482,29 @@ Text authentication allows devices in the same group to verify each other using 
 \vspace{1.5em}
 
 \switchocg{codeblock}{%
-    \color{black}\underline{Click here to display the answer:}%
+\color{black}\underline{Click here to display the answer:}%
 }
 
 \begin{ocg}{Code Block}{codeblock}{0}
 
 
-    \vspace{0.5cm}
-    \begin{enumerate}
-        \item \textbf{Enable text authentication on MLS1 and MLS2.}
-        \begin{lstlisting}
+\vspace{0.5cm}
+\begin{enumerate}
+\item \textbf{Enable text authentication on MLS1 and MLS2.}
+\begin{lstlisting}
 MLS1(config)# interface vlan 10
 MLS1(config-if)# standby 1 authentication text SecureHSRP
-        \end{lstlisting}
-        \begin{lstlisting}
+\end{lstlisting}
+\begin{lstlisting}
 MLS2(config)# interface vlan 10
 MLS2(config-if)# standby 1 authentication text SecureHSRP
-        \end{lstlisting}
-        
-        \item \textbf{Verify authentication.}
-        \begin{lstlisting}
+\end{lstlisting}
+
+\item \textbf{Verify authentication.}
+\begin{lstlisting}
 MLS1# show standby vlan 10
-        \end{lstlisting}
-        \end{enumerate}
+\end{lstlisting}
+\end{enumerate}
 \end{ocg}
 %---''''''''''''''''''''''''''''''''---
 
@@ -532,29 +532,29 @@ MD5 authentication encrypts the authentication key, making it more secure than p
 \vspace{1.5em}
 
 \switchocg{codeblock}{%
-    \color{black}\underline{Click here to display the answer:}%
+\color{black}\underline{Click here to display the answer:}%
 }
 
 \begin{ocg}{Code Block}{codeblock}{0}
 
 
-    \vspace{0.5cm}
-    \begin{enumerate}
-        \item \textbf{Configure MD5 key-string on MLS1 and MLS2.}
-        \begin{lstlisting}
+\vspace{0.5cm}
+\begin{enumerate}
+\item \textbf{Configure MD5 key-string on MLS1 and MLS2.}
+\begin{lstlisting}
 MLS1(config)# interface vlan 10
 MLS1(config-if)# standby 1 authentication md5 key-string HSRP_MD5
-        \end{lstlisting}
-        \begin{lstlisting}
+\end{lstlisting}
+\begin{lstlisting}
 MLS2(config)# interface vlan 10
 MLS2(config-if)# standby 1 authentication md5 key-string HSRP_MD5
-        \end{lstlisting}
-        
-        \item \textbf{Verify authentication.}
-        \begin{lstlisting}
+\end{lstlisting}
+
+\item \textbf{Verify authentication.}
+\begin{lstlisting}
 MLS1# show standby vlan 10
-        \end{lstlisting}
-        \end{enumerate}
+\end{lstlisting}
+\end{enumerate}
 \end{ocg}
 %---''''''''''''''''''''''''''''''''---
 
@@ -581,41 +581,41 @@ for added security.
 \vspace{1.5em}
 
 \switchocg{codeblock}{%
-    \color{black}\underline{Click here to display the answer:}%
+\color{black}\underline{Click here to display the answer:}%
 }
 
 \begin{ocg}{Code Block}{codeblock}{0}
 
-    \vspace{0.5cm}
+\vspace{0.5cm}
 
-    \begin{enumerate}
-        \item \textbf{Create a key-chain on MLS1 and MLS2.}
-        \begin{lstlisting}
+\begin{enumerate}
+\item \textbf{Create a key-chain on MLS1 and MLS2.}
+\begin{lstlisting}
 MLS1(config)# key chain HSRP_KEYS
 MLS1(config-keychain)# key 1
 MLS1(config-keychain-key)# key-string Secure123
-        \end{lstlisting}
-        \begin{lstlisting}
+\end{lstlisting}
+\begin{lstlisting}
 MLS2(config)# key chain HSRP_KEYS
 MLS2(config-keychain)# key 1
 MLS2(config-keychain-key)# key-string Secure123
-        \end{lstlisting}
-        
-        \item \textbf{Apply the key-chain to HSRP.}
-        \begin{lstlisting}
+\end{lstlisting}
+
+\item \textbf{Apply the key-chain to HSRP.}
+\begin{lstlisting}
 MLS1(config)# interface vlan 10
 MLS1(config-if)# standby 1 authentication md5 key-chain HSRP_KEYS
-        \end{lstlisting}
-        \begin{lstlisting}
+\end{lstlisting}
+\begin{lstlisting}
 MLS2(config)# interface vlan 10
 MLS2(config-if)# standby 1 authentication md5 key-chain HSRP_KEYS
-        \end{lstlisting}
-        
-        \item \textbf{Verify authentication.}
-        \begin{lstlisting}
+\end{lstlisting}
+
+\item \textbf{Verify authentication.}
+\begin{lstlisting}
 MLS1# show standby vlan 10
-        \end{lstlisting}
-        \end{enumerate}
+\end{lstlisting}
+\end{enumerate}
 \end{ocg}
 %---''''''''''''''''''''''''''''''''---
 
@@ -627,7 +627,7 @@ MLS1# show standby vlan 10
 \item HSRP \textbf{uses encrypted authentication} with rotating keys.
 \end{itemize}
 
- 
+
 \vspace{1.5em}
 
 % -----------------------------
@@ -652,24 +652,24 @@ reduce priority by \textbf{20} to allow MLS2 to take over.
 \vspace{1.5em}
 
 \switchocg{codeblock}{%
-    \color{black}\underline{Click here to display the answer:}%
+\color{black}\underline{Click here to display the answer:}%
 }
 
 \begin{ocg}{Code Block}{codeblock}{0}
 
-    \vspace{0.5cm}
-    \begin{enumerate}
-        \item \textbf{Enable tracking on MLS1.}
-        \begin{lstlisting}
+\vspace{0.5cm}
+\begin{enumerate}
+\item \textbf{Enable tracking on MLS1.}
+\begin{lstlisting}
 MLS1(config)# interface vlan 10
 MLS1(config-if)# standby 1 track gigabitethernet1/1 20
-        \end{lstlisting}
-        
-        \item \textbf{Verify tracking configuration.}
-        \begin{lstlisting}
+\end{lstlisting}
+
+\item \textbf{Verify tracking configuration.}
+\begin{lstlisting}
 MLS1# show standby vlan 10
-        \end{lstlisting}
-        \end{enumerate}
+\end{lstlisting}
+\end{enumerate}
 \end{ocg}
 %---''''''''''''''''''''''''''''''''---
 
@@ -694,29 +694,29 @@ priority if it becomes unreachable.
 \vspace{1.5em}
 
 \switchocg{codeblock}{%
-    \color{black}\underline{Click here to display the answer:}%
+\color{black}\underline{Click here to display the answer:}%
 }
 
 \begin{ocg}{Code Block}{codeblock}{0}
 
-    \vspace{0.5cm}
-    \begin{enumerate}
-        \item \textbf{Create a tracked object.}
-        \begin{lstlisting}
+\vspace{0.5cm}
+\begin{enumerate}
+\item \textbf{Create a tracked object.}
+\begin{lstlisting}
 MLS1(config)# track 1 ip route 192.168.1.0/24 reachability
-        \end{lstlisting}
-        
-        \item \textbf{Link the tracked object to HSRP.}
-        \begin{lstlisting}
+\end{lstlisting}
+
+\item \textbf{Link the tracked object to HSRP.}
+\begin{lstlisting}
 MLS1(config)# interface vlan 10
 MLS1(config-if)# standby 1 track 1 decrement 15
-        \end{lstlisting}
-        
-        \item \textbf{Verify tracking status.}
-        \begin{lstlisting}
+\end{lstlisting}
+
+\item \textbf{Verify tracking status.}
+\begin{lstlisting}
 MLS1# show track
-        \end{lstlisting}
-        \end{enumerate}
+\end{lstlisting}
+\end{enumerate}
 \end{ocg}
 %---''''''''''''''''''''''''''''''''---
 
@@ -740,7 +740,7 @@ MLS1(config-if)# standby 1 track 1 decrement 30
 triggering a failover faster.
 \end{itemize}
 
- 
+
 \vspace{1.5em}
 
 % -----------------------------
@@ -768,28 +768,28 @@ By default, HSRP uses \textbf{Version 1}, but \textbf{Version 2} offers:
 \vspace{1.5em}
 
 \switchocg{codeblock}{%
-    \color{black}\underline{Click here to display the answer:}%
+\color{black}\underline{Click here to display the answer:}%
 }
 
 \begin{ocg}{Code Block}{codeblock}{0}
 
-    \vspace{0.5cm}
-    \begin{enumerate}
-        \item \textbf{Enable HSRP Version 2 on MLS1 and MLS2.}
-        \begin{lstlisting}
+\vspace{0.5cm}
+\begin{enumerate}
+\item \textbf{Enable HSRP Version 2 on MLS1 and MLS2.}
+\begin{lstlisting}
 MLS1(config)# interface vlan 10
 MLS1(config-if)# standby version 2
-        \end{lstlisting}
-        \begin{lstlisting}
+\end{lstlisting}
+\begin{lstlisting}
 MLS2(config)# interface vlan 10
 MLS2(config-if)# standby version 2
-        \end{lstlisting}
-        
-        \item \textbf{Verify the new version.}
-        \begin{lstlisting}
+\end{lstlisting}
+
+\item \textbf{Verify the new version.}
+\begin{lstlisting}
 MLS1# show standby vlan 10
-        \end{lstlisting}
-        \end{enumerate}
+\end{lstlisting}
+\end{enumerate}
 \end{ocg}
 %---''''''''''''''''''''''''''''''''---
 
@@ -816,36 +816,36 @@ HSRP also works with \textbf{IPv6}, providing the same high-availability benefit
 \vspace{1.5em}
 
 \switchocg{codeblock}{%
-    \color{black}\underline{Click here to display the answer:}%
+\color{black}\underline{Click here to display the answer:}%
 }
 
 \begin{ocg}{Code Block}{codeblock}{0}
 
-    \vspace{0.5cm}
-    \begin{enumerate}
-        \item \textbf{Enable IPv6 routing.}
-        \begin{lstlisting}
+\vspace{0.5cm}
+\begin{enumerate}
+\item \textbf{Enable IPv6 routing.}
+\begin{lstlisting}
 MLS1(config)# ipv6 unicast-routing
 MLS2(config)# ipv6 unicast-routing
-        \end{lstlisting}
-        
-        \item \textbf{Assign IPv6 addresses to VLAN 20.}
-        \begin{lstlisting}
+\end{lstlisting}
+
+\item \textbf{Assign IPv6 addresses to VLAN 20.}
+\begin{lstlisting}
 MLS1(config)# interface vlan 20
 MLS1(config-if)# ipv6 address 2001:DB8:10::2/64
 MLS1(config-if)# standby 1 ipv6 autoconfig
-        \end{lstlisting}
-        \begin{lstlisting}
+\end{lstlisting}
+\begin{lstlisting}
 MLS2(config)# interface vlan 20
 MLS2(config-if)# ipv6 address 2001:DB8:10::3/64
 MLS2(config-if)# standby 1 ipv6 autoconfig
-        \end{lstlisting}
-        
-        \item \textbf{Verify IPv6 HSRP status.}
-        \begin{lstlisting}
+\end{lstlisting}
+
+\item \textbf{Verify IPv6 HSRP status.}
+\begin{lstlisting}
 MLS1# show standby vlan 20
-        \end{lstlisting}
-        \end{enumerate}
+\end{lstlisting}
+\end{enumerate}
 \end{ocg}
 %---''''''''''''''''''''''''''''''''---
 
@@ -858,7 +858,7 @@ MLS1# show standby vlan 20
 \item \textbf{Virtual IPv6 address} should be auto-configured.
 \end{itemize}
 
- 
+
 \vspace{1.5em}
 
 % -----------------------------
@@ -879,15 +879,15 @@ The \texttt{show standby} command is essential for \textbf{monitoring HSRP statu
 \vspace{1.5em}
 
 \switchocg{codeblock}{%
-    \color{black}\underline{Click here to display the answer:}%
+\color{black}\underline{Click here to display the answer:}%
 }
 
 \begin{ocg}{Code Block}{codeblock}{0}
 
-    \vspace{0.5cm}
-    \begin{lstlisting}
+\vspace{0.5cm}
+\begin{lstlisting}
 MLS1# show standby vlan 10 brief
-    \end{lstlisting}
+\end{lstlisting}
 \end{ocg}
 %---''''''''''''''''''''''''''''''''---
 
@@ -895,11 +895,11 @@ MLS1# show standby vlan 10 brief
 \textbf{Expected Output Example:}
 \begin{lstlisting}
 Vlan10  Group 1  State: Active
-  Virtual IP: 192.168.10.1
-  Active Router: Local
-  Standby Router: 192.168.10.3
-  Priority: 110
-  Preemption: Enabled
+Virtual IP: 192.168.10.1
+Active Router: Local
+Standby Router: 192.168.10.3
+Priority: 110
+Preemption: Enabled
 \end{lstlisting}
 
 \begin{itemize}
@@ -1006,7 +1006,7 @@ in the election process while hosts continue using a single \textbf{virtual IP a
 default gateway.
 
 
- 
+
 \vspace{1.5em}
 
 \subsection{Basic VRRP Concepts and Terminology}
@@ -1018,7 +1018,7 @@ default gateway.
 \item \textbf{VRRP Group}: Identifies multiple routers participating in the \textbf{same failover group}.
 \end{itemize}
 
- 
+
 \vspace{1.5em}
 
 % -----------------------------
@@ -1041,35 +1041,35 @@ Each \textbf{Multi-Layer Switch (MLS)} needs to participate in a \textbf{VRRP gr
 \vspace{1.5em}
 
 \switchocg{codeblock}{%
-    \color{black}\underline{Click here to display the answer:}%
+\color{black}\underline{Click here to display the answer:}%
 }
 
 \begin{ocg}{Code Block}{codeblock}{0}
 
-    \vspace{0.5cm}
-    \begin{enumerate}
-        \item \textbf{Configure VRRP on MLS1:}
-        \begin{lstlisting}
+\vspace{0.5cm}
+\begin{enumerate}
+\item \textbf{Configure VRRP on MLS1:}
+\begin{lstlisting}
 MLS1(config)# interface vlan 10
 MLS1(config-if)# ip address 192.168.10.2 255.255.255.0
 MLS1(config-if)# vrrp 1 ip 192.168.10.1
 MLS1(config-if)# no shutdown
-        \end{lstlisting}
-        
-        \item \textbf{Configure VRRP on MLS2:}
-        \begin{lstlisting}
+\end{lstlisting}
+
+\item \textbf{Configure VRRP on MLS2:}
+\begin{lstlisting}
 MLS2(config)# interface vlan 10
 MLS2(config-if)# ip address 192.168.10.3 255.255.255.0
 MLS2(config-if)# vrrp 1 ip 192.168.10.1
 MLS2(config-if)# no shutdown
-        \end{lstlisting}
-        
-        \item \textbf{Verify VRRP Configuration:}
-        \begin{lstlisting}
+\end{lstlisting}
+
+\item \textbf{Verify VRRP Configuration:}
+\begin{lstlisting}
 MLS1# show vrrp brief
 MLS2# show vrrp brief
-        \end{lstlisting}
-        \end{enumerate}
+\end{lstlisting}
+\end{enumerate}
 \end{ocg}
 %---''''''''''''''''''''''''''''''''---
 
@@ -1100,7 +1100,7 @@ This command displays:
 \item \textbf{VRRP timers}
 \end{itemize}
 
- 
+
 \vspace{1.5em}
 
 % -----------------------------
@@ -1132,30 +1132,30 @@ higher priority.
 \vspace{1.5em}
 
 \switchocg{codeblock}{%
-    \color{black}\underline{Click here to display the answer:}%
+\color{black}\underline{Click here to display the answer:}%
 }
 
 \begin{ocg}{Code Block}{codeblock}{0}
 
-    \vspace{0.5cm}
-    \begin{enumerate}
-        \item \textbf{Set MLS1 priority higher than MLS2:}
-        \begin{lstlisting}
+\vspace{0.5cm}
+\begin{enumerate}
+\item \textbf{Set MLS1 priority higher than MLS2:}
+\begin{lstlisting}
 MLS1(config)# interface vlan 10
 MLS1(config-if)# vrrp 1 priority 110
-        \end{lstlisting}
-        
-        \item \textbf{Keep MLS2 at default priority (100):}
-        \begin{lstlisting}
+\end{lstlisting}
+
+\item \textbf{Keep MLS2 at default priority (100):}
+\begin{lstlisting}
 MLS2(config)# interface vlan 10
 MLS2(config-if)# vrrp 1 priority 100
-        \end{lstlisting}
-        
-        \item \textbf{Verify VRRP Master election:}
-        \begin{lstlisting}
+\end{lstlisting}
+
+\item \textbf{Verify VRRP Master election:}
+\begin{lstlisting}
 MLS1# show vrrp brief
-        \end{lstlisting}
-        \end{enumerate}
+\end{lstlisting}
+\end{enumerate}
 \end{ocg}
 %---''''''''''''''''''''''''''''''''---
 
@@ -1184,13 +1184,13 @@ MLS1# show vrrp
 \textbf{Expected Output Example:}
 \begin{lstlisting}
 Vlan10  Group 1  State: Master
-  Virtual IP: 192.168.10.1
-  Priority: 110
-  Preemption: Enabled
-  Master Router: Local
+Virtual IP: 192.168.10.1
+Priority: 110
+Preemption: Enabled
+Master Router: Local
 \end{lstlisting}
 
- 
+
 \vspace{1.5em}
 
 % -----------------------------
@@ -1212,29 +1212,29 @@ comes back online, it will \textbf{automatically reclaim the Master role}.
 \vspace{1.5em}
 
 \switchocg{codeblock}{%
-    \color{black}\underline{Click here to display the answer:}%
+\color{black}\underline{Click here to display the answer:}%
 }
 
 \begin{ocg}{Code Block}{codeblock}{0}
 
-    \vspace{0.5cm}
-    \begin{enumerate}
-        \item \textbf{Enable preemption on MLS1 and MLS2.}
-        \begin{lstlisting}
+\vspace{0.5cm}
+\begin{enumerate}
+\item \textbf{Enable preemption on MLS1 and MLS2.}
+\begin{lstlisting}
 MLS1(config)# interface vlan 10
 MLS1(config-if)# vrrp 1 preempt
-        \end{lstlisting}
-        \begin{lstlisting}
+\end{lstlisting}
+\begin{lstlisting}
 MLS2(config)# interface vlan 10
 MLS2(config-if)# vrrp 1 preempt
-        \end{lstlisting}
-        
-        \item \textbf{Verify the new configuration.}
-        \begin{lstlisting}
+\end{lstlisting}
+
+\item \textbf{Verify the new configuration.}
+\begin{lstlisting}
 MLS1# show vrrp brief
 MLS2# show vrrp brief
-        \end{lstlisting}
-        \end{enumerate}
+\end{lstlisting}
+\end{enumerate}
 \end{ocg}
 %---''''''''''''''''''''''''''''''''---
 
@@ -1265,28 +1265,28 @@ VRRP uses these timers:
 \vspace{1.5em}
 
 \switchocg{codeblock}{%
-    \color{black}\underline{Click here to display the answer:}%
+\color{black}\underline{Click here to display the answer:}%
 }
 
 \begin{ocg}{Code Block}{codeblock}{0}
 
-    \vspace{0.5cm}
-    \begin{enumerate}
-        \item \textbf{Set a custom timer of 500ms hello and 1.5s hold time on MLS1 and MLS2.}
-        \begin{lstlisting}
+\vspace{0.5cm}
+\begin{enumerate}
+\item \textbf{Set a custom timer of 500ms hello and 1.5s hold time on MLS1 and MLS2.}
+\begin{lstlisting}
 MLS1(config)# interface vlan 10
 MLS1(config-if)# vrrp 1 timers advertise 500
-        \end{lstlisting}
-        \begin{lstlisting}
+\end{lstlisting}
+\begin{lstlisting}
 MLS2(config)# interface vlan 10
 MLS2(config-if)# vrrp 1 timers advertise 500
-        \end{lstlisting}
-        
-        \item \textbf{Verify timer settings.}
-        \begin{lstlisting}
+\end{lstlisting}
+
+\item \textbf{Verify timer settings.}
+\begin{lstlisting}
 MLS1# show vrrp
-        \end{lstlisting}
-        \end{enumerate}
+\end{lstlisting}
+\end{enumerate}
 \end{ocg}
 %---''''''''''''''''''''''''''''''''---
 
@@ -1298,7 +1298,7 @@ MLS1# show vrrp
 \item Failover happens \textbf{within 1.5 seconds} instead of the default 3 seconds.
 \end{itemize}
 
- 
+
 \vspace{1.5em}
 
 % -----------------------------
@@ -1319,28 +1319,28 @@ VRRP authentication ensures only \textbf{authorized routers} participate in the 
 \vspace{1.5em}
 
 \switchocg{codeblock}{%
-    \color{black}\underline{Click here to display the answer:}%
+\color{black}\underline{Click here to display the answer:}%
 }
 
 \begin{ocg}{Code Block}{codeblock}{0}
 
-    \vspace{0.5cm}
-    \begin{enumerate}
-        \item \textbf{Enable text authentication on MLS1 and MLS2.}
-        \begin{lstlisting}
+\vspace{0.5cm}
+\begin{enumerate}
+\item \textbf{Enable text authentication on MLS1 and MLS2.}
+\begin{lstlisting}
 MLS1(config)# interface vlan 10
 MLS1(config-if)# vrrp 1 authentication text SecureVRRP
-        \end{lstlisting}
-        \begin{lstlisting}
+\end{lstlisting}
+\begin{lstlisting}
 MLS2(config)# interface vlan 10
 MLS2(config-if)# vrrp 1 authentication text SecureVRRP
-        \end{lstlisting}
-        
-        \item \textbf{Verify authentication.}
-        \begin{lstlisting}
+\end{lstlisting}
+
+\item \textbf{Verify authentication.}
+\begin{lstlisting}
 MLS1# show vrrp
-        \end{lstlisting}
-        \end{enumerate}
+\end{lstlisting}
+\end{enumerate}
 \end{ocg}
 %---''''''''''''''''''''''''''''''''---
 
@@ -1365,28 +1365,28 @@ MD5 authentication is \textbf{more secure} because it encrypts the authenticatio
 \vspace{1.5em}
 
 \switchocg{codeblock}{%
-    \color{black}\underline{Click here to display the answer:}%
+\color{black}\underline{Click here to display the answer:}%
 }
 
 \begin{ocg}{Code Block}{codeblock}{0}
 
-    \vspace{0.5cm}
-    \begin{enumerate}
-        \item \textbf{Configure MD5 key-string on MLS1 and MLS2.}
-        \begin{lstlisting}
+\vspace{0.5cm}
+\begin{enumerate}
+\item \textbf{Configure MD5 key-string on MLS1 and MLS2.}
+\begin{lstlisting}
 MLS1(config)# interface vlan 10
 MLS1(config-if)# vrrp 1 authentication md5 key-string VRRP_MD5
-        \end{lstlisting}
-        \begin{lstlisting}
+\end{lstlisting}
+\begin{lstlisting}
 MLS2(config)# interface vlan 10
 MLS2(config-if)# vrrp 1 authentication md5 key-string VRRP_MD5
-        \end{lstlisting}
-        
-        \item \textbf{Verify authentication.}
-        \begin{lstlisting}
+\end{lstlisting}
+
+\item \textbf{Verify authentication.}
+\begin{lstlisting}
 MLS1# show vrrp
-        \end{lstlisting}
-        \end{enumerate}
+\end{lstlisting}
+\end{enumerate}
 \end{ocg}
 %---''''''''''''''''''''''''''''''''---
 
@@ -1398,7 +1398,7 @@ MLS1# show vrrp
 \item VRRP \textbf{will not function} if authentication keys don’t match.
 \end{itemize}
 
- 
+
 \vspace{1.5em}
 
 % -----------------------------
@@ -1421,24 +1421,24 @@ reduce priority by \textbf{20}.
 \vspace{1.5em}
 
 \switchocg{codeblock}{%
-    \color{black}\underline{Click here to display the answer:}%
+\color{black}\underline{Click here to display the answer:}%
 }
 
 \begin{ocg}{Code Block}{codeblock}{0}
 
-    \vspace{0.5cm}
-    \begin{enumerate}
-        \item \textbf{Enable tracking on MLS1.}
-        \begin{lstlisting}
+\vspace{0.5cm}
+\begin{enumerate}
+\item \textbf{Enable tracking on MLS1.}
+\begin{lstlisting}
 MLS1(config)# interface vlan 10
 MLS1(config-if)# vrrp 1 track gigabitethernet1/1 20
-        \end{lstlisting}
-        
-        \item \textbf{Verify tracking configuration.}
-        \begin{lstlisting}
+\end{lstlisting}
+
+\item \textbf{Verify tracking configuration.}
+\begin{lstlisting}
 MLS1# show vrrp
-        \end{lstlisting}
-        \end{enumerate}
+\end{lstlisting}
+\end{enumerate}
 \end{ocg}
 %---''''''''''''''''''''''''''''''''---
 
@@ -1463,29 +1463,29 @@ priority if it becomes unreachable.
 \vspace{1.5em}
 
 \switchocg{codeblock}{%
-    \color{black}\underline{Click here to display the answer:}%
+\color{black}\underline{Click here to display the answer:}%
 }
 
 \begin{ocg}{Code Block}{codeblock}{0}
 
-    \vspace{0.5cm}
-    \begin{enumerate}
-        \item \textbf{Create a tracked object.}
-        \begin{lstlisting}
+\vspace{0.5cm}
+\begin{enumerate}
+\item \textbf{Create a tracked object.}
+\begin{lstlisting}
 MLS1(config)# track 1 ip route 192.168.1.0/24 reachability
-        \end{lstlisting}
-        
-        \item \textbf{Link the tracked object to VRRP.}
-        \begin{lstlisting}
+\end{lstlisting}
+
+\item \textbf{Link the tracked object to VRRP.}
+\begin{lstlisting}
 MLS1(config)# interface vlan 10
 MLS1(config-if)# vrrp 1 track 1 decrement 15
-        \end{lstlisting}
-        
-        \item \textbf{Verify tracking status.}
-        \begin{lstlisting}
+\end{lstlisting}
+
+\item \textbf{Verify tracking status.}
+\begin{lstlisting}
 MLS1# show track
-        \end{lstlisting}
-        \end{enumerate}
+\end{lstlisting}
+\end{enumerate}
 \end{ocg}
 %---''''''''''''''''''''''''''''''''---
 
@@ -1512,7 +1512,7 @@ MLS1(config-if)# vrrp 1 track 1 decrement 30
 triggering a failover faster.
 \end{itemize}
 
- 
+
 \vspace{1.5em}
 
 % -----------------------------
@@ -1540,28 +1540,28 @@ VRRP \textbf{Version 3} supports \textbf{IPv6} and provides better scalability.
 \vspace{1.5em}
 
 \switchocg{codeblock}{%
-    \color{black}\underline{Click here to display the answer:}%
+\color{black}\underline{Click here to display the answer:}%
 }
 
 \begin{ocg}{Code Block}{codeblock}{0}
 
-    \vspace{0.5cm}
-    \begin{enumerate}
-        \item \textbf{Enable VRRP Version 3 on MLS1 and MLS2.}
-        \begin{lstlisting}
+\vspace{0.5cm}
+\begin{enumerate}
+\item \textbf{Enable VRRP Version 3 on MLS1 and MLS2.}
+\begin{lstlisting}
 MLS1(config)# interface vlan 10
 MLS1(config-if)# vrrp version 3
-        \end{lstlisting}
-        \begin{lstlisting}
+\end{lstlisting}
+\begin{lstlisting}
 MLS2(config)# interface vlan 10
 MLS2(config-if)# vrrp version 3
-        \end{lstlisting}
-        
-        \item \textbf{Verify VRRP version.}
-        \begin{lstlisting}
+\end{lstlisting}
+
+\item \textbf{Verify VRRP version.}
+\begin{lstlisting}
 MLS1# show vrrp
-        \end{lstlisting}
-        \end{enumerate}
+\end{lstlisting}
+\end{enumerate}
 \end{ocg}
 %---''''''''''''''''''''''''''''''''---
 
@@ -1589,36 +1589,36 @@ it assigns a \textbf{virtual IPv6 address}.
 \vspace{1.5em}
 
 \switchocg{codeblock}{%
-    \color{black}\underline{Click here to display the answer:}%
+\color{black}\underline{Click here to display the answer:}%
 }
 
 \begin{ocg}{Code Block}{codeblock}{0}
 
-    \vspace{0.5cm}
-    \begin{enumerate}
-        \item \textbf{Enable IPv6 routing on both switches.}
-        \begin{lstlisting}
+\vspace{0.5cm}
+\begin{enumerate}
+\item \textbf{Enable IPv6 routing on both switches.}
+\begin{lstlisting}
 MLS1(config)# ipv6 unicast-routing
 MLS2(config)# ipv6 unicast-routing
-        \end{lstlisting}
-        
-        \item \textbf{Assign IPv6 addresses to VLAN 20 on MLS1 and MLS2.}
-        \begin{lstlisting}
+\end{lstlisting}
+
+\item \textbf{Assign IPv6 addresses to VLAN 20 on MLS1 and MLS2.}
+\begin{lstlisting}
 MLS1(config)# interface vlan 20
 MLS1(config-if)# ipv6 address 2001:DB8:10::2/64
 MLS1(config-if)# vrrp 1 ipv6 fe80::1
-        \end{lstlisting}
-        \begin{lstlisting}
+\end{lstlisting}
+\begin{lstlisting}
 MLS2(config)# interface vlan 20
 MLS2(config-if)# ipv6 address 2001:DB8:10::3/64
 MLS2(config-if)# vrrp 1 ipv6 fe80::1
-        \end{lstlisting}
-        
-        \item \textbf{Verify IPv6 VRRP status.}
-        \begin{lstlisting}
+\end{lstlisting}
+
+\item \textbf{Verify IPv6 VRRP status.}
+\begin{lstlisting}
 MLS1# show vrrp
-        \end{lstlisting}
-        \end{enumerate}
+\end{lstlisting}
+\end{enumerate}
 \end{ocg}
 %---''''''''''''''''''''''''''''''''---
 
@@ -1640,12 +1640,12 @@ MLS1# show vrrp all
 \textbf{Expected Output:}
 \begin{lstlisting}
 Vlan20  Group 1  State: Master
-  Virtual IPv6: fe80::1
-  Priority: 110
-  Master Router: Local
+Virtual IPv6: fe80::1
+Priority: 110
+Master Router: Local
 \end{lstlisting}
 
- 
+
 \vspace{1.5em}
 
 % -----------------------------
@@ -1666,16 +1666,16 @@ The \texttt{show vrrp} command is essential for \textbf{monitoring VRRP status}.
 \vspace{1.5em}
 
 \switchocg{codeblock}{%
-    \color{black}\underline{Click here to display the answer:}%
+\color{black}\underline{Click here to display the answer:}%
 }
 
 \begin{ocg}{Code Block}{codeblock}{0}
 
-    \vspace{0.5cm}
+\vspace{0.5cm}
 
-    \begin{lstlisting}
+\begin{lstlisting}
 MLS1# show vrrp brief
-        \end{lstlisting}
+\end{lstlisting}
 \end{ocg}
 %---''''''''''''''''''''''''''''''''---
 
@@ -1684,11 +1684,11 @@ MLS1# show vrrp brief
 \textbf{Expected Output Example:}
 \begin{lstlisting}
 Vlan10  Group 1  State: Master
-  Virtual IP: 192.168.10.1
-  Master Router: Local
-  Backup Router: 192.168.10.3
-  Priority: 110
-  Preemption: Enabled
+Virtual IP: 192.168.10.1
+Master Router: Local
+Backup Router: 192.168.10.3
+Priority: 110
+Preemption: Enabled
 \end{lstlisting}
 \begin{itemize}
 \item \textbf{Master Router:} MLS1 (local device).
@@ -1758,4 +1758,890 @@ MLS1(config)# interface vlan 10
 MLS1(config-if)# no shutdown
 \end{lstlisting}
 \end{itemize}
+
+
+
+
+%----------------------------------------------------------------------------------------
+%	Part I: GLBP
+%----------------------------------------------------------------------------------------
+
+\chapter{GLBP Hands-On Configuration}
+
+
+% -----------------------------
+% Section 1: Introduction to GLBP
+% -----------------------------
+\section{Introduction to GLBP}
+
+\subsection{Overview of GLBP and Its Benefits}
+Gateway Load Balancing Protocol (\textbf{GLBP}) is a \textbf{Cisco-proprietary} redundancy 
+protocol that provides both \textbf{gateway failover} and \textbf{load balancing} for network 
+traffic. Unlike \textbf{HSRP} and \textbf{VRRP}, which only elect one active router at a time, 
+GLBP enables multiple routers to \textbf{simultaneously} handle network traffic while offering 
+redundancy.
+
+\textbf{Key Benefits of GLBP:}
+\begin{itemize}
+\item \textbf{Load Balancing:} Distributes network traffic across multiple routers.
+\item \textbf{Redundancy:} Ensures \textbf{automatic failover} if one router fails.
+\item \textbf{Active Virtual Gateway (AVG):} Manages \textbf{multiple Active Virtual Forwarders (AVFs)} 
+for traffic distribution.
+\end{itemize}
+
+\subsubsection{Network Topology Overview}
+In our topology, we have:
+\begin{itemize}
+\item Router R1
+\item Four Multi-Layer Switches (MLS1, MLS2, MLS3, MLS4)
+\item One Layer 2 Switch (SW1)
+\item Six PCs (PC1 - PC6)
+\end{itemize}
+
+Using \textbf{GLBP}, we will configure \textbf{MLS1 and MLS2} as \textbf{gateway routers}, ensuring that:
+\begin{enumerate}
+\item \textbf{Traffic is load-balanced} across multiple routers.
+\item \textbf{Failover occurs automatically} if one router fails.
+\end{enumerate}
+
+
+\vspace{1em}
+
+\subsection{Differences Between GLBP, HSRP, and VRRP}
+\begin{center}
+\begin{tabular}{|l|l|l|l|}
+\hline
+\textbf{Feature} & \textbf{GLBP} & \textbf{HSRP} & \textbf{VRRP} \\
+\hline
+\textbf{Load Balancing} & \checkmark \; Yes & \texttimes \; No & \texttimes \; No \\
+\hline
+\textbf{Master/Active Role} & Multiple Active Virtual Forwarders & Single Active Router & Single Master Router \\
+\hline
+\textbf{Preemption} & \checkmark \; Enabled by Default & \checkmark \; Configurable & \checkmark \; Enabled by Default \\
+\hline
+\textbf{IPv6 Support} & \checkmark \; Yes (GLBPv6) & \checkmark \; Yes (HSRPv2) & \checkmark \; Yes (VRRPv3) \\
+\hline
+\textbf{Object Tracking} & \checkmark \; Yes & \checkmark \; Yes & \checkmark \; Yes \\
+\hline
+\end{tabular}
+\end{center}
+
+
+\vspace{1em}
+
+\subsection{Basic GLBP Concepts and Terminology}
+\begin{itemize}
+\item \textbf{Active Virtual Gateway (AVG)}: The router that assigns virtual MAC addresses 
+to participating routers.
+\item \textbf{Active Virtual Forwarder (AVF)}: Routers that \textbf{actively forward traffic} 
+based on assigned MAC addresses.
+\item \textbf{GLBP Group}: A set of routers configured together for redundancy.
+\item \textbf{Virtual IP Address}: The single IP address shared across multiple routers in 
+the GLBP group.
+\end{itemize}
+
+
+\vspace{1em}
+
+% -----------------------------
+% Section 2: Basic GLBP Setup
+% -----------------------------
+\section{Basic GLBP Setup}
+
+\subsection{Configuring an Interface for GLBP}
+Each \textbf{Multi-Layer Switch (MLS)} needs to participate in a \textbf{GLBP group} with a 
+\textbf{virtual IP address} for failover and load balancing.
+
+\subsubsection{Lab Exercise 1: Configuring Basic GLBP on VLAN 10}
+\textbf{\textit{Objective:}} Configure \textbf{GLBP on VLAN 10} for \textbf{MLS1 and MLS2} 
+using a shared virtual IP.
+\vspace{1em}
+
+\textbf{Configuration Steps:}
+%---,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,---
+\vspace{1.5em}
+
+\switchocg{codeblock}{%
+\color{black}\underline{Click here to display the answer:}%
+}
+
+\begin{ocg}{Code Block}{codeblock}{0}
+
+\vspace{0.5cm}
+
+\begin{enumerate}
+\item \textbf{Configure GLBP on MLS1:}
+\begin{lstlisting}
+MLS1(config)# interface vlan 10
+MLS1(config-if)# ip address 192.168.10.2 255.255.255.0
+MLS1(config-if)# glbp 1 ip 192.168.10.1
+MLS1(config-if)# no shutdown
+\end{lstlisting}
+
+\item \textbf{Configure GLBP on MLS2:}
+\begin{lstlisting}
+MLS2(config)# interface vlan 10
+MLS2(config-if)# ip address 192.168.10.3 255.255.255.0
+MLS2(config-if)# glbp 1 ip 192.168.10.1
+MLS2(config-if)# no shutdown
+\end{lstlisting}
+
+\item \textbf{Verify GLBP Configuration:}
+\begin{lstlisting}
+MLS1# show glbp brief
+MLS2# show glbp brief
+\end{lstlisting}
+\end{enumerate}
+\end{ocg}
+%---''''''''''''''''''''''''''''''''---
+
+
+\textbf{Expected Outcome:}
+\begin{itemize}
+\item One switch (MLS1 or MLS2) will become the \textbf{AVG}.
+\item Both switches will act as \textbf{AVFs}, handling network traffic.
+\item PCs should use \texttt{192.168.10.1} as their default gateway.
+\end{itemize}
+
+\subsection{Assigning Virtual IP Addresses in GLBP}
+\begin{itemize}
+\item The \texttt{glbp 1 ip} command defines the \textbf{virtual IP address} shared by the GLBP group.
+\item Hosts in VLAN 10 will use \texttt{192.168.10.1} as their \textbf{default gateway}.
+\end{itemize}
+
+\subsection{Verifying GLBP Configuration}
+To check GLBP status:
+\begin{lstlisting}
+MLS1# show glbp vlan 10
+\end{lstlisting}
+
+\textbf{Expected Output:}
+\begin{lstlisting}
+Interface: Vlan10
+Group: 1
+State: Active
+Virtual IP: 192.168.10.1
+Active Virtual Gateway: Local
+\end{lstlisting}
+
+This command displays:
+\begin{itemize}
+\item \textbf{Active Virtual Gateway (AVG)}
+\item \textbf{Active Virtual Forwarders (AVFs)}
+\item \textbf{Load Balancing Status}
+\end{itemize}
+
+
+\vspace{1em}
+
+% -----------------------------
+% Section 3: GLBP Load Balancing Methods
+% -----------------------------
+\section{GLBP Load Balancing Methods}
+
+\subsection{Understanding GLBP Load Balancing Mechanisms}
+GLBP supports three \textbf{load-balancing} methods:
+
+\begin{center}
+\begin{tabular}{|l|p{8cm}|}
+\hline
+\textbf{Load Balancing Mode} & \textbf{Description} \\ \hline
+\textbf{Round-Robin} & Default mode -- traffic is equally distributed across AVFs. \\ \hline
+\textbf{Weighted} & Assigns traffic based on router weights (priority). \\ \hline
+\textbf{Host-Dependent} & Ensures that each host always uses the same gateway. \\ \hline
+\end{tabular}
+\end{center}
+
+\subsection{Configuring Different Load Balancing Methods}
+\subsubsection{Lab Exercise 2: Configuring Load Balancing on VLAN 10}
+\textbf{\textit{Objective:}} Configure \textbf{different GLBP load balancing methods} on MLS1 and MLS2.
+\vspace{1em}
+
+\textbf{Configuration Steps:}
+
+
+%---,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,---
+\vspace{1.5em}
+
+\switchocg{codeblock}{%
+\color{black}\underline{Click here to display the answer:}%
+}
+
+\begin{ocg}{Code Block}{codeblock}{0}
+
+\vspace{0.5cm}
+
+\begin{enumerate}
+\item \textbf{Enable Round-Robin Load Balancing (Default Mode):}
+\begin{lstlisting}
+MLS1(config)# interface vlan 10
+MLS1(config-if)# glbp 1 load-balancing round-robin
+\end{lstlisting}
+
+\item \textbf{Configure Weighted Load Balancing on MLS1:}
+\begin{lstlisting}
+MLS1(config-if)# glbp 1 weighting 110 upper 120 lower 90
+\end{lstlisting}
+\begin{itemize}
+\item 110 is the default weighting value
+\item Upper limit (120) and lower limit (90) determine failover behavior
+\end{itemize}
+
+\item \textbf{Enable Host-Dependent Load Balancing on MLS2:}
+\begin{lstlisting}
+MLS2(config-if)# glbp 1 load-balancing host-dependent
+\end{lstlisting}
+
+\item \textbf{Verify Load Balancing Configuration:}
+\begin{lstlisting}
+MLS1# show glbp
+\end{lstlisting}
+\end{enumerate}
+\end{ocg}
+%---''''''''''''''''''''''''''''''''---
+
+
+
+
+\textbf{Expected Outcome:}
+\begin{itemize}
+\item \textbf{Traffic should be distributed based on the chosen method.}
+\item \textbf{GLBP will balance traffic dynamically across routers.}
+\end{itemize}
+
+\subsection{Monitoring and Verifying Load Balancing Performance}
+To monitor \textbf{GLBP traffic distribution}, use:
+\begin{lstlisting}
+MLS1# show glbp vlan 10 detail
+\end{lstlisting}
+
+To check \textbf{GLBP weighting and failover status}, use:
+\begin{lstlisting}
+MLS1# show glbp 1
+\end{lstlisting}
+
+\textbf{Expected Output Example:}
+\begin{lstlisting}
+Vlan10 - Group 1 - Active Virtual Gateway
+Load Balancing: Weighted
+Active Virtual Forwarders: 2
+Virtual MAC: 0007.b400.0101
+\end{lstlisting}
+\begin{itemize}
+\item \textbf{GLBP should distribute traffic} based on the configured method.
+\item \textbf{Failover should happen dynamically} if an AVF fails.
+\end{itemize}
+
+
+\vspace{1em}
+
+% -----------------------------
+% Section 4: GLBP Priority and Active Virtual Gateway (AVG) Election
+% -----------------------------
+\section{GLBP Priority and Active Virtual Gateway (AVG) Election}
+
+\subsection{Understanding GLBP Priority and AVG Role}
+GLBP determines the \textbf{Active Virtual Gateway (AVG)} based on \textbf{priority values}. 
+The AVG is responsible for assigning \textbf{Virtual MAC addresses} to the 
+Active Virtual Forwarders (AVFs).
+
+\begin{itemize}
+\item The router with the \textbf{highest priority} becomes the \textbf{AVG}.
+\item If the AVG fails, the router with the \textbf{next highest priority} takes over.
+\item Default GLBP priority is \textbf{100}, but it can be \textbf{manually adjusted}.
+\end{itemize}
+
+\subsection{Configuring GLBP Priority for AVG Selection}
+\subsubsection{Lab Exercise 3: Configuring GLBP Priority on VLAN 10}
+\textbf{\textit{Objective:}} Ensure \textbf{MLS1 becomes the AVG} by assigning it a higher priority.
+\vspace{1.5em}
+
+\textbf{Configuration Steps:}
+
+%---,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,---
+\vspace{1.5em}
+
+\switchocg{codeblock}{%
+\color{black}\underline{Click here to display the answer:}%
+}
+
+\begin{ocg}{Code Block}{codeblock}{0}
+
+\vspace{0.5cm}
+
+\begin{enumerate}
+\item \textbf{Set MLS1 priority to 110 to ensure it becomes the AVG:}
+\begin{lstlisting}
+MLS1(config)# interface vlan 10
+MLS1(config-if)# glbp 1 priority 110
+\end{lstlisting}
+
+\item \textbf{Keep MLS2 at the default priority of 100:}
+\begin{lstlisting}
+MLS2(config)# interface vlan 10
+MLS2(config-if)# glbp 1 priority 100
+\end{lstlisting}
+
+\item \textbf{Verify the new AVG selection:}
+\begin{lstlisting}
+MLS1# show glbp brief
+\end{lstlisting}
+\end{enumerate}
+\end{ocg}
+%---''''''''''''''''''''''''''''''''---
+
+
+\textbf{Expected Outcome:}
+\begin{itemize}
+\item MLS1 should be the \textbf{AVG} because its \textbf{priority is higher} than MLS2’s 100.
+\item MLS2 will remain as a \textbf{backup AVG}.
+\end{itemize}
+
+\subsection{Preemption and AVG Failover Mechanism}
+If the AVG \textbf{fails}, another router takes over. However, when the \textbf{original AVG recovers}, 
+we want it to reclaim its role. This is called \textbf{Preemption}.
+
+\subsubsection{Lab Exercise 4: Configuring GLBP Preemption}
+\textbf{\textit{Objective:}} Ensure \textbf{MLS1 automatically reclaims AVG} role after failure.
+\vspace{1.5em}
+
+\textbf{Configuration Steps:}
+
+%---,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,---
+\vspace{1.5em}
+
+\switchocg{codeblock}{%
+\color{black}\underline{Click here to display the answer:}%
+}
+
+\begin{ocg}{Code Block}{codeblock}{0}
+
+\vspace{0.5cm}
+
+\begin{enumerate}
+\item \textbf{Enable preemption on MLS1:}
+\begin{lstlisting}
+MLS1(config)# interface vlan 10
+MLS1(config-if)# glbp 1 preempt
+\end{lstlisting}
+
+\item \textbf{Enable preemption on MLS2 as well:}
+\begin{lstlisting}
+MLS2(config)# interface vlan 10
+MLS2(config-if)# glbp 1 preempt
+\end{lstlisting}
+
+\item \textbf{Verify preemption settings:}
+\begin{lstlisting}
+MLS1# show glbp
+\end{lstlisting}
+\end{enumerate}
+\end{ocg}
+%---''''''''''''''''''''''''''''''''---
+
+
+
+
+\textbf{Expected Outcome:}
+\begin{itemize}
+\item If MLS1 fails, MLS2 will \textbf{take over as AVG}.
+\item When MLS1 \textbf{comes back online}, it \textbf{automatically reclaims AVG status}.
+\end{itemize}
+
+
+\vspace{1em}
+
+% -----------------------------
+% Section 5: GLBP Authentication and Security
+% -----------------------------
+\section{GLBP Authentication and Security}
+
+\subsection{Configuring Plain Text Authentication in GLBP}
+Authentication in GLBP ensures that only \textbf{authorized routers} participate in GLBP elections.
+
+\subsubsection{Lab Exercise 5: Configuring Text Authentication on MLS1 and MLS2}
+\textbf{\textit{Objective:}} Secure GLBP using a \textbf{shared password (``SecureGLBP'')}.
+\vspace{1.5em}
+
+\textbf{Configuration Steps:}
+
+%---,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,---
+\vspace{1.5em}
+
+\switchocg{codeblock}{%
+\color{black}\underline{Click here to display the answer:}%
+}
+
+\begin{ocg}{Code Block}{codeblock}{0}
+
+\vspace{0.5cm}
+
+\begin{enumerate}
+\item \textbf{Enable text authentication on MLS1 and MLS2:}
+\begin{lstlisting}
+MLS1(config)# interface vlan 10
+MLS1(config-if)# glbp 1 authentication text SecureGLBP
+\end{lstlisting}
+\begin{lstlisting}
+MLS2(config)# interface vlan 10
+MLS2(config-if)# glbp 1 authentication text SecureGLBP
+\end{lstlisting}
+
+\item \textbf{Verify authentication configuration:}
+\begin{lstlisting}
+MLS1# show glbp
+\end{lstlisting}
+\end{enumerate}
+\end{ocg}
+%---''''''''''''''''''''''''''''''''---
+
+
+
+\textbf{Expected Outcome:}
+\begin{itemize}
+\item Only routers with \textbf{matching authentication keys} will participate in GLBP elections.
+\end{itemize}
+
+\subsection{Implementing MD5 Authentication for Secure GLBP Communications}
+MD5 authentication encrypts the password, making it more secure than plain text authentication.
+
+\subsubsection{Lab Exercise 6: Configuring MD5 Authentication on MLS1 and MLS2}
+\textbf{\textit{Objective:}} Secure GLBP using \textbf{MD5 authentication}.
+\vspace{1.5em}
+
+\textbf{Configuration Steps:}
+
+%---,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,---
+\vspace{1.5em}
+
+\switchocg{codeblock}{%
+\color{black}\underline{Click here to display the answer:}%
+}
+
+\begin{ocg}{Code Block}{codeblock}{0}
+
+\vspace{0.5cm}
+
+
+\begin{enumerate}
+\item \textbf{Enable MD5 authentication on MLS1:}
+\begin{lstlisting}
+MLS1(config)# interface vlan 10
+MLS1(config-if)# glbp 1 authentication md5 key-string GLBP_MD5
+\end{lstlisting}
+
+\item \textbf{Enable MD5 authentication on MLS2:}
+\begin{lstlisting}
+MLS2(config)# interface vlan 10
+MLS2(config-if)# glbp 1 authentication md5 key-string GLBP_MD5
+\end{lstlisting}
+
+\item \textbf{Verify MD5 authentication:}
+\begin{lstlisting}
+MLS1# show glbp
+\end{lstlisting}
+\end{enumerate}
+\end{ocg}
+%---''''''''''''''''''''''''''''''''---
+
+
+
+\textbf{Expected Outcome:}
+\begin{itemize}
+\item GLBP will \textbf{not function} if authentication keys don’t match.
+\end{itemize}
+
+
+\vspace{1em}
+
+% -----------------------------
+% Section 6: GLBP Tracking and Failover
+% -----------------------------
+\section{GLBP Tracking and Failover}
+
+\subsection{Tracking Interfaces to Adjust Priority Dynamically}
+GLBP can monitor \textbf{interface health} and \textbf{reduce priority dynamically} if a 
+tracked interface goes down.
+
+\subsubsection{Lab Exercise 7: Configuring GLBP Interface Tracking}
+\textbf{\textit{Objective:}} Track \textbf{interface GigabitEthernet1/1} on MLS1. If it fails, 
+reduce priority by \textbf{20}.
+\vspace{1.5em}
+
+\textbf{Configuration Steps:}
+
+%---,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,---
+\vspace{1.5em}
+
+\switchocg{codeblock}{%
+\color{black}\underline{Click here to display the answer:}%
+}
+
+\begin{ocg}{Code Block}{codeblock}{0}
+
+\vspace{0.5cm}
+
+
+\begin{enumerate}
+\item \textbf{Enable interface tracking on MLS1:}
+\begin{lstlisting}
+MLS1(config)# interface vlan 10
+MLS1(config-if)# glbp 1 weighting track 1 decrement 20
+\end{lstlisting}
+
+\item \textbf{Verify tracking configuration:}
+\begin{lstlisting}
+MLS1# show glbp
+\end{lstlisting}
+\end{enumerate}
+\end{ocg}
+%---''''''''''''''''''''''''''''''''---
+
+
+
+
+\textbf{Expected Outcome:}
+\begin{itemize}
+\item If \texttt{GigabitEthernet1/1} fails, MLS1’s priority will \textbf{decrease by 20}.
+\item If priority drops below MLS2’s, MLS2 will become \textbf{the new AVG}.
+\end{itemize}
+
+\subsection{Using Object Tracking to Enhance Redundancy}
+Instead of tracking interfaces, \textbf{GLBP can track routes} and reduce priority if a 
+critical route disappears.
+
+\subsubsection{Lab Exercise 8: Configuring Route Tracking for GLBP}
+\textbf{\textit{Objective:}} Track an \textbf{IP route (192.168.1.0/24)} and decrement GLBP 
+priority if it becomes unreachable.
+\vspace{1.5em}
+
+\textbf{Configuration Steps:}
+
+%---,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,---
+\vspace{1.5em}
+
+\switchocg{codeblock}{%
+\color{black}\underline{Click here to display the answer:}%
+}
+
+\begin{ocg}{Code Block}{codeblock}{0}
+
+\vspace{0.5cm}
+
+
+\begin{enumerate}
+\item \textbf{Create a tracked object for the route on MLS1:}
+\begin{lstlisting}
+MLS1(config)# track 1 ip route 192.168.1.0/24 reachability
+\end{lstlisting}
+
+\item \textbf{Associate the tracked object with GLBP:}
+\begin{lstlisting}
+MLS1(config)# interface vlan 10
+MLS1(config-if)# glbp 1 weighting track 1 decrement 15
+\end{lstlisting}
+
+\item \textbf{Verify tracking status:}
+\begin{lstlisting}
+MLS1# show track
+\end{lstlisting}
+\end{enumerate}
+\end{ocg}
+%---''''''''''''''''''''''''''''''''---
+
+
+
+
+\textbf{Expected Outcome:}
+\begin{itemize}
+\item If the \textbf{192.168.1.0/24 route fails}, MLS1 will lower its GLBP priority by \textbf{15}, 
+allowing MLS2 to take over.
+\end{itemize}
+
+\subsection{Configuring GLBP Weighting for Dynamic Failover}
+GLBP can use \textbf{weight values} to determine when a router should stop forwarding traffic.
+
+\subsubsection{Lab Exercise 9: Configuring GLBP Weighting}
+\textbf{\textit{Objective:}} Set up \textbf{GLBP weighting} to dynamically 
+\textbf{disable forwarding} if a router becomes unstable.
+\vspace{1.5em}
+
+\textbf{Configuration Steps:}
+
+%---,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,---
+\vspace{1.5em}
+
+\switchocg{codeblock}{%
+\color{black}\underline{Click here to display the answer:}%
+}
+
+\begin{ocg}{Code Block}{codeblock}{0}
+
+\vspace{0.5cm}
+
+
+
+\begin{enumerate}
+\item \textbf{Set weighting on MLS1:}
+\begin{lstlisting}
+MLS1(config)# interface vlan 10
+MLS1(config-if)# glbp 1 weighting 110 upper 120 lower 90
+\end{lstlisting}
+
+\item \textbf{Verify weighting configuration:}
+\begin{lstlisting}
+MLS1# show glbp
+\end{lstlisting}
+\end{enumerate}
+\end{ocg}
+%---''''''''''''''''''''''''''''''''---
+
+
+
+\textbf{Expected Outcome:}
+\begin{itemize}
+\item If MLS1’s \textbf{weight drops below 90}, it \textbf{stops forwarding traffic}.
+\item If the weight \textbf{recovers above 120}, it \textbf{resumes forwarding traffic}.
+\end{itemize}
+
+
+\vspace{1em}
+
+% -----------------------------
+% Section 7: GLBP Timers and Optimization
+% -----------------------------
+\section{GLBP Timers and Optimization}
+
+\subsection{Adjusting GLBP Hello and Hold Timers}
+GLBP uses \textbf{timers} to control how often the Active Virtual Gateway (AVG) sends \textbf{hello 
+messages} and how long a Backup router should wait before taking over.
+
+\textbf{Default GLBP Timers:}
+\begin{itemize}
+\item \textbf{Hello Timer:} 3 seconds
+\item \textbf{Hold Timer:} 10 seconds
+\end{itemize}
+
+\subsubsection{Lab Exercise 10: Configuring Custom GLBP Timers}
+\textbf{\textit{Objective:}} Reduce \textbf{failover time} by modifying \textbf{hello} 
+and \textbf{hold timers}.
+\vspace{1.5em}
+
+\textbf{Configuration Steps:}
+
+
+%---,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,---
+\vspace{1.5em}
+
+\switchocg{codeblock}{%
+\color{black}\underline{Click here to display the answer:}%
+}
+
+\begin{ocg}{Code Block}{codeblock}{0}
+
+\vspace{0.5cm}
+
+\begin{enumerate}
+\item \textbf{Set a faster hello timer (1 second) and hold timer (4 seconds) on MLS1 and MLS2:}
+\begin{lstlisting}
+MLS1(config)# interface vlan 10
+MLS1(config-if)# glbp 1 timers 1 4
+\end{lstlisting}
+\begin{lstlisting}
+MLS2(config)# interface vlan 10
+MLS2(config-if)# glbp 1 timers 1 4
+\end{lstlisting}
+
+\item \textbf{Verify the new timer settings:}
+\begin{lstlisting}
+MLS1# show glbp
+\end{lstlisting}
+\end{enumerate}
+\end{ocg}
+%---''''''''''''''''''''''''''''''''---
+
+
+\textbf{Expected Outcome:}
+\begin{itemize}
+\item \textbf{Failover will happen within 4 seconds} instead of the default 10 seconds.
+\end{itemize}
+
+\subsection{Configuring Redirect and Timeout Timers}
+GLBP includes \textbf{redirect and timeout timers} to optimize traffic switching during failover.
+
+\textbf{Key GLBP Timer Settings:}
+\begin{itemize}
+\item \textbf{Redirect Timer:} How long the AVG allows traffic to flow through an AVF 
+before redirecting it.
+\item \textbf{Timeout Timer:} When the MAC address of a failed AVF is removed from the GLBP group.
+\end{itemize}
+
+\subsubsection{Lab Exercise 11: Configuring GLBP Redirect Timers}
+\textbf{\textit{Objective:}} Optimize \textbf{GLBP failover performance} by adjusting redirect 
+and timeout timers.
+\vspace{1.5em}
+
+\textbf{Configuration Steps:}
+
+%---,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,---
+\vspace{1.5em}
+
+\switchocg{codeblock}{%
+\color{black}\underline{Click here to display the answer:}%
+}
+
+\begin{ocg}{Code Block}{codeblock}{0}
+
+\vspace{0.5cm}
+
+\begin{enumerate}
+\item \textbf{Set redirect timeout to 600 seconds (10 minutes) and AVF timeout to 900 seconds (15 minutes):}
+\begin{lstlisting}
+MLS1(config)# interface vlan 10
+MLS1(config-if)# glbp 1 timers redirect 600 timeout 900
+\end{lstlisting}
+
+\item \textbf{Verify new timer settings:}
+\begin{lstlisting}
+MLS1# show glbp
+\end{lstlisting}
+\end{enumerate}
+\end{ocg}
+%---''''''''''''''''''''''''''''''''---
+
+
+\textbf{Expected Outcome:}
+\begin{itemize}
+\item \textbf{Traffic redirection} will occur within 10 minutes of an AVF failure.
+\item After 15 minutes, GLBP \textbf{removes the failed AVF’s MAC address}.
+\end{itemize}
+
+\subsection{Optimizing GLBP for Network Performance}
+To further optimize GLBP, consider:
+\begin{itemize}
+\item \checkmark \; \textbf{Using weighted load balancing} for intelligent traffic distribution.
+\item \checkmark \; \textbf{Fine-tuning timers} to meet network stability needs.
+\item \checkmark \; \textbf{Configuring object tracking} to dynamically adjust priorities.
+\end{itemize}
+
+To check \textbf{GLBP performance}, use:
+\begin{lstlisting}
+MLS1# show glbp detail
+\end{lstlisting}
+
+
+\vspace{1em}
+
+% -----------------------------
+% Section 8: Verifying and Troubleshooting GLBP
+% -----------------------------
+\section{Verifying and Troubleshooting GLBP}
+
+\subsection{Using \texttt{show glbp} Commands for Verification}
+The \texttt{show glbp} command provides critical information about \textbf{GLBP roles, timers, 
+and load balancing status}.
+
+\subsubsection{Lab Exercise 12: Checking GLBP Status}
+\textbf{\textit{Objective:}} Verify \textbf{GLBP operation and identify the AVG and AVFs}.
+\vspace{1.5em}
+
+\textbf{Verification Commands:}
+
+%---,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,---
+\vspace{1.5em}
+
+\switchocg{codeblock}{%
+\color{black}\underline{Click here to display the answer:}%
+}
+
+\begin{ocg}{Code Block}{codeblock}{0}
+
+\vspace{0.5cm}
+
+\begin{lstlisting}
+MLS1# show glbp brief
+MLS2# show glbp brief
+\end{lstlisting}
+\end{ocg}
+%---''''''''''''''''''''''''''''''''---
+
+
+\textbf{Expected Output Example:}
+\begin{lstlisting}
+Interface  Group  Role    State  Priority  Preempt  Virtual IP
+Vlan10      1     AVG     Active  110       Yes      192.168.10.1
+Vlan10      1     AVF     Standby 100       Yes      192.168.10.1
+\end{lstlisting}
+
+This command confirms:
+\begin{itemize}
+\item \checkmark \; Which router is the \textbf{AVG}
+\item \checkmark \; Which routers are \textbf{AVFs}
+\item \checkmark \; Current \textbf{priority levels}
+\end{itemize}
+
+\subsection{Debugging GLBP Load Balancing and Failover Issues}
+When \textbf{GLBP does not work correctly}, consider the following common issues:
+
+\subsubsection{Issue \#1: GLBP Not Load Balancing Traffic}
+\textbf{Problem:} Traffic is only using one router.\\
+\textbf{Solution:} Ensure \textbf{GLBP load balancing is enabled}:
+\begin{lstlisting}
+MLS1(config)# interface vlan 10
+MLS1(config-if)# glbp 1 load-balancing weighted
+\end{lstlisting}
+
+\subsubsection{Issue \#2: GLBP Preemption Not Working}
+\textbf{Problem:} The higher-priority router is not reclaiming AVG.\\
+\textbf{Solution:}
+\begin{itemize}
+\item Verify that \textbf{preemption is enabled}:
+\begin{lstlisting}
+MLS1(config-if)# glbp 1 preempt
+\end{lstlisting}
+
+\item Check if \textbf{tracking is reducing the priority} below the backup router’s priority:
+\begin{lstlisting}
+MLS1# show glbp vlan 10
+\end{lstlisting}
+
+\item Manually increase the priority:
+\begin{lstlisting}
+MLS1(config-if)# glbp 1 priority 120
+\end{lstlisting}
+\end{itemize}
+
+\subsubsection{Issue \#3: Hosts Cannot Reach the Virtual Gateway}
+\textbf{Problem:} PCs cannot ping \texttt{192.168.10.1 (GLBP Virtual IP)}.\\
+\textbf{Solution:}
+\begin{itemize}
+\item Check if VLAN \textbf{interface is up} on both switches:
+\begin{lstlisting}
+MLS1# show ip interface brief | include Vlan10
+\end{lstlisting}
+\item If it shows \textbf{"administratively down"}, enable it:
+\begin{lstlisting}
+MLS1(config)# interface vlan 10
+MLS1(config-if)# no shutdown
+\end{lstlisting}
+\end{itemize}
+
+\subsection{Common GLBP Misconfigurations and Fixes}
+\begin{center}
+\begin{tabular}{|p{3.5cm}|p{3.5cm}|p{5cm}|}
+\hline
+\textbf{Issue} & \textbf{Cause} & \textbf{Solution} \\
+\hline
+Both routers are AVG & Incorrect priorities & Set priority on one router higher \\
+\hline
+GLBP not responding & Authentication mismatch & Ensure matching passwords \\
+\hline
+Failover takes too long & Default timers & Adjust hello and hold timers \\
+\hline
+Traffic imbalance & Default round-robin mode & Use weighted load balancing \\
+\hline
+\end{tabular}
+\end{center}
+
+
 \end{document}
